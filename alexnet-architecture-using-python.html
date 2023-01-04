@@ -1,0 +1,122 @@
+<div class="entry-content">
+<p>AlexNet is a popular convolutional neural network architecture that won the ImageNet 2012 challenge by a large margin. It was developed by Alex Krizhevsky, Ilya Sutskever and Geoffery Hinton. It is similar to the <strong><a href="https://thecleverprogrammer.com/2021/10/09/lenet-5-architecture-using-python/">LeNet-5</a></strong> architecture but larger and deeper. If you want to learn more about the AlexNet CNN architecture, this article is for you. In this article, I’ll take you through an introduction to the AlexNet architecture and its implementation using Python.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<h2 class="wp-block-heading" id="alexnet">AlexNet</h2>
+<p>The AlexNet CNN architecture is one of the popular architectures of Convolutional Neural Networks. It was the first CNN architecture to stack convolutional layers directly on top of one another. The table below describes the complete architecture of the AlexNet CNN architecture:</p>
+<figure class="wp-block-table is-style-stripes"><table class="has-palette-color-6-background-color has-background"><thead><tr><th>Layer</th><th>Type</th><th>Maps</th><th>Size</th><th>Kernel Size</th><th>Stride</th><th>Padding</th><th>Activation</th></tr></thead><tbody><tr><td>Out</td><td>Fully Connected</td><td>–</td><td>1000</td><td>–</td><td>–</td><td>–</td><td>Softmax</td></tr><tr><td>F10</td><td>Fully Connected</td><td>–</td><td>4096</td><td>–</td><td>–</td><td>–</td><td>ReLU</td></tr><tr><td>F9</td><td>Fully Connected</td><td>–</td><td>4096</td><td>–</td><td>–</td><td>–</td><td>ReLU</td></tr><tr><td>S8</td><td>Max pooling</td><td>256</td><td>6X6</td><td>3X3</td><td>2</td><td>valid</td><td>–</td></tr><tr><td>C7</td><td>Convolution</td><td>256</td><td>13X13</td><td>3X3</td><td>1</td><td>same</td><td>ReLU</td></tr><tr><td>C6</td><td>Convolution</td><td>384</td><td>13X13</td><td>3X3</td><td>1</td><td>same</td><td>ReLU</td></tr><tr><td>C5</td><td>Convolution</td><td>384</td><td>13X13</td><td>3X3</td><td>1</td><td>same</td><td>ReLU</td></tr><tr><td>S4</td><td>Max pooling</td><td>256</td><td>13X13</td><td>3X3</td><td>2</td><td>valid</td><td>–</td></tr><tr><td>C3</td><td>Convolution</td><td>256</td><td>27X27</td><td>5X5</td><td>1</td><td>same</td><td>ReLU</td></tr><tr><td>S2</td><td>Max pooling</td><td>96</td><td>27X27</td><td>3X3</td><td>2</td><td>valid</td><td>–</td></tr><tr><td>C1</td><td>Convolution</td><td>96</td><td>55X55</td><td>11X11</td><td>4</td><td>valid</td><td>ReLU</td></tr><tr><td>In</td><td>Input</td><td>3(RGB)</td><td>227X227</td><td>–</td><td>–</td><td>–</td><td>–</td></tr></tbody></table></figure>
+<p>This Convolutional Neural Network architecture contains eight layers with weights, where the first five layers are convolutional, and the remaining three are fully-connected layers.</p>
+<div class="wp-block-image is-style-default"><figure class="aligncenter size-full is-resized"><img alt="AlexNet Architecture" class="wp-image-16353 jetpack-lazy-image" data-attachment-id="16353" data-comments-opened="1" data-image-caption="" data-image-description="" data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}' data-image-title="alexnet" data-large-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/12/alexnet.png?fit=850%2C412&amp;ssl=1" data-lazy-sizes="(max-width: 623px) 100vw, 623px" data-lazy-src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/12/alexnet.png?resize=623%2C302&amp;is-pending-load=1#038;ssl=1" data-lazy-srcset="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/12/alexnet.png?w=850&amp;ssl=1 850w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/12/alexnet.png?resize=300%2C145&amp;ssl=1 300w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/12/alexnet.png?resize=768%2C372&amp;ssl=1 768w" data-medium-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/12/alexnet.png?fit=300%2C145&amp;ssl=1" data-orig-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/12/alexnet.png?fit=850%2C412&amp;ssl=1" data-orig-size="850,412" data-permalink="https://thecleverprogrammer.com/2021/12/13/alexnet-architecture-using-python/alexnet/" data-recalc-dims="1" decoding="async" height="302" src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/12/alexnet.png?resize=623%2C302&amp;ssl=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="623"/><noscript><img alt="AlexNet Architecture" class="wp-image-16353" data-attachment-id="16353" data-comments-opened="1" data-image-caption="" data-image-description="" data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}' data-image-title="alexnet" data-large-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/12/alexnet.png?fit=850%2C412&amp;ssl=1" data-lazy-fallback="1" data-medium-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/12/alexnet.png?fit=300%2C145&amp;ssl=1" data-orig-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/12/alexnet.png?fit=850%2C412&amp;ssl=1" data-orig-size="850,412" data-permalink="https://thecleverprogrammer.com/2021/12/13/alexnet-architecture-using-python/alexnet/" data-recalc-dims="1" decoding="async" height="302" sizes="(max-width: 623px) 100vw, 623px" src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/12/alexnet.png?resize=623%2C302&amp;ssl=1" srcset="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/12/alexnet.png?w=850&amp;ssl=1 850w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/12/alexnet.png?resize=300%2C145&amp;ssl=1 300w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/12/alexnet.png?resize=768%2C372&amp;ssl=1 768w" width="623"/></noscript></figure></div>
+<p>The first convolutional layer is an input layer that filters 227x227x3 input images with 96 kernels of size 11x11x3 with a stride of 4 pixels. The kernels of the second, fourth, and fifth convolutional layers are connected only to the kernel maps of the previous layer that reside on the same GPU. The kernels of the third convolutional layer are connected to all the kernel maps of the second convolutional layer, and the neurons in the fully-connected layers are connected to all the neurons in the previous layer.</p>
+<p>So this is the overall architecture of the AlexNet CNN architecture. You can learn more about this architecture from this <strong><a href="https://proceedings.neurips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf">research paper</a></strong>. Now in the section below, I will take you through the implementation of AlexNet architecture using Python.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<h2 class="wp-block-heading" id="alexnet-architecture-using-python">AlexNet Architecture using Python</h2>
+<p>I hope you have understood the complete architecture of AlexNet CNN architecture. To implement it using Python, we can use the TensorFlow and Keras library in Python. I will also use the <strong><a href="https://thecleverprogrammer.com/2021/06/07/visualize-a-neural-network-using-python/">VisualKeras</a></strong> library in Python to visualize the architecture of AlexNet. Below is how to implement AlexNet architecture using Python:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'>import keras
+from keras.models import Sequential,Input,Model
+from keras.layers import Dense, Dropout, Flatten
+from keras.layers import Conv2D, MaxPooling2D
+from keras.layers.advanced_activations import LeakyReLU
+import tensorflow as tf
+from tensorflow import keras
+import keras.layers as layers
+model = keras.Sequential()
+model.add(layers.Conv2D(filters=96, kernel_size=(11, 11), 
+                        strides=(4, 4), activation="relu", 
+                        input_shape=(227, 227, 3)))
+model.add(layers.BatchNormalization())
+model.add(layers.MaxPool2D(pool_size=(3, 3), strides= (2, 2)))
+model.add(layers.Conv2D(filters=256, kernel_size=(5, 5), 
+                        strides=(1, 1), activation="relu", 
+                        padding="same"))
+model.add(layers.BatchNormalization())
+model.add(layers.MaxPool2D(pool_size=(3, 3), strides=(2, 2)))
+model.add(layers.Conv2D(filters=384, kernel_size=(3, 3), 
+                        strides=(1, 1), activation="relu", 
+                        padding="same"))
+model.add(layers.BatchNormalization())
+model.add(layers.Conv2D(filters=384, kernel_size=(3, 3), 
+                        strides=(1, 1), activation="relu", 
+                        padding="same"))
+model.add(layers.BatchNormalization())
+model.add(layers.Conv2D(filters=256, kernel_size=(3, 3), 
+                        strides=(1, 1), activation="relu", 
+                        padding="same"))
+model.add(layers.BatchNormalization())
+model.add(layers.MaxPool2D(pool_size=(3, 3), strides=(2, 2)))
+model.add(layers.Flatten())
+model.add(layers.Dense(4096, activation="relu"))
+model.add(layers.Dropout(0.5))
+model.add(layers.Dense(10, activation="softmax"))
+model.compile(loss='sparse_categorical_crossentropy', 
+              optimizer=tf.optimizers.SGD(lr=0.001), 
+              metrics=['accuracy'])
+model.summary()</pre></div>
+<pre class="wp-block-preformatted"><strong>Model: "sequential_4"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ conv2d_23 (Conv2D)          (None, 55, 55, 96)        34944     
+                                                                 
+ batch_normalization_20 (Bat  (None, 55, 55, 96)       384       
+ chNormalization)                                                
+                                                                 
+ max_pooling2d_12 (MaxPoolin  (None, 27, 27, 96)       0         
+ g2D)                                                            
+                                                                 
+ conv2d_24 (Conv2D)          (None, 27, 27, 256)       614656    
+                                                                 
+ batch_normalization_21 (Bat  (None, 27, 27, 256)      1024      
+ chNormalization)                                                
+                                                                 
+ max_pooling2d_13 (MaxPoolin  (None, 13, 13, 256)      0         
+ g2D)                                                            
+                                                                 
+ conv2d_25 (Conv2D)          (None, 13, 13, 384)       885120    
+                                                                 
+ batch_normalization_22 (Bat  (None, 13, 13, 384)      1536      
+ chNormalization)                                                
+                                                                 
+ conv2d_26 (Conv2D)          (None, 13, 13, 384)       1327488   
+                                                                 
+ batch_normalization_23 (Bat  (None, 13, 13, 384)      1536      
+ chNormalization)                                                
+                                                                 
+ conv2d_27 (Conv2D)          (None, 13, 13, 256)       884992    
+                                                                 
+ batch_normalization_24 (Bat  (None, 13, 13, 256)      1024      
+ chNormalization)                                                
+                                                                 
+ max_pooling2d_14 (MaxPoolin  (None, 6, 6, 256)        0         
+ g2D)                                                            
+                                                                 
+ flatten_4 (Flatten)         (None, 9216)              0         
+                                                                 
+ dense_8 (Dense)             (None, 4096)              37752832  
+                                                                 
+ dropout_4 (Dropout)         (None, 4096)              0         
+                                                                 
+ dense_9 (Dense)             (None, 10)                40970     
+                                                                 
+=================================================================
+Total params: 41,546,506
+Trainable params: 41,543,754
+Non-trainable params: 2,752
+_________________________________________________________________</strong></pre>
+<p>Now here is how you can visualize the architecture of your neural network architecture:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'>import visualkeras
+visualkeras.layered_view(model)</pre></div>
+<div class="wp-block-image"><figure class="aligncenter size-large"><img alt="AlexNet Architecture" class="wp-image-16358 jetpack-lazy-image" data-attachment-id="16358" data-comments-opened="1" data-image-caption="" data-image-description="" data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}' data-image-title="alexnet-architecture" data-large-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/12/alexnet-architecture.png?fit=1024%2C167&amp;ssl=1" data-lazy-sizes="(max-width: 1024px) 100vw, 1024px" data-lazy-src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/12/alexnet-architecture.png?resize=1024%2C167&amp;is-pending-load=1#038;ssl=1" data-lazy-srcset="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/12/alexnet-architecture.png?resize=1024%2C167&amp;ssl=1 1024w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/12/alexnet-architecture.png?resize=300%2C49&amp;ssl=1 300w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/12/alexnet-architecture.png?resize=768%2C125&amp;ssl=1 768w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/12/alexnet-architecture.png?resize=1536%2C250&amp;ssl=1 1536w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/12/alexnet-architecture.png?resize=1200%2C195&amp;ssl=1 1200w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/12/alexnet-architecture.png?w=1808&amp;ssl=1 1808w" data-medium-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/12/alexnet-architecture.png?fit=300%2C49&amp;ssl=1" data-orig-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/12/alexnet-architecture.png?fit=1808%2C294&amp;ssl=1" data-orig-size="1808,294" data-permalink="https://thecleverprogrammer.com/2021/12/13/alexnet-architecture-using-python/alexnet-architecture/" data-recalc-dims="1" decoding="async" height="167" src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/12/alexnet-architecture.png?resize=1024%2C167&amp;ssl=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="1024"/><noscript><img alt="AlexNet Architecture" class="wp-image-16358" data-attachment-id="16358" data-comments-opened="1" data-image-caption="" data-image-description="" data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}' data-image-title="alexnet-architecture" data-large-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/12/alexnet-architecture.png?fit=1024%2C167&amp;ssl=1" data-lazy-fallback="1" data-medium-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/12/alexnet-architecture.png?fit=300%2C49&amp;ssl=1" data-orig-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/12/alexnet-architecture.png?fit=1808%2C294&amp;ssl=1" data-orig-size="1808,294" data-permalink="https://thecleverprogrammer.com/2021/12/13/alexnet-architecture-using-python/alexnet-architecture/" data-recalc-dims="1" decoding="async" height="167" loading="lazy" sizes="(max-width: 1024px) 100vw, 1024px" src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/12/alexnet-architecture.png?resize=1024%2C167&amp;ssl=1" srcset="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/12/alexnet-architecture.png?resize=1024%2C167&amp;ssl=1 1024w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/12/alexnet-architecture.png?resize=300%2C49&amp;ssl=1 300w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/12/alexnet-architecture.png?resize=768%2C125&amp;ssl=1 768w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/12/alexnet-architecture.png?resize=1536%2C250&amp;ssl=1 1536w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/12/alexnet-architecture.png?resize=1200%2C195&amp;ssl=1 1200w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/12/alexnet-architecture.png?w=1808&amp;ssl=1 1808w" width="1024"/></noscript></figure></div>
+<h3 class="wp-block-heading" id="summary">Summary</h3>
+<p>The AlexNet CNN architecture is one of the popular architectures of Convolutional Neural Networks. It was the first CNN architecture to stack convolutional layers directly on top of one another. I hope you liked this article on an introduction to AlexNet CNN architecture and its implementation using Python. Feel free to ask your valuable questions in the comments section below.</p>
+<!-- AI CONTENT END 1 -->
+</div>

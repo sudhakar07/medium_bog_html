@@ -1,0 +1,245 @@
+<div class="entry-content">
+<p>Audio Feature Extraction has been one of the significant focus of Machine Learning over the years. The most frequent common state of data is a text where we can perform feature extraction quite smoothly. Then we have Feature Extraction for the image, which is a challenging task. </p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<p>Now I will show you Audio Feature Extraction, which is a bit more complicated task in Machine Learning. Feature Extraction is the process of reducing the number of features in the data by creating new features using the existing ones. The new extracted features must be able to summarise most of the information contained in the original set of elements in the data.</p>
+<h2 class="wp-block-heading"><strong>Audio Feature Extraction</strong></h2>
+<p>Audio Feature Extraction plays a significant part in analyzing the audios. The idea is to extract those powerful features that can help in characterizing all the complex nature of audio signals which at the end will help in to identify the discriminatory subspaces of audio and all the keys that you need to analyze sound signals. Now let’s start with importing all the libraries that we need for this task:</p>
+<pre aria-describedby="shcb-language-1" class="wp-block-code" data-shcb-language-name="Python" data-shcb-language-slug="python"><link href="https://thecleverprogrammer.com/wp-content/plugins/syntax-highlighting-code-block/vendor/scrivo/highlight-php/styles/default.css?m=1609223562" id="all-css-539e691014497ed65749214592756e42" media="all" rel="stylesheet" type="text/css"/><style>.wp-block-code {
+	border: 0;
+	padding: 0;
+}
+
+.wp-block-code > div {
+	overflow: auto;
+}
+
+.shcb-language {
+	border: 0;
+	clip: rect(1px, 1px, 1px, 1px);
+	-webkit-clip-path: inset(50%);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+	word-wrap: normal;
+	word-break: normal;
+}
+
+.hljs {
+	box-sizing: border-box;
+}
+
+.hljs.shcb-code-table {
+	display: table;
+	width: 100%;
+}
+
+.hljs.shcb-code-table > .shcb-loc {
+	color: inherit;
+	display: table-row;
+	width: 100%;
+}
+
+.hljs.shcb-code-table .shcb-loc > span {
+	display: table-cell;
+}
+
+.wp-block-code code.hljs:not(.shcb-wrap-lines) {
+	white-space: pre;
+}
+
+.wp-block-code code.hljs.shcb-wrap-lines {
+	white-space: pre-wrap;
+}
+
+.hljs.shcb-line-numbers {
+	border-spacing: 0;
+	counter-reset: line;
+}
+
+.hljs.shcb-line-numbers > .shcb-loc {
+	counter-increment: line;
+}
+
+.hljs.shcb-line-numbers .shcb-loc > span {
+	padding-left: 0.75em;
+}
+
+.hljs.shcb-line-numbers .shcb-loc::before {
+	border-right: 1px solid #ddd;
+	content: counter(line);
+	display: table-cell;
+	padding: 0 0.75em;
+	text-align: right;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	white-space: nowrap;
+	width: 1%;
+}
+</style><div><code class="hljs language-python"><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">from</span> pyAudioAnalysis <span class="hljs-keyword">import</span> audioBasicIO
+<span class="hljs-keyword">from</span> pyAudioAnalysis <span class="hljs-keyword">import</span> audioFeatureExtraction
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">import</span> os</code></div><small class="shcb-language" id="shcb-language-1"><span class="shcb-language__label">Code language:</span> <span class="shcb-language__name">Python</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">python</span><span class="shcb-language__paren">)</span></small></pre>
+<p>Audio Basic IO is used to extract the audio data like a data frame and creating sample data for audio signals. Audio Feature Extraction is responsible for obtaining all the features from the signals of audio that we need for this task.</p>
+<p>Now I will define a utility function that will help us in taking a file name as argument:</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<pre aria-describedby="shcb-language-2" class="wp-block-code" data-shcb-language-name="Python" data-shcb-language-slug="python"><div><code class="hljs language-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">preProcess</span><span class="hljs-params">( fileName )</span>:</span>
+    [Fs, x] = audioBasicIO.readAudioFile(fileName)
+
+    <span class="hljs-keyword">if</span>( len( x.shape ) &amp;amp;gt; <span class="hljs-number">1</span> <span class="hljs-keyword">and</span>  x.shape[<span class="hljs-number">1</span>] == <span class="hljs-number">2</span> ):
+        x = np.mean( x, axis = <span class="hljs-number">1</span>, keepdims = <span class="hljs-literal">True</span> )
+    <span class="hljs-keyword">else</span>:
+        x = x.reshape( x.shape[<span class="hljs-number">0</span>], <span class="hljs-number">1</span> )
+    F, f_names = audioFeatureExtraction.stFeatureExtraction(
+        x[ :, <span class="hljs-number">0</span> ],
+        Fs, <span class="hljs-number">0.050</span>*Fs,
+        <span class="hljs-number">0.025</span>*Fs
+    )
+    
+    <span class="hljs-keyword">return</span> (f_names, F)</code></div><small class="shcb-language" id="shcb-language-2"><span class="shcb-language__label">Code language:</span> <span class="shcb-language__name">Python</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">python</span><span class="shcb-language__paren">)</span></small></pre>
+<p>Now I would like to use only the chronogram feature from the audio signals, so I will now separate the data from our function:</p>
+<pre aria-describedby="shcb-language-3" class="wp-block-code" data-shcb-language-name="Python" data-shcb-language-slug="python"><div><code class="hljs language-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getChromagram</span><span class="hljs-params">( audioData )</span>:</span>
+    
+    temp_data =  audioData[ <span class="hljs-number">21</span> ].reshape( 
+        <span class="hljs-number">1</span>, 
+        audioData[ <span class="hljs-number">21</span> ].shape[<span class="hljs-number">0</span>] 
+    )
+    chronograph = temp_data
+    
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range( <span class="hljs-number">22</span>, <span class="hljs-number">33</span> ):
+        temp_data =  audioData[ i ].reshape( 
+            <span class="hljs-number">1</span>, 
+            audioData[ i ].shape[<span class="hljs-number">0</span>] 
+        )just say you love me
+        chronograph = np.vstack( [ chronograph,  temp_data ] )
+    
+    <span class="hljs-keyword">return</span> chronographjust say you love me</code></div><small class="shcb-language" id="shcb-language-3"><span class="shcb-language__label">Code language:</span> <span class="shcb-language__name">Python</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">python</span><span class="shcb-language__paren">)</span></small></pre>
+<p>Now I will create a function that will be used to find the best note in each window, and then we can easily find the frequencies from the audio signals:</p>
+<pre aria-describedby="shcb-language-4" class="wp-block-code" data-shcb-language-name="Python" data-shcb-language-slug="python"><div><code class="hljs language-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getNoteFrequency</span><span class="hljs-params">( chromagram )</span>:</span>
+    
+    numberOfWindows = chromagram.shape[<span class="hljs-number">1</span>]
+    
+    freqVal = chromagram.argmax( axis = <span class="hljs-number">0</span> )
+    
+    histogram, bin = np.histogram( freqVal, bins = <span class="hljs-number">12</span> )
+    
+    normalized_hist = histogram.reshape( <span class="hljs-number">1</span>, <span class="hljs-number">12</span> ).astype( float ) / numberOfWindows <span class="hljs-comment">#D</span>
+    
+    <span class="hljs-keyword">return</span> normalized_hist</code></div><small class="shcb-language" id="shcb-language-4"><span class="shcb-language__label">Code language:</span> <span class="shcb-language__name">Python</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">python</span><span class="shcb-language__paren">)</span></small></pre>
+<p>Now I will create a function to iterate over the files in the path of our directory. Here I will be using a pandas data frame to store our feature vectors:</p>
+<pre aria-describedby="shcb-language-5" class="wp-block-code" data-shcb-language-name="Python" data-shcb-language-slug="python"><div><code class="hljs language-python">fileList = []
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getDataset</span><span class="hljs-params">( filePath )</span>:</span>
+    X = pd.DataFrame(  )
+    
+    columns=[ <span class="hljs-string">"G#"</span>, <span class="hljs-string">"G"</span>, <span class="hljs-string">"F#"</span>, <span class="hljs-string">"F"</span>, <span class="hljs-string">"E"</span>, <span class="hljs-string">"D#"</span>, <span class="hljs-string">"D"</span>, <span class="hljs-string">"C#"</span>, <span class="hljs-string">"C"</span>, <span class="hljs-string">"B"</span>, <span class="hljs-string">"A#"</span>, <span class="hljs-string">"A"</span> ]
+    
+    <span class="hljs-keyword">for</span> root, dirs, filenames <span class="hljs-keyword">in</span> os.walk( filePath ):
+        <span class="hljs-keyword">for</span> file <span class="hljs-keyword">in</span> filenames:
+            fileList.append( file )
+            feature_name, features = preProcess(filePath + file )
+            chromagram = getChromagram( features )
+            noteFrequency = getNoteFrequency( chromagram )
+            x_new =  pd.Series(noteFrequency[ <span class="hljs-number">0</span>, : ])
+            X = pd.concat( [ X, x_new ], axis = <span class="hljs-number">1</span> )
+        
+    data = X.T.copy()
+    data.columns = columns
+    data.index = [ i <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range( <span class="hljs-number">0</span>, data.shape[ <span class="hljs-number">0</span> ] ) ]
+            
+    <span class="hljs-keyword">return</span> data
+data</code></div><small class="shcb-language" id="shcb-language-5"><span class="shcb-language__label">Code language:</span> <span class="shcb-language__name">Python</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">python</span><span class="shcb-language__paren">)</span></small></pre>
+<figure class="wp-block-table"><table><thead><tr><th></th><th>G#</th><th>G</th><th>F#</th><th>F</th><th>E</th><th>D#</th><th>D</th><th>C#</th><th>C</th><th>B</th><th>A#</th><th>A</th></tr></thead><tbody><tr><th>0</th><td>0.000000</td><td>0.0</td><td>0.0</td><td>0.000000</td><td>0.0</td><td>0.0</td><td>1.000000</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.000000</td></tr><tr><th>1</th><td>0.991713</td><td>0.0</td><td>0.0</td><td>0.000000</td><td>0.0</td><td>0.0</td><td>0.000000</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.008287</td></tr><tr><th>2</th><td>0.021834</td><td>0.0</td><td>0.0</td><td>0.000000</td><td>0.0</td><td>0.0</td><td>0.000000</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.978166</td></tr><tr><th>3</th><td>0.015385</td><td>0.0</td><td>0.0</td><td>0.000000</td><td>0.0</td><td>0.0</td><td>0.000000</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.984615</td></tr><tr><th>4</th><td>0.090909</td><td>0.0</td><td>0.0</td><td>0.090909</td><td>0.0</td><td>0.0</td><td>0.545455</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.272727</td></tr><tr><th>5</th><td>0.027027</td><td>0.0</td><td>0.0</td><td>0.000000</td><td>0.0</td><td>0.0</td><td>0.000000</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.972973</td></tr><tr><th>6</th><td>0.000000</td><td>0.0</td><td>0.0</td><td>0.000000</td><td>0.0</td><td>0.0</td><td>1.000000</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.000000</td></tr><tr><th>7</th><td>0.097561</td><td>0.0</td><td>0.0</td><td>0.000000</td><td>0.0</td><td>0.0</td><td>0.000000</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.902439</td></tr><tr><th>8</th><td>0.000000</td><td>0.0</td><td>0.0</td><td>0.000000</td><td>0.0</td><td>0.0</td><td>1.000000</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.000000</td></tr><tr><th>9</th><td>0.000000</td><td>0.0</td><td>0.0</td><td>0.000000</td><td>0.0</td><td>0.0</td><td>1.000000</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.000000</td></tr></tbody></table></figure>
+<p>In the data frame above each row represents a data point, and each column represents the features. So we have 19 files and 12 features each in our audio signals.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<p class="has-primary-color has-text-color"><strong><a href="https://thecleverprogrammer.com/2020/07/27/polynomial-regression-algorithm/">Also, Read: Polynomial Regression Algorithm in Machine Learning.</a></strong></p>
+<h2 class="wp-block-heading"><strong>Machine Learning Algorithm for Audio Feature Extraction</strong></h2>
+<p>Here I will use the K-means clustering algorithm. Now I will define the hyperparameters for our Machine Learning Algorithm. Here K will represent the number of clusters, and epochs represent the number of iterations our Machine Learning Algorithm will run for:</p>
+<pre aria-describedby="shcb-language-6" class="wp-block-code" data-shcb-language-name="Python" data-shcb-language-slug="python"><div><code class="hljs language-python">k = <span class="hljs-number">4</span>
+epochs = <span class="hljs-number">1000</span></code></div><small class="shcb-language" id="shcb-language-6"><span class="shcb-language__label">Code language:</span> <span class="shcb-language__name">Python</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">python</span><span class="shcb-language__paren">)</span></small></pre>
+<p>Now I will make a function to select the k data points as initial centroids:</p>
+<pre aria-describedby="shcb-language-7" class="wp-block-code" data-shcb-language-name="Python" data-shcb-language-slug="python"><div><code class="hljs language-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">initilizeCentroids</span><span class="hljs-params">( data, k )</span>:</span>
+
+    centroids = data[ <span class="hljs-number">0</span>: k ]
+    
+    <span class="hljs-keyword">return</span> centroids</code></div><small class="shcb-language" id="shcb-language-7"><span class="shcb-language__label">Code language:</span> <span class="shcb-language__name">Python</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">python</span><span class="shcb-language__paren">)</span></small></pre>
+<p>Now, I will define tensors that will represent the placeholders of our data. Here X is a representation of the data, C is the list of k centroids, and C_labels is the index of the centroids that we have assigned to our each data point:</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<pre aria-describedby="shcb-language-8" class="wp-block-code" data-shcb-language-name="Python" data-shcb-language-slug="python"><div><code class="hljs language-python">X = tf.placeholder( dtype = tf.float32 )
+C = tf.placeholder( dtype = tf.float32 )
+C_labels = tf.placeholder( dtype = tf.int32 )</code></div><small class="shcb-language" id="shcb-language-8"><span class="shcb-language__label">Code language:</span> <span class="shcb-language__name">Python</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">python</span><span class="shcb-language__paren">)</span></small></pre>
+<p>Now I will prepare our data for audio feature extraction with Machine Learning:</p>
+<pre aria-describedby="shcb-language-9" class="wp-block-code" data-shcb-language-name="Python" data-shcb-language-slug="python"><div><code class="hljs language-python">expanded_vectors = tf.expand_dims( X, <span class="hljs-number">0</span> )
+expanded_centroids = tf.expand_dims( C, <span class="hljs-number">1</span> )
+distance = tf.reduce_sum( tf.square( tf.subtract( expanded_vectors, expanded_centroids ) ), axis = <span class="hljs-number">2</span> )
+getCentroidsOp = tf.argmin( distance, <span class="hljs-number">0</span> )</code></div><small class="shcb-language" id="shcb-language-9"><span class="shcb-language__label">Code language:</span> <span class="shcb-language__name">Python</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">python</span><span class="shcb-language__paren">)</span></small></pre>
+<p>Now I will compute the new centroids from our assigned labels and data values:</p>
+<pre class="wp-block-code"><div><code class="hljs">sums = tf.unsorted_segment_sum( X, C_labels, k )
+counts = tf.unsorted_segment_sum( tf.ones_like( X ), C_labels, k  )
+reCalculateCentroidsOp = tf.divide( sums,  counts )</code></div></pre>
+<h2 class="wp-block-heading"><strong>Driver Code</strong></h2>
+<p>Now I will define the driver code for our algorithm. Using this function, we will feed the necessary data so that we could train it using our Machine Learning Algorithm:</p>
+<pre aria-describedby="shcb-language-10" class="wp-block-code" data-shcb-language-name="Python" data-shcb-language-slug="python"><div><code class="hljs language-python">data_labels = []
+centroids = []
+<span class="hljs-keyword">with</span> tf.Session() <span class="hljs-keyword">as</span> sess:
+    
+    sess.run( tf.global_variables_initializer() )
+    
+    centroids = initilizeCentroids( data, k )
+    
+    
+    
+    <span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> range( epochs ):
+        data_labels =  sess.run( getCentroidsOp, feed_dict = { X: data, C: centroids } )
+        centroids = sess.run( reCalculateCentroidsOp, feed_dict = { X: data, C_labels: data_labels } )
+    
+print( data_labels )
+print( centroids )</code></div><small class="shcb-language" id="shcb-language-10"><span class="shcb-language__label">Code language:</span> <span class="shcb-language__name">Python</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">python</span><span class="shcb-language__paren">)</span></small></pre>
+<pre class="wp-block-preformatted">[0 1 2 2 0 2 0 2 0 0]
+[[0.01818182 0.         0.         0.01818182 0.         0.
+  0.9090909  0.         0.         0.         0.         0.05454545]
+ [0.9917127  0.         0.         0.         0.         0.
+  0.         0.         0.         0.         0.         0.00828729]
+ [0.04045167 0.         0.         0.         0.         0.
+  0.         0.         0.         0.         0.         0.95954835]]</pre>
+<p>Now we have trained the model for audio feature extraction. Let’s have a look at our output:</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<pre aria-describedby="shcb-language-11" class="wp-block-code" data-shcb-language-name="Python" data-shcb-language-slug="python"><div><code class="hljs language-python">final_labels = pd.DataFrame( { <span class="hljs-string">"Labels"</span>: data_labels, <span class="hljs-string">"File Names"</span>: fileList } )
+final_labels</code></div><small class="shcb-language" id="shcb-language-11"><span class="shcb-language__label">Code language:</span> <span class="shcb-language__name">Python</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">python</span><span class="shcb-language__paren">)</span></small></pre>
+<figure class="wp-block-table"><table><thead><tr><th></th><th>File Names</th><th>Labels</th></tr></thead><tbody><tr><th>0</th><td>c3_1.wav</td><td>0</td></tr><tr><th>1</th><td>c4_1.wav</td><td>1</td></tr><tr><th>2</th><td>c1_2.wav</td><td>2</td></tr><tr><th>3</th><td>c2_2.wav</td><td>2</td></tr><tr><th>4</th><td>c3_2.wav</td><td>0</td></tr><tr><th>5</th><td>c2_3.wav</td><td>2</td></tr><tr><th>6</th><td>c2_4.wav</td><td>0</td></tr><tr><th>7</th><td>c1_1.wav</td><td>2</td></tr><tr><th>8</th><td>c2_1.wav</td><td>0</td></tr><tr><th>9</th><td>c4_2.wav</td><td>0</td></tr></tbody></table></figure>
+<p class="has-primary-color has-text-color">I hope you liked this article on Audio Feature Extraction using the k-means clustering algorithm. Feel free to ask your valuable questions in the comments section below. You can also follow me on <strong><a href="https://medium.com/@amankharwal">Medium</a></strong> to read more amazing articles.</p>
+<h4 class="wp-block-heading">Follow Us:</h4>
+<!-- AI CONTENT END 1 -->
+</div>

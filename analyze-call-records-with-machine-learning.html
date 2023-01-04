@@ -1,0 +1,144 @@
+<div class="entry-content">
+<p>For most businesses, the story generally goes as follows. A customer calls to complain, praise or ask for help, then the call is recorded for further training or assessment, then the recording is usually chosen at random, listened to by someone, and reviewed with the representative of the customer. customer service. In this article, I’ll walk you through how we can analyze call records with Machine Learning.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<p>To Analyze the call records can take anywhere from an hour to a week after a customer hangs up. During this time, a lot can go wrong. Compliance issues and poor service could leave you with unhappy customers. I’ll show you how to work smarter, not harder, and identify problems as they arise. What most developers don’t realize is that the complex elements are predefined in Google Cloud Platform.</p>
+<p><strong><a href="https://thecleverprogrammer.com/2020/09/18/python-lists/">Also, Read – Lists in Python tutorial.</a></strong></p>
+<p>There are three essentials that you will want to look for when we analyze call records.</p>
+<ul><li>Identity – Clearly separate the people on the call.</li><li>Feeling – Are these people generally positive or negative in the interaction?</li><li>Trigger Words – Have any words or phrases been spoken that merit closer examination?</li></ul>
+<h2 class="wp-block-heading">Analyze Call Records with Machine Learning &amp; Python</h2>
+<p>Let’s complicate things a bit and evaluate single-channel audio phone calls. The complexity means that we are not only dealing with call quality type audio but also audio where each caller mingles on a single channel. Unique channels make it much more difficult to tell who is speaking and when.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<p>A Google Cloud feature is the easiest way to trigger large-scale code execution when a file is uploaded to Cloud Storage. <a href="https://cloud.google.com/functions/docs/tutorials/storage#functions-change-directory-python" rel="noreferrer noopener" target="_blank"><strong>Setting up a cloud function</strong></a> for this is simple and straightforward.</p>
+<p>Let’s start with the requirements.txt file and the imports to analyze call records:</p>
+<pre class="wp-block-code"><link href="https://thecleverprogrammer.com/wp-content/plugins/syntax-highlighting-code-block/vendor/scrivo/highlight-php/styles/default.css?m=1609223562" id="all-css-539e691014497ed65749214592756e42" media="all" rel="stylesheet" type="text/css"/><style>.wp-block-code {
+	border: 0;
+	padding: 0;
+}
+
+.wp-block-code > div {
+	overflow: auto;
+}
+
+.shcb-language {
+	border: 0;
+	clip: rect(1px, 1px, 1px, 1px);
+	-webkit-clip-path: inset(50%);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+	word-wrap: normal;
+	word-break: normal;
+}
+
+.hljs {
+	box-sizing: border-box;
+}
+
+.hljs.shcb-code-table {
+	display: table;
+	width: 100%;
+}
+
+.hljs.shcb-code-table > .shcb-loc {
+	color: inherit;
+	display: table-row;
+	width: 100%;
+}
+
+.hljs.shcb-code-table .shcb-loc > span {
+	display: table-cell;
+}
+
+.wp-block-code code.hljs:not(.shcb-wrap-lines) {
+	white-space: pre;
+}
+
+.wp-block-code code.hljs.shcb-wrap-lines {
+	white-space: pre-wrap;
+}
+
+.hljs.shcb-line-numbers {
+	border-spacing: 0;
+	counter-reset: line;
+}
+
+.hljs.shcb-line-numbers > .shcb-loc {
+	counter-increment: line;
+}
+
+.hljs.shcb-line-numbers .shcb-loc > span {
+	padding-left: 0.75em;
+}
+
+.hljs.shcb-line-numbers .shcb-loc::before {
+	border-right: 1px solid #ddd;
+	content: counter(line);
+	display: table-cell;
+	padding: 0 0.75em;
+	text-align: right;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	white-space: nowrap;
+	width: 1%;
+}
+</style><div><code class="hljs">google-cloud-speech==1.3.2
+google-cloud-storage==1.27.0
+pathlab</code></div></pre>
+<pre aria-describedby="shcb-language-1" class="wp-block-code" data-shcb-language-name="JavaScript" data-shcb-language-slug="javascript"><div><code class="hljs language-javascript"><span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">import</span> requests
+<span class="hljs-keyword">import</span> json
+<span class="hljs-keyword">import</span> sys
+<span class="hljs-keyword">import</span> time
+<span class="hljs-keyword">import</span> uuid
+<span class="hljs-keyword">from</span> google.cloud <span class="hljs-keyword">import</span> speech_v1p1beta1
+<span class="hljs-keyword">from</span> google.cloud.speech_v1p1beta1 <span class="hljs-keyword">import</span> enums
+<span class="hljs-keyword">from</span> google.cloud <span class="hljs-keyword">import</span> storage</code></div><small class="shcb-language" id="shcb-language-1"><span class="shcb-language__label">Code language:</span> <span class="shcb-language__name">JavaScript</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">javascript</span><span class="shcb-language__paren">)</span></small></pre>
+<h2 class="wp-block-heading">Getting Call Records to Analyze Audio</h2>
+<p>As the Cloud function is triggered by a google.storage.object.finalize event in GCS, a dictionary containing data specific to this type of event is sent.</p>
+<p>Entering the path to the filename is as easy as removing the object file [name ’] from the dictionary. Knowing all of this information, we can create a gs: // URI which can be used for various Google AI services.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<pre aria-describedby="shcb-language-2" class="wp-block-code" data-shcb-language-name="JavaScript" data-shcb-language-slug="javascript"><div><code class="hljs language-javascript">BucketName = <span class="hljs-string">'gcs-bucket'</span>
+def transcribe_audio(event, context):
+file = event
+now = time.time()
+FileName = file[<span class="hljs-string">'name'</span>]
+storage_uri = <span class="hljs-string">'gs://'</span> + BucketName + <span class="hljs-string">'/'</span> + FileName</code></div><small class="shcb-language" id="shcb-language-2"><span class="shcb-language__label">Code language:</span> <span class="shcb-language__name">JavaScript</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">javascript</span><span class="shcb-language__paren">)</span></small></pre>
+<h2 class="wp-block-heading">Transcribe audio</h2>
+<p>Before I transcribe the audio to analyze the call records, I want to make sure that this is an actual audio file first. In this example, I will only deal with mp3 audio. There are tons of options to choose from, and I’ll highlight a few. First, the hertz rate is essential, and most often it is 8000 for phone audio recordings. Second, because it’s a phone call, it’s different.</p>
+<p>Google offers a different machine learning model for phone call audio that creates better overall transcription. Finally, for a correct setup, be sure to enable diarization and set the appropriate number of speakers on the call. If necessary, automatically adjust your phrase dictionary and choose specific pronouns, business names, or phrases that may appear in the conversation.</p>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/df0b48b142b59bac894e6615dbd7a615.js"></script><noscript><a href="https://gist.github.com/amankharwal/df0b48b142b59bac894e6615dbd7a615">View this gist on GitHub</a></noscript></div>
+<p>For longer audio, such as entire phone conversations, the best practice is to use the client.long_running_recognize (config, audio) method. This method performs asynchronous speech recognition.</p>
+<p>After transcription, I check the transcript for any keyword triggers and, if applicable, send the transcript to slack for immediate notification. Below is the send_slack slack function (transcriptw, filename, keyword).</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/fc6671b898a407dedbd82baa61dc45c0.js"></script><noscript><a href="https://gist.github.com/amankharwal/fc6671b898a407dedbd82baa61dc45c0">View this gist on GitHub</a></noscript></div>
+<p>I hope you liked this article on how we can analyze the call records with machine learning by using the google cloud platform. Feel free to ask your valuable questions in the comments section below.</p>
+<p><strong><a href="https://thecleverprogrammer.com/2020/09/18/choose-algorithm-in-machine-learning/">Also, Read – How to Choose an Algorithm in Machine Learning?</a></strong></p>
+<h4 class="wp-block-heading">Follow Us:</h4>
+<!-- AI CONTENT END 1 -->
+</div>

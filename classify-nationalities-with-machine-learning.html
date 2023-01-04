@@ -1,0 +1,127 @@
+<div class="entry-content">
+<p>In this article, I will take you through how we can classify the nationalities of people by using their names. You will be thinking about how we can classify nationalities by using just names. There is a lot about how we can play with names.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<h2 class="wp-block-heading">Classify Nationalities</h2>
+<p>Let’s get started with this machine learning task to classify nationalities by importing the necessary packages. I will classify nationalities based on names as Indian or Non-Indian. So, let’s import some packages and get started with the task:</p>
+<p><strong><a href="https://thecleverprogrammer.com/2020/09/24/machine-learning-course/">Also, Read – Machine Learning Full Course for free.</a></strong></p>
+<pre aria-describedby="shcb-language-1" class="wp-block-code" data-shcb-language-name="JavaScript" data-shcb-language-slug="javascript"><link href="https://thecleverprogrammer.com/wp-content/plugins/syntax-highlighting-code-block/vendor/scrivo/highlight-php/styles/default.css?m=1609223562" id="all-css-539e691014497ed65749214592756e42" media="all" rel="stylesheet" type="text/css"/><style>.wp-block-code {
+	border: 0;
+	padding: 0;
+}
+
+.wp-block-code > div {
+	overflow: auto;
+}
+
+.shcb-language {
+	border: 0;
+	clip: rect(1px, 1px, 1px, 1px);
+	-webkit-clip-path: inset(50%);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+	word-wrap: normal;
+	word-break: normal;
+}
+
+.hljs {
+	box-sizing: border-box;
+}
+
+.hljs.shcb-code-table {
+	display: table;
+	width: 100%;
+}
+
+.hljs.shcb-code-table > .shcb-loc {
+	color: inherit;
+	display: table-row;
+	width: 100%;
+}
+
+.hljs.shcb-code-table .shcb-loc > span {
+	display: table-cell;
+}
+
+.wp-block-code code.hljs:not(.shcb-wrap-lines) {
+	white-space: pre;
+}
+
+.wp-block-code code.hljs.shcb-wrap-lines {
+	white-space: pre-wrap;
+}
+
+.hljs.shcb-line-numbers {
+	border-spacing: 0;
+	counter-reset: line;
+}
+
+.hljs.shcb-line-numbers > .shcb-loc {
+	counter-increment: line;
+}
+
+.hljs.shcb-line-numbers .shcb-loc > span {
+	padding-left: 0.75em;
+}
+
+.hljs.shcb-line-numbers .shcb-loc::before {
+	border-right: 1px solid #ddd;
+	content: counter(line);
+	display: table-cell;
+	padding: 0 0.75em;
+	text-align: right;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	white-space: nowrap;
+	width: 1%;
+}
+</style><div><code class="hljs language-javascript"><span class="hljs-keyword">from</span> tensorflow <span class="hljs-keyword">import</span> keras
+<span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">import</span> re</code></div><small class="shcb-language" id="shcb-language-1"><span class="shcb-language__label">Code language:</span> <span class="shcb-language__name">JavaScript</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">javascript</span><span class="shcb-language__paren">)</span></small></pre>
+<p>Now, let’s import the datasets. The datasets I am using here in this article can be easily downloaded from <a href="https://github.com/amankharwal/Website-data/blob/master/Male-female%20data.rar"><strong>here</strong></a>. Now after importing the datasets I will prepare two helper functions for data cleaning and data processing:</p>
+<pre class="wp-block-code"><div><code class="hljs">male_data = pd.read_csv(male.csv)
+female_data = pd.read_csv(femaile.csv)</code></div></pre>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/5f90fed3c60a06515f60a7330df24777.js"></script><noscript><a href="https://gist.github.com/amankharwal/5f90fed3c60a06515f60a7330df24777">View this gist on GitHub</a></noscript></div>
+<pre class="wp-block-preformatted"><strong>13754</strong></pre>
+<p>After loading and removing the wrong entries in the data, we got a few records around 13,000. </p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<p>For non-Indian names, there is a nifty package called Faker. This generates names from different regions:</p>
+<pre aria-describedby="shcb-language-2" class="wp-block-code" data-shcb-language-name="JavaScript" data-shcb-language-slug="javascript"><div><code class="hljs language-javascript"><span class="hljs-keyword">from</span> faker <span class="hljs-keyword">import</span> Faker
+fake = Faker(‘en_US’)
+fake.name()</code></div><small class="shcb-language" id="shcb-language-2"><span class="shcb-language__label">Code language:</span> <span class="shcb-language__name">JavaScript</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">javascript</span><span class="shcb-language__paren">)</span></small></pre>
+<pre class="wp-block-preformatted"><strong>‘Brian Evans’</strong></pre>
+<p>We have generated approximately the same number of names as we have in the Indian data set. We then removed samples longer than 5 words. The Indian data set contained a lot of names with just first names. So we need to make the overall non-Indian distribution also similar.</p>
+<pre aria-describedby="shcb-language-3" class="wp-block-code" data-shcb-language-name="CSS" data-shcb-language-slug="css"><div><code class="hljs language-css"><span class="hljs-selector-tag">non_indian_data</span><span class="hljs-selector-class">.head</span>()</code></div><small class="shcb-language" id="shcb-language-3"><span class="shcb-language__label">Code language:</span> <span class="shcb-language__name">CSS</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">css</span><span class="shcb-language__paren">)</span></small></pre>
+<figure class="wp-block-table is-style-stripes"><table><thead><tr><th></th><th>name</th><th>count_words</th></tr></thead><tbody><tr><th>0</th><td>sara gulbrandsen</td><td>2</td></tr><tr><th>1</th><td>kathryn villarreal</td><td>2</td></tr><tr><th>2</th><td>jennifer mccormick</td><td>2</td></tr><tr><th>3</th><td>james eaton</td><td>2</td></tr><tr><th>4</th><td>melissa bond</td><td>2</td></tr></tbody></table></figure>
+<p>We end up with about 14,000 non-Indian names and 13,000 Indian names. Now let’s build a neural network to classify nationalities using names:</p>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/938e9a3efa211436f2b878edff698a13.js"></script><noscript><a href="https://gist.github.com/amankharwal/938e9a3efa211436f2b878edff698a13">View this gist on GitHub</a></noscript></div>
+<figure class="wp-block-table is-style-stripes"><table><thead><tr><th></th><th>names</th><th>predictions_lstm_char</th></tr></thead><tbody><tr><th>0</th><td>lalitha</td><td>indian</td></tr><tr><th>1</th><td>tyson</td><td>non_indian</td></tr><tr><th>2</th><td>shailaja</td><td>indian</td></tr><tr><th>3</th><td>shyamala</td><td>indian</td></tr><tr><th>4</th><td>vishwanathan</td><td>indian</td></tr><tr><th>5</th><td>ramanujam</td><td>indian</td></tr><tr><th>6</th><td>conan</td><td>non_indian</td></tr><tr><th>7</th><td>kryslovsky</td><td>non_indian</td></tr><tr><th>8</th><td>ratnani</td><td>indian</td></tr><tr><th>9</th><td>diego</td><td>non_indian</td></tr><tr><th>10</th><td>kakoli</td><td>indian</td></tr><tr><th>11</th><td>shreyas</td><td>indian</td></tr><tr><th>12</th><td>brayden</td><td>non_indian</td></tr><tr><th>13</th><td>shanon</td><td>non_indian</td></tr></tbody></table></figure>
+<p>So this is how we can easily classify nationalities with machine learning. I did not include the full code and exploration here, you can have a look at the full code from <strong><a href="https://colab.research.google.com/drive/1QXfLfvzBykzol7Vlo5OXrSel9M9UirI8?usp=sharing">here</a></strong>. Feel free to ask your valuable questions in the comments section below.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<p><strong><a href="https://thecleverprogrammer.com/2020/09/27/save-machine-learning-models/">Also, Read – How to Save Machine Learning Models?</a></strong></p>
+<h4 class="wp-block-heading">Follow Us:</h4>
+<!-- AI CONTENT END 1 -->
+</div>

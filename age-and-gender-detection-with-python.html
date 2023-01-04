@@ -1,0 +1,59 @@
+<div class="entry-content">
+<p>In this article, I will take you through the task of Age and Gender Detection with Machine Learning by using the Python programming language. Age and Gender Detection is the task of Computer vision so I will be using the OpenCV library in Python.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<p>Before getting started with the task of Age and Gender Detection with Python, I will first take you through what the concept means and how to deal with the problem of age and gender detection. Understanding the concept is important so that in future you can easily perform the task of age and gender detection with not python only but with any programming language.</p>
+<p><strong><a href="https://thecleverprogrammer.com/2020/09/24/machine-learning-course/">Also, Read – Machine Learning Full Course for free.</a></strong></p>
+<h2 class="wp-block-heading">Introduction to Age and Gender Detection</h2>
+<p>The task of detecting age and gender, however, is an inherently difficult problem, more so than many other computer vision tasks. The main reason for this difficulty gap lies in the data required to train these types of systems.</p>
+<p>While general object detection tasks can often have access to hundreds of thousands or even millions of images for training, datasets with age and/or gender labels are considerably smaller, usually in the thousands or, at best, tens of thousands.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<p>The reason is that to have tags for such images, we need to access the personal information of the subjects in the images. Namely, we would need their date of birth and gender, and in particular date of birth is infrequently published information.</p>
+<p>Namely, we would need their date of birth and gender, and in particular date of birth is infrequently published information. Therefore, we have to settle for the nature of this problem that we are addressing and adapt network architectures and algorithmic approaches to deal with these limitations.</p>
+<h2 class="wp-block-heading">Age and Gender Detection with Python</h2>
+<p>The areas of classification by age and sex have been studied for decades. Various approaches have been taken over the years to tackle this problem, with varying levels of success. Now let’s start with the task of detecting age and gender using the Python programming language.</p>
+<p>I will present the problem of gender detection as a classification problem and the age detection problem as a regression problem. However, estimating age accurately using regression is difficult. Even humans cannot accurately predict an age by looking at a person. However, we do know if they are in their 30s or 40s. This is also what I’m going to follow using Python.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<h2 class="wp-block-heading">Getting Started:</h2>
+<p>Now let’s get started with the task of Age and Gender detection using the Python programming language. I will first start with writing the code for detecting faces because without face detection we will not be able to move further with the task of age and gender prediction.</p>
+<p>You can download the necessary OpenCV pre-trained models that you will need in the task of age and gender detection from <strong><a href="https://github.com/opencv/opencv/tree/master/data/haarcascades">here</a></strong>. Now after importing the OpenCV module in your python file you can get started with the code below.</p>
+<p>Python code for Face Detection:</p>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/3fb3300635f1c1f5b0046b508f29d007.js"></script><noscript><a href="https://gist.github.com/amankharwal/3fb3300635f1c1f5b0046b508f29d007">View this gist on GitHub</a></noscript></div>
+<p>Now the next step is to predict the gender of humans in the image. Here I will load the gender network into memory and transmit the detected face across the network for the gender detection task.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<p>Python code for Gender Detection:</p>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/17adb3dfb25928431e0a883607d39498.js"></script><noscript><a href="https://gist.github.com/amankharwal/17adb3dfb25928431e0a883607d39498">View this gist on GitHub</a></noscript></div>
+<p>Now the next task is to predict the age of the human in the image. Here I will load the ageing network and use the forward pass to get the output. Since the network architecture is similar to that of the Gender Network, we can make the most of all outputs to get the intended age group for the task to detect age.</p>
+<p>Python code for age detection:</p>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/9b0568736e5b8dcb95fb1fc87a7f3a14.js"></script><noscript><a href="https://gist.github.com/amankharwal/9b0568736e5b8dcb95fb1fc87a7f3a14">View this gist on GitHub</a></noscript></div>
+<p>The last code we need to write is to display the output:</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/928df429212ca23feddd055e0c25e3d7.js"></script><noscript><a href="https://gist.github.com/amankharwal/928df429212ca23feddd055e0c25e3d7">View this gist on GitHub</a></noscript></div>
+<div class="wp-block-image"><figure class="aligncenter size-large"><img alt="age and gender detection" class="wp-image-9216 jetpack-lazy-image" data-attachment-id="9216" data-comments-opened="1" data-image-caption="" data-image-description="" data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}' data-image-title="face-detetcion" data-large-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/10/face-detetcion.png?fit=1024%2C831&amp;ssl=1" data-lazy-sizes="(max-width: 1024px) 100vw, 1024px" data-lazy-src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/10/face-detetcion.png?resize=1024%2C831&amp;is-pending-load=1#038;ssl=1" data-lazy-srcset="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/10/face-detetcion.png?resize=1024%2C831&amp;ssl=1 1024w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/10/face-detetcion.png?resize=300%2C244&amp;ssl=1 300w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/10/face-detetcion.png?resize=768%2C623&amp;ssl=1 768w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/10/face-detetcion.png?w=1169&amp;ssl=1 1169w" data-medium-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/10/face-detetcion.png?fit=300%2C244&amp;ssl=1" data-orig-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/10/face-detetcion.png?fit=1169%2C949&amp;ssl=1" data-orig-size="1169,949" data-permalink="https://thecleverprogrammer.com/2020/10/29/age-and-gender-detection-with-python/face-detetcion/" data-recalc-dims="1" decoding="async" height="831" src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/10/face-detetcion.png?resize=1024%2C831&amp;ssl=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="1024"/><noscript><img alt="age and gender detection" class="wp-image-9216" data-attachment-id="9216" data-comments-opened="1" data-image-caption="" data-image-description="" data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}' data-image-title="face-detetcion" data-large-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/10/face-detetcion.png?fit=1024%2C831&amp;ssl=1" data-lazy-fallback="1" data-medium-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/10/face-detetcion.png?fit=300%2C244&amp;ssl=1" data-orig-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/10/face-detetcion.png?fit=1169%2C949&amp;ssl=1" data-orig-size="1169,949" data-permalink="https://thecleverprogrammer.com/2020/10/29/age-and-gender-detection-with-python/face-detetcion/" data-recalc-dims="1" decoding="async" height="831" sizes="(max-width: 1024px) 100vw, 1024px" src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/10/face-detetcion.png?resize=1024%2C831&amp;ssl=1" srcset="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/10/face-detetcion.png?resize=1024%2C831&amp;ssl=1 1024w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/10/face-detetcion.png?resize=300%2C244&amp;ssl=1 300w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/10/face-detetcion.png?resize=768%2C623&amp;ssl=1 768w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/10/face-detetcion.png?w=1169&amp;ssl=1 1169w" width="1024"/></noscript></figure></div>
+<p>So, as you can see from the output, we are able to predict both gender and age with a high level of accuracy. Hope you liked this article on age and gender classification with the Python programming language. Please feel free to ask your valuable questions in the comments section below.</p>
+<!-- AI CONTENT END 1 -->
+</div>

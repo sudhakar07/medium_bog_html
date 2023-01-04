@@ -1,0 +1,70 @@
+<div class="entry-content">
+<p>If you are interested in developing a chatbot, you may find that there are many powerful bot development frameworks, tools, and platforms that can be used to implement smart chatbot programs. In this article, I’ll walk you through how to create a Chatbot with Python and Machine Learning.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<h2 class="wp-block-heading">How Does a Chatbot Work?</h2>
+<p>Since we will be developing a Chatbot with Python using Machine Learning, we need some data to train our model. But we’re not going to collect or download a large dataset since this is just a chatbot. We can just create our own dataset to train the model.</p>
+<p><strong><a href="https://thecleverprogrammer.com/2020/09/24/machine-learning-course/">Also, Read – Machine Learning Full Course For free.</a></strong></p>
+<p>To create this dataset to create a chatbot with Python, we need to understand what intents we are going to train. An “intention” is the user’s intention to interact with a chatbot or the intention behind every message the chatbot receives from a particular user.</p>
+<p>Therefore, it is important to understand the good intentions of your chatbot depending on the domain you will be working with. So why does he need to define these intentions? This is a very important point to understand.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<p>In order to answer questions asked by the users and perform various other tasks to continue conversations with the users, the chatbot really needs to understand what users are saying or having ‘intention to do. This is why your chatbot must understand the intentions behind users’ messages.</p>
+<p>How can you get your chatbot to understand the intentions so that users feel like they know what they want and provide accurate answers? The strategy here is to set different intents and create training samples for those intents and train your chatbot model with these sample training data as model training data (X) and intents in as model training categories (Y).</p>
+<h2 class="wp-block-heading">Create a Chatbot with Python and Machine Learning</h2>
+<p>To create a chatbot with Python and Machine Learning, you need to install some packages. All the packages you need to install to create a chatbot with Machine Learning using the Python programming language are mentioned below:</p>
+<ul><li><a href="https://www.tensorflow.org/install">tensorflow==2.3.1</a> </li><li><a href="http://nltk.org">nltk==3.5</a> </li><li><a href="https://pypi.org/project/colorama/">colorama==0.4.3</a> </li><li><a href="https://numpy.org/install/">numpy==1.18.5</a> </li><li><a href="https://scikit-learn.org/stable/install.html">scikit_learn==0.23.2</a> </li><li><a href="https://flask.palletsprojects.com/en/1.1.x/installation/">Flask==1.1.2</a></li></ul>
+<h4 class="wp-block-heading">Defining the Intentions of a Chatbot</h4>
+<p>Now we need to define a few simple intents and a group of messages that match those intents and also map some responses based on each intent category. I’ll create a JSON file named “intents.json” including this data as follows:</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/ec27cc4a49d8af21cf2fc31f334fe8a6.js"></script><noscript><a href="https://gist.github.com/amankharwal/ec27cc4a49d8af21cf2fc31f334fe8a6">View this gist on GitHub</a></noscript></div>
+<h4 class="wp-block-heading">Data preparation:</h4>
+<p>The second step of this task to create a chatbot with Python and Machine Learning is to prepare the data to train our chatbot. I’ll start this step by importing the necessary libraries and packages:</p>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/dc1cbaeacfcea6cf18174313bc804d48.js"></script><noscript><a href="https://gist.github.com/amankharwal/dc1cbaeacfcea6cf18174313bc804d48">View this gist on GitHub</a></noscript></div>
+<p>Now I will read the JSON file and process the required files:</p>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/859373acad0ed5d414afa52b3c182bad.js"></script><noscript><a href="https://gist.github.com/amankharwal/859373acad0ed5d414afa52b3c182bad">View this gist on GitHub</a></noscript></div>
+<p>Now we need to use the label encoder method provided by the Scikit-Learn library in Python:</p>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/0a2b144b5d0471cb4e9b9f838a035f9b.js"></script><noscript><a href="https://gist.github.com/amankharwal/0a2b144b5d0471cb4e9b9f838a035f9b">View this gist on GitHub</a></noscript></div>
+<h4 class="wp-block-heading">Tokenization:</h4>
+<p>Now we need to vectorize the data using the Tokenization method to create a chatbot with Python and Machine Learning:</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/80b82076a546b58053a29dbbe3b4e3ec.js"></script><noscript><a href="https://gist.github.com/amankharwal/80b82076a546b58053a29dbbe3b4e3ec">View this gist on GitHub</a></noscript></div>
+<h2 class="wp-block-heading">Training a Neural Network</h2>
+<p>Now the next and most important step in the process of building a chatbot with Python and Machine Learning is to train a neural network. Now, I will train and create a neural network to train our chatbot:</p>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/ab6fcf6a129ba8d50e47d7f2716b6bd6.js"></script><noscript><a href="https://gist.github.com/amankharwal/ab6fcf6a129ba8d50e47d7f2716b6bd6">View this gist on GitHub</a></noscript></div>
+<div class="wp-block-image"><figure class="aligncenter"><img alt="A neural network model for chatbot" class="jetpack-lazy-image" data-lazy-src="https://i0.wp.com/miro.medium.com/max/1971/1*TpeGTIoKmRdJ33tj_aj1Pw.png?w=1290&amp;is-pending-load=1#038;ssl=1" data-recalc-dims="1" decoding="async" src="https://i0.wp.com/miro.medium.com/max/1971/1*TpeGTIoKmRdJ33tj_aj1Pw.png?w=1290&amp;ssl=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"/><noscript><img alt="A neural network model for chatbot" data-lazy-fallback="1" data-recalc-dims="1" decoding="async" src="https://i0.wp.com/miro.medium.com/max/1971/1*TpeGTIoKmRdJ33tj_aj1Pw.png?w=1290&amp;ssl=1"/></noscript></figure></div>
+<h4 class="wp-block-heading">Saving The Neural Network:</h4>
+<p>We’ve trained the model, but before we go any further in the process of building a chatbot with Python and Machine Learning, let’s save the model so that we can use this neural network in the future as well:</p>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/5b0add1333fa487c7e5759e32cf746f9.js"></script><noscript><a href="https://gist.github.com/amankharwal/5b0add1333fa487c7e5759e32cf746f9">View this gist on GitHub</a></noscript></div>
+<h2 class="wp-block-heading">Now let’s Build a Chatbot with Python and our Trained Machine Learning Model</h2>
+<p>Now I am going to implement a chat function to interact with a real user. When the message from the user will be received, the chatbot will compute the similarity between the sequence of the new text and the training data.</p>
+<p>Taking into account the trust scores obtained for each category, it categorizes the user’s message according to an intention with the highest trust score:</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/e00a745472705f91e1724515a2075680.js"></script><noscript><a href="https://gist.github.com/amankharwal/e00a745472705f91e1724515a2075680">View this gist on GitHub</a></noscript></div>
+<div class="wp-block-image"><figure class="aligncenter"><img alt="Chatbot with Python and Machine Learning: Output" class="jetpack-lazy-image" data-lazy-src="https://i0.wp.com/miro.medium.com/max/915/1*Gh2GJmV4a5oda20o8M65JA.gif?w=1290&amp;is-pending-load=1#038;ssl=1" data-recalc-dims="1" decoding="async" src="https://i0.wp.com/miro.medium.com/max/915/1*Gh2GJmV4a5oda20o8M65JA.gif?w=1290&amp;ssl=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"/><noscript><img alt="Chatbot with Python and Machine Learning: Output" data-lazy-fallback="1" data-recalc-dims="1" decoding="async" src="https://i0.wp.com/miro.medium.com/max/915/1*Gh2GJmV4a5oda20o8M65JA.gif?w=1290&amp;ssl=1"/></noscript></figure></div>
+<p>This is how we can create a chatbot with Python and Machine Learning. Hope you liked this article on how to create a Chatbot with Python and Machine Learning. Please feel free to ask your valuable questions in the comments section below.</p>
+<!-- AI CONTENT END 1 -->
+</div>

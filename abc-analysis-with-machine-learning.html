@@ -1,0 +1,176 @@
+<div class="entry-content">
+<p>ABC analysis assumes that income-generating items in an inventory follow a Pareto distribution, where a very small percentage of items generate the most income. In this article, I’ll walk you through how we can perform ABC analysis with Machine Learning.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<h2 class="wp-block-heading">Conventions of ABC Analysis</h2>
+<p>Using the conventions of ABC analysis, an inventory item is assigned a letter based on its importance:</p>
+<p><strong><a href="https://thecleverprogrammer.com/2020/09/03/moving-averages-with-python/">Also, Read – Moving Averages with Python.</a></strong></p>
+<ul><li>A articles represent 20% of articles, but contribute 70% of revenue</li><li>B-articles represent 30% of articles, but contribute 25% of revenue</li><li>C articles represent 50% of articles, but contribute 5% of revenue</li></ul>
+<p>Keep in mind that these numbers are approximate and will vary widely depending on the actual distribution of sales. The main takeaway is that A items make up a small percentage of inventory but contribute the most to income, C items make up a large percentage of inventory but contribute the least to income and B items are somewhere around leaves in the middle.</p>
+<h2 class="wp-block-heading">Importance of ABC Analysis</h2>
+<p>Inventory planning and warehousing strategies of an organization rely on ABC analysis to make any key decisions. For example, a warehouse manager typically wants A items closest to the shipping docks to reduce the time it takes to pick them up. This increases productivity and reduces labour costs.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<h2 class="wp-block-heading">ABC Analysis with Machine Learning</h2>
+<p>The data used in this project comes from a popular online retailer dataset. The dataset only includes online sales of clothing throughout the summer. More importantly, it shows the number of units sold and the price sold, which will generate the revenue per item. The dataset can be easily downloaded from <strong><a href="https://github.com/amankharwal/Website-data/blob/master/summer-products-with-rating-and-performance_2020-08.csv">here</a></strong>.</p>
+<p>The goal of this project is to sort all the elements of the dataset into an ABC categorization based on their importance. When viewing the results, there should be relatively few A items that generate the majority of income and a large number of C items that do not generate much income.</p>
+<h2 class="wp-block-heading">Data Preparation</h2>
+<p>Now, let’s get started with this task with data preparation. I will start this off by importing the necessary packages and reading the dataset:</p>
+<pre aria-describedby="shcb-language-1" class="wp-block-code" data-shcb-language-name="PHP" data-shcb-language-slug="php"><link href="https://thecleverprogrammer.com/wp-content/plugins/syntax-highlighting-code-block/vendor/scrivo/highlight-php/styles/default.css?m=1609223562" id="all-css-539e691014497ed65749214592756e42" media="all" rel="stylesheet" type="text/css"/><style>.wp-block-code {
+	border: 0;
+	padding: 0;
+}
+
+.wp-block-code > div {
+	overflow: auto;
+}
+
+.shcb-language {
+	border: 0;
+	clip: rect(1px, 1px, 1px, 1px);
+	-webkit-clip-path: inset(50%);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+	word-wrap: normal;
+	word-break: normal;
+}
+
+.hljs {
+	box-sizing: border-box;
+}
+
+.hljs.shcb-code-table {
+	display: table;
+	width: 100%;
+}
+
+.hljs.shcb-code-table > .shcb-loc {
+	color: inherit;
+	display: table-row;
+	width: 100%;
+}
+
+.hljs.shcb-code-table .shcb-loc > span {
+	display: table-cell;
+}
+
+.wp-block-code code.hljs:not(.shcb-wrap-lines) {
+	white-space: pre;
+}
+
+.wp-block-code code.hljs.shcb-wrap-lines {
+	white-space: pre-wrap;
+}
+
+.hljs.shcb-line-numbers {
+	border-spacing: 0;
+	counter-reset: line;
+}
+
+.hljs.shcb-line-numbers > .shcb-loc {
+	counter-increment: line;
+}
+
+.hljs.shcb-line-numbers .shcb-loc > span {
+	padding-left: 0.75em;
+}
+
+.hljs.shcb-line-numbers .shcb-loc::before {
+	border-right: 1px solid #ddd;
+	content: counter(line);
+	display: table-cell;
+	padding: 0 0.75em;
+	text-align: right;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	white-space: nowrap;
+	width: 1%;
+}
+</style><div><code class="hljs language-php"><span class="hljs-comment"># Import libraries</span>
+import pandas <span class="hljs-keyword">as</span> pd
+import numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-comment"># read the data to a dataframe</span>
+df = pd.read_csv(<span class="hljs-string">"Summer_Sales.csv"</span>)</code></div><small class="shcb-language" id="shcb-language-1"><span class="shcb-language__label">Code language:</span> <span class="shcb-language__name">PHP</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">php</span><span class="shcb-language__paren">)</span></small></pre>
+<p>I will add a new column to the data for revenue by simply multiplying the number of units sold by the price. It is possible that the price has changed over time, especially when flash sales have taken place, but without additional data to analyze, it is assumed that all items sold at a single, stable price:</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<pre aria-describedby="shcb-language-2" class="wp-block-code" data-shcb-language-name="JavaScript" data-shcb-language-slug="javascript"><div><code class="hljs language-javascript">df[<span class="hljs-string">"revenue"</span>] = df[<span class="hljs-string">"units_sold"</span>] * df[<span class="hljs-string">"price"</span>]</code></div><small class="shcb-language" id="shcb-language-2"><span class="shcb-language__label">Code language:</span> <span class="shcb-language__name">JavaScript</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">javascript</span><span class="shcb-language__paren">)</span></small></pre>
+<p>Now, lets visualize the revenue by using the seaborn package in python:</p>
+<pre aria-describedby="shcb-language-3" class="wp-block-code" data-shcb-language-name="JavaScript" data-shcb-language-slug="javascript"><div><code class="hljs language-javascript"><span class="hljs-keyword">import</span> seaborn <span class="hljs-keyword">as</span> sns
+sns.distplot(df[<span class="hljs-string">"revenue"</span>])</code></div><small class="shcb-language" id="shcb-language-3"><span class="shcb-language__label">Code language:</span> <span class="shcb-language__name">JavaScript</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">javascript</span><span class="shcb-language__paren">)</span></small></pre>
+<div class="wp-block-image"><figure class="aligncenter is-resized"><img alt="Image for post" class="jetpack-lazy-image" data-lazy-src="https://i0.wp.com/miro.medium.com/max/648/1*9bxddk2MYmZEOKYdfU9NeA.png?resize=566%2C377&amp;is-pending-load=1#038;ssl=1" data-recalc-dims="1" decoding="async" height="377" src="https://i0.wp.com/miro.medium.com/max/648/1*9bxddk2MYmZEOKYdfU9NeA.png?resize=566%2C377&amp;ssl=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="566"/><noscript><img alt="Image for post" data-lazy-fallback="1" data-recalc-dims="1" decoding="async" height="377" src="https://i0.wp.com/miro.medium.com/max/648/1*9bxddk2MYmZEOKYdfU9NeA.png?resize=566%2C377&amp;ssl=1" width="566"/></noscript></figure></div>
+<p>The graph above shows the Pareto distribution found in the data. The vast majority of articles generate less than € 200,000 in sales. At the same time, it shows that some of the items sell for between € 400,000 and € 800,000, which is contributing in the majority of the revenue.</p>
+<p>Now, I’m going to define a function to categorize the amount of income generated by an item into bins, and then I’ll apply it to the data:</p>
+<pre aria-describedby="shcb-language-4" class="wp-block-code" data-shcb-language-name="PHP" data-shcb-language-slug="php"><div><code class="hljs language-php">def bins(x):
+    <span class="hljs-keyword">for</span> bar in range(<span class="hljs-number">20000</span>, <span class="hljs-number">820000</span>, <span class="hljs-number">20000</span>):
+        <span class="hljs-keyword">if</span> x &amp;lt;= bar:
+            <span class="hljs-keyword">return</span> bar
+<span class="hljs-comment"># Create new column to apply the bin function</span>
+df[<span class="hljs-string">"rev_dist"</span>] = df[<span class="hljs-string">"revenue"</span>].apply(lambda x: bins(x))</code></div><small class="shcb-language" id="shcb-language-4"><span class="shcb-language__label">Code language:</span> <span class="shcb-language__name">PHP</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">php</span><span class="shcb-language__paren">)</span></small></pre>
+<p>Now I’m going to create a pivot table to list the number of items that fall into each category:</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<pre aria-describedby="shcb-language-5" class="wp-block-code" data-shcb-language-name="PHP" data-shcb-language-slug="php"><div><code class="hljs language-php">df[<span class="hljs-string">"count"</span>] = <span class="hljs-number">1</span>
+<span class="hljs-comment"># Create a pivot table of the revenue distributions</span>
+pivot_table = pd.pivot_table(df, index = [<span class="hljs-string">"rev_dist"</span>], values = [<span class="hljs-string">"count"</span>], aggfunc = np.sum)</code></div><small class="shcb-language" id="shcb-language-5"><span class="shcb-language__label">Code language:</span> <span class="shcb-language__name">PHP</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">php</span><span class="shcb-language__paren">)</span></small></pre>
+<h2 class="wp-block-heading">Applying Machine Learning Algorithm</h2>
+<p>To properly train the model, it is not enough to just look at the income generated by each item. He must also know how income is distributed. This pivot table provides a very manageable data set that the model can train on. I will use the K-Means Clustering algorithm for this task of ABC Analysis:</p>
+<pre aria-describedby="shcb-language-6" class="wp-block-code" data-shcb-language-name="PHP" data-shcb-language-slug="php"><div><code class="hljs language-php"><span class="hljs-comment"># import model from SKLearn</span>
+from sklearn.cluster import KMeans
+<span class="hljs-comment"># K -clusters is equal to 3 because things will be sorted into A, B, and C</span>
+kmeans = KMeans(n_clusters=<span class="hljs-number">3</span>)
+kmeans.fit(pivot_table)</code></div><small class="shcb-language" id="shcb-language-6"><span class="shcb-language__label">Code language:</span> <span class="shcb-language__name">PHP</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">php</span><span class="shcb-language__paren">)</span></small></pre>
+<p>I will now add a new column to the pivot table giving the classification of the model. It should be noted that by default, scikit-learn’s K-means algorithm will rank items on a numeric scale instead of the alphabetical scale used in the ABC analysis. Therefore, each row will be labelled as zero, one, or two:</p>
+<pre aria-describedby="shcb-language-7" class="wp-block-code" data-shcb-language-name="JavaScript" data-shcb-language-slug="javascript"><div><code class="hljs language-javascript">pivot_table[<span class="hljs-string">"category"</span>] = kmeans.labels_</code></div><small class="shcb-language" id="shcb-language-7"><span class="shcb-language__label">Code language:</span> <span class="shcb-language__name">JavaScript</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">javascript</span><span class="shcb-language__paren">)</span></small></pre>
+<p>Now, I will define a new dictionary to classify each row for the task of ABC analysis:</p>
+<pre aria-describedby="shcb-language-8" class="wp-block-code" data-shcb-language-name="JavaScript" data-shcb-language-slug="javascript"><div><code class="hljs language-javascript">ABC_dict = {    
+    <span class="hljs-number">0</span>: <span class="hljs-string">"A"</span>,
+    <span class="hljs-number">1</span>: <span class="hljs-string">"C"</span>,
+    <span class="hljs-number">2</span>: <span class="hljs-string">"B"</span>
+}
+pivot_table[<span class="hljs-string">"ABC"</span>] = pivot_table[<span class="hljs-string">"category"</span>].apply(lambda x: ABC_dict[x])</code></div><small class="shcb-language" id="shcb-language-8"><span class="shcb-language__label">Code language:</span> <span class="shcb-language__name">JavaScript</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">javascript</span><span class="shcb-language__paren">)</span></small></pre>
+<p>Now, remember that the model was trained on a pivot table. The elements have not yet been assigned an ABC classification. Instead, it was assigned an income classification:</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<pre aria-describedby="shcb-language-9" class="wp-block-code" data-shcb-language-name="JavaScript" data-shcb-language-slug="javascript"><div><code class="hljs language-javascript">df = pd.merge(df, pivot_table, on = <span class="hljs-string">"rev_dist"</span>, how =<span class="hljs-string">"left"</span>)</code></div><small class="shcb-language" id="shcb-language-9"><span class="shcb-language__label">Code language:</span> <span class="shcb-language__name">JavaScript</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">javascript</span><span class="shcb-language__paren">)</span></small></pre>
+<p>This means that while we don’t immediately know which items fall into Category A, we do know that some income classifications are classified as A Items. As a result, we can just merge the main data frame and the PivotTable to give each item its ABC classification.</p>
+<p>When analyzing the final distribution of the elements, it was found that:</p>
+<ul><li>A-items represent 11.4% of articles, but 61.7% of turnover</li><li>B-items represent 20.5% of items, but 30.7% of turnover</li><li>C articles represent 68.1% of articles, but 7.6% of turnover</li></ul>
+<p><strong><a href="https://thecleverprogrammer.com/2020/09/02/edge-ai-in-machine-learning/">Also, Read – Edge AI in Machine Learning.</a></strong></p>
+<p>I hope you liked this article on ABC analysis with Machine Learning. Feel free to ask your valuable questions in the comments section below. You can also follow me on <strong><a href="https://medium.com/@amankharwal">Medium</a></strong> to learn every topic of Machine Learning.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<h4 class="wp-block-heading">Follow Us:</h4>
+<!-- AI CONTENT END 1 -->
+</div>

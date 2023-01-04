@@ -1,0 +1,50 @@
+<div class="entry-content">
+<p>In this article, I will walk you through the task of Global Pandemic COVID 19 Analysis with Python. COVID-19 does not need to be introduced, it is the latest infectious disease to take hold of the whole world. So, have you wondered how the world has changed in recent months? Let’s visualize this change over the months in different countries spread by the COVID 19 pandemic.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<p>In this article, I will use the Choropleth maps, for the task of COVID 19 analysis with Python, as by using Choropleth maps we can analyze the spread across different countries with much less code.</p>
+<p><strong><a href="https://thecleverprogrammer.com/2020/09/24/machine-learning-course/">Also, Read – Machine Learning Full Course For free.</a></strong></p>
+<h2 class="wp-block-heading">What are Choropleth Maps?</h2>
+<p>The Choropleth maps split the different geographical regions based on statistical data or any other data variable. It is a type of thematic map where different regions are shaded according to the variable considered and the proportion of representation of the variable for a region.</p>
+<p>For example, consider the image below which shows the GDP per capita in different countries. The map uses a colour gradation of GDP per capita to denote the different countries on the map below.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<div class="wp-block-image"><figure class="aligncenter"><img alt="Choropleth Maps" class="jetpack-lazy-image" data-lazy-src="https://i0.wp.com/miro.medium.com/max/1244/1*lBxF9txczYooKtKnB8NLrA.png?w=1290&amp;is-pending-load=1#038;ssl=1" data-recalc-dims="1" decoding="async" src="https://i0.wp.com/miro.medium.com/max/1244/1*lBxF9txczYooKtKnB8NLrA.png?w=1290&amp;ssl=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"/><noscript><img alt="Choropleth Maps" data-lazy-fallback="1" data-recalc-dims="1" decoding="async" src="https://i0.wp.com/miro.medium.com/max/1244/1*lBxF9txczYooKtKnB8NLrA.png?w=1290&amp;ssl=1"/></noscript></figure></div>
+<h2 class="wp-block-heading">COVID 19 Analysis with Python using Folium</h2>
+<p>Folium is a library in Python that can be used to visualize geospatial data. Leaflet.js is a JavaScript library for creating maps and Folium combines the features of Leaflet with the data management capabilities of python to create beautiful interactive maps.</p>
+<p>Folium helps link data to create maps like choropleth and also activates marker functionality with HTML visualizations. Different map projections are also available like orthographic, natural earth, etc. and different map tiles like MapBox, StamenToner, among others.</p>
+<p>Now consider the global COVID 19 dataset to create a choropleth map, you can download the dataset that I am using in this task from <strong><a href="https://github.com/CSSEGISandData/COVID-19">here</a></strong>.</p>
+<h2 class="wp-block-heading">COVID 19 Analysis with Python</h2>
+<p>Now let’s start with the task of COVID 19 analysis with Python. First, we need to generate a base map. The following code can be used for this:</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/968a0d61447128dc976e0dbb1ec3ef34.js"></script><noscript><a href="https://gist.github.com/amankharwal/968a0d61447128dc976e0dbb1ec3ef34">View this gist on GitHub</a></noscript></div>
+<div class="wp-block-image"><figure class="aligncenter"><img alt="Python Folium" class="jetpack-lazy-image" data-lazy-src="https://i0.wp.com/miro.medium.com/max/1808/1*OU7a2vByepwBppXV8IBVSw.png?w=1290&amp;is-pending-load=1#038;ssl=1" data-recalc-dims="1" decoding="async" src="https://i0.wp.com/miro.medium.com/max/1808/1*OU7a2vByepwBppXV8IBVSw.png?w=1290&amp;ssl=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"/><noscript><img alt="Python Folium" data-lazy-fallback="1" data-recalc-dims="1" decoding="async" src="https://i0.wp.com/miro.medium.com/max/1808/1*OU7a2vByepwBppXV8IBVSw.png?w=1290&amp;ssl=1"/></noscript></figure></div>
+<p>Now we need to get the geodata and then generate the choropleth map layer:</p>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/09c07bf7b34f2cd94996e8f915b036af.js"></script><noscript><a href="https://gist.github.com/amankharwal/09c07bf7b34f2cd94996e8f915b036af">View this gist on GitHub</a></noscript></div>
+<p>We will now add markers with details of the confirmed cases for each country with that code. Markers can be customized, here I am using circular markers:</p>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/77b54495aec876d494be9058b96955be.js"></script><noscript><a href="https://gist.github.com/amankharwal/77b54495aec876d494be9058b96955be">View this gist on GitHub</a></noscript></div>
+<p>This is the final result with markers for confirmed and recovered cases. We can hover over the markers to see the number of confirmed and recovered cases by country. In the graphic below, the India marker is highlighted:</p>
+<div class="wp-block-image"><figure class="aligncenter"><img alt="COVID 19 Analysis" class="jetpack-lazy-image" data-lazy-src="https://i0.wp.com/miro.medium.com/max/1826/1*EuXu280GOwCKly8SOW5XRA.png?w=1290&amp;is-pending-load=1#038;ssl=1" data-recalc-dims="1" decoding="async" src="https://i0.wp.com/miro.medium.com/max/1826/1*EuXu280GOwCKly8SOW5XRA.png?w=1290&amp;ssl=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"/><noscript><img alt="COVID 19 Analysis" data-lazy-fallback="1" data-recalc-dims="1" decoding="async" src="https://i0.wp.com/miro.medium.com/max/1826/1*EuXu280GOwCKly8SOW5XRA.png?w=1290&amp;ssl=1"/></noscript></figure></div>
+<p>I hope you liked this article on the pandemic COVID 19 analysis with Python. Feel free to ask your valuable questions in the comments section below.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<h4 class="wp-block-heading">Follow Us:</h4>
+<!-- AI CONTENT END 1 -->
+</div>

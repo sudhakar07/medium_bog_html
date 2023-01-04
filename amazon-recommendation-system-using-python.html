@@ -1,0 +1,57 @@
+<div class="entry-content">
+<p><strong><em><a href="https://thecleverprogrammer.com/2021/02/24/recommendation-system-projects-using-python/">Recommendation Systems</a></em></strong> are one of the widely used applications of Data Science in most companies based on products and online services. Amazon is a great example of such companies. Being an online shopping website Amazon needs to generate personalised recommendations to provide a better user experience. In this article, I will take you through how to create an Amazon Recommendation System using Python.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<h2 class="wp-block-heading">Amazon Recommendation System</h2>
+<p>The Recommendation System of Amazon follows the principle of generating product based recommendations which means measuring the similarities between two products and then recommend the most similar products to each user. The methods of measuring similarities between two products have always been a major focus of researchers.</p>
+<p>But when it comes to a website like Amazon, it needs to add more criteria to recommend products to the users such as the quality of the product. A good quality product will always have a good collection of reviews so we can use both the similarity score and product reviews to generate recommendations. In the section below, I will take you through how to create an Amazon Recommendation System using Python.</p>
+<h2 class="wp-block-heading">Amazon Recommendation System using Python</h2>
+<p>I will try to use the fewer Python libraries I can for creating this recommendation system. To work with data I will be using only pandas and NumPy library in Python. So let’s import the data and see how to create an Amazon Recommendation System using Python:</p>
+<div class="wp-block-buttons is-layout-flex">
+<div class="wp-block-button is-style-circular"><a class="wp-block-button__link" href="https://www.kaggle.com/saurav9786/amazon-product-reviews/download"><strong><em>Dataset</em></strong></a></div>
+</div>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"showPanel":false,"language":"Python","modeName":"python"}'>import numpy as np
+import pandas as pd
+
+data = pd.read_csv("amazon.csv")
+print(data.head())</pre></div>
+<pre class="wp-block-preformatted">    AKM1MP6P0OYPR  0132793040  5.0  1365811200
+0  A2CX7LUOHB2NDG  0321732944  5.0  1341100800
+1  A2NWSAGRHCP8N5  0439886341  1.0  1367193600
+2  A2WNBOD3WNDNKT  0439886341  3.0  1374451200
+3  A1GI0U4ZRJA8WN  0439886341  1.0  1334707200
+4  A1QGNMC6O1VW39  0511189877  5.0  1397433600</pre>
+<p>The dataset that I am using here does not have columns names, so let’s give the most appropriate names to these columns:</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"showPanel":false,"language":"Python","modeName":"python"}'>data.columns = ['user_id', 'product_id','ratings','timestamp']</pre></div>
+<p>This dataset is very large so I will select a sample:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"showPanel":false,"language":"Python","modeName":"python"}'>df = data[:int(len(data) * .1)]</pre></div>
+<p>Now let’s prepare the dataset for creating a recommendation system:</p>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/fd50331f21af837364fd759bae533fa6.js"></script><noscript><a href="https://gist.github.com/amankharwal/fd50331f21af837364fd759bae533fa6">View this gist on GitHub</a></noscript></div>
+<p>Now I will write a Python function to generate recommendations based on the score of the product reviews:</p>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/5643f671184bbb2eb92c2e31150e068d.js"></script><noscript><a href="https://gist.github.com/amankharwal/5643f671184bbb2eb92c2e31150e068d">View this gist on GitHub</a></noscript></div>
+<pre class="wp-block-preformatted">      user_id  product_id  score  Rank
+113        11  B00004SB92      6   1.0
+1099       11  B00008OE6I      5   2.0
+368        11  B00005AW1H      4   3.0
+612        11  B0000645C9      4   4.0
+976        11  B00007KDVI      4   5.0</pre>
+<h3 class="wp-block-heading">Summary</h3>
+<p>This is how we can create an Amazon Recommender System using Python. This dataset does not have names of products in it, it only had product id so the score of the product reviews becomes the most important feature for such kinds of datasets. I hope you like this article on how to create an Amazon Recommender System using Python. Feel free to ask your valuable questions in the comments section below.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<!-- AI CONTENT END 1 -->
+</div>

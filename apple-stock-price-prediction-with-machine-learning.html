@@ -1,0 +1,63 @@
+<div class="entry-content">
+<p>Apple has just announced the date of its September event when it is about to launch the new iPhone 13. It is currently the center of attention on the stock market. Stock market analysis is one of the popular applications of machine learning because we can predict stock prices using machine learning. So if you want to learn how to predict the stock prices of Apple with machine learning, this article is for you. In this article, I will walk you through the task of Apple stock price prediction with machine learning using Python.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<h2 class="wp-block-heading">Apple Stock Price Prediction</h2>
+<p>The September event of Apple is one of the favourite events for all Apple users, as iPhones are mainly launched during the September event. It is therefore announced by Apple that they are set to launch the new iPhone 13 on September 14. So many stock market investors can find this as an opportunity to buy Apple stock, because every time a company comes up with an innovative product, it leads to an increase in its stock price. So with that in mind, we can say that this is the best time to analyze Apple’s stock prices.</p>
+<p>For the Apple stock price prediction task, you need to download an Apple stock price dataset. To download a dataset for this task, follow the steps mentioned below:</p>
+<ol><li>Visit <a href="https://finance.yahoo.com/quote/AAPL/" rel="noreferrer noopener" target="_blank"><strong>Yahoo Finance</strong></a></li><li>Search for Apple or AAPL (it’s the stock symbol of Apple)</li><li>Then click on Historical data</li><li>And at last click on <a href="https://query1.finance.yahoo.com/v7/finance/download/AAPL?period1=1599565949&amp;period2=1631101949&amp;interval=1d&amp;events=history&amp;includeAdjustedClose=true" rel="noreferrer noopener" target="_blank"><strong>download</strong></a></li></ol>
+<p>After these steps, you will see a CSV file in your download folder. Now, in the section below, I will walk you through the task of Apple Stock Price Prediction with Machine Learning using Python.</p>
+<h2 class="wp-block-heading">Apple Stock Price Prediction using Python</h2>
+<p>Let’s start the task of predicting the stock prices of apple by importing the necessary Python libraries and the dataset:</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/aec155e61cc716d46b411e8258ca6a26.js"></script><noscript><a href="https://gist.github.com/amankharwal/aec155e61cc716d46b411e8258ca6a26">View this gist on GitHub</a></noscript></div>
+<pre class="wp-block-preformatted"><strong>         Date        Open        High  ...       Close   Adj Close     Volume
+0  2020-09-08  113.949997  118.989998  ...  112.820000  112.098999  231366600
+1  2020-09-09  117.260002  119.139999  ...  117.320000  116.570236  176940500
+2  2020-09-10  120.360001  120.500000  ...  113.489998  112.764717  182274400
+3  2020-09-11  114.570000  115.230003  ...  112.000000  111.284241  180860300
+4  2020-09-14  114.720001  115.930000  ...  115.360001  114.622765  140150100
+
+[5 rows x 7 columns]</strong></pre>
+<p>Now let’s visualize this stock price data to get a clear picture of the increase and decrease of stock prices of apple:</p>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/2877996e0ef8aec45eb2deb3759ae86b.js"></script><noscript><a href="https://gist.github.com/amankharwal/2877996e0ef8aec45eb2deb3759ae86b">View this gist on GitHub</a></noscript></div>
+<div class="wp-block-image"><figure class="aligncenter size-large"><img alt="Apple Stock Price Prediction" class="wp-image-15575 jetpack-lazy-image" data-attachment-id="15575" data-comments-opened="1" data-image-caption="" data-image-description="" data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}' data-image-title="apple" data-large-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/09/apple.png?fit=1024%2C483&amp;ssl=1" data-lazy-sizes="(max-width: 1024px) 100vw, 1024px" data-lazy-src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/09/apple.png?resize=1024%2C483&amp;is-pending-load=1#038;ssl=1" data-lazy-srcset="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/09/apple.png?resize=1024%2C483&amp;ssl=1 1024w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/09/apple.png?resize=300%2C141&amp;ssl=1 300w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/09/apple.png?resize=768%2C362&amp;ssl=1 768w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/09/apple.png?resize=1200%2C566&amp;ssl=1 1200w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/09/apple.png?w=1230&amp;ssl=1 1230w" data-medium-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/09/apple.png?fit=300%2C141&amp;ssl=1" data-orig-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/09/apple.png?fit=1230%2C580&amp;ssl=1" data-orig-size="1230,580" data-permalink="https://thecleverprogrammer.com/2021/09/08/apple-stock-price-prediction-with-machine-learning/apple/" data-recalc-dims="1" decoding="async" height="483" src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/09/apple.png?resize=1024%2C483&amp;ssl=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="1024"/><noscript><img alt="Apple Stock Price Prediction" class="wp-image-15575" data-attachment-id="15575" data-comments-opened="1" data-image-caption="" data-image-description="" data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}' data-image-title="apple" data-large-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/09/apple.png?fit=1024%2C483&amp;ssl=1" data-lazy-fallback="1" data-medium-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/09/apple.png?fit=300%2C141&amp;ssl=1" data-orig-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/09/apple.png?fit=1230%2C580&amp;ssl=1" data-orig-size="1230,580" data-permalink="https://thecleverprogrammer.com/2021/09/08/apple-stock-price-prediction-with-machine-learning/apple/" data-recalc-dims="1" decoding="async" height="483" sizes="(max-width: 1024px) 100vw, 1024px" src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/09/apple.png?resize=1024%2C483&amp;ssl=1" srcset="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/09/apple.png?resize=1024%2C483&amp;ssl=1 1024w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/09/apple.png?resize=300%2C141&amp;ssl=1 300w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/09/apple.png?resize=768%2C362&amp;ssl=1 768w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/09/apple.png?resize=1200%2C566&amp;ssl=1 1200w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/09/apple.png?w=1230&amp;ssl=1 1230w" width="1024"/></noscript></figure></div>
+<p>Now let’s have a look at the correlation between the features in this dataset:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"showPanel":false,"language":"Python","modeName":"python"}'>print(data.corr())</pre></div>
+<pre class="wp-block-preformatted"><strong>               Open      High       Low     Close  Adj Close    Volume
+Open       1.000000  0.994551  0.993183  0.986214   0.986177 -0.466464
+High       0.994551  1.000000  0.992951  0.993586   0.993307 -0.440943
+Low        0.993183  0.992951  1.000000  0.993915   0.994187 -0.517453
+Close      0.986214  0.993586  0.993915  1.000000   0.999899 -0.489536
+Adj Close  0.986177  0.993307  0.994187  0.999899   1.000000 -0.493909
+Volume    -0.466464 -0.440943 -0.517453 -0.489536  -0.493909  1.000000</strong></pre>
+<p>Now let’s move to the task of predicting Apple stock prices. Here I will be using the <strong><a href="https://thecleverprogrammer.com/2021/04/19/autots-in-python-tutorial/">autots</a></strong> library in Python to predict the stock prices of apple for the next 5 days. If you have never used it before, then you can easily install it, by using the pip command:</p>
+<ul><li><strong>pip install autots</strong></li></ul>
+<p>Now below is how you can predict the stock prices of apple:</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/cba893f7744ec28bf4e920845d3d008e.js"></script><noscript><a href="https://gist.github.com/amankharwal/cba893f7744ec28bf4e920845d3d008e">View this gist on GitHub</a></noscript></div>
+<pre class="wp-block-preformatted"><strong>                 Close
+2021-09-08  157.595000
+2021-09-09  158.491248
+2021-09-10  157.846256
+2021-09-13  158.758755
+2021-09-14  159.934376</strong></pre>
+<p>So this is how you can use machine learning for predicting stock prices.</p>
+<h3 class="wp-block-heading">Summary</h3>
+<p>So this is how you can predict the stock prices of Apple with machine learning by using the Python programming language. Stock market analysis is one of the popular applications of machine learning because we can predict stock prices using machine learning. I hope you liked this article on Apple Stock Price Prediction with Machine Learning using Python. Feel free to ask your valuable questions in the comments section below.</p>
+<!-- AI CONTENT END 1 -->
+</div>

@@ -1,0 +1,135 @@
+<div class="entry-content">
+<p>Have you ever thought about how the autocorrect features works in the keyboard of a smartphone? Almost every smartphone brand irrespective of its price provides an autocorrect feature in their keyboards today. So let’s understand how the autocorrect features works. In this article, I will take you through how to build autocorrect with Python.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<h2 class="wp-block-heading">Autocorrect with Python: How It Works?</h2>
+<div class="wp-block-image"><figure class="aligncenter size-large"><img alt="autocorrect" class="wp-image-8013 jetpack-lazy-image" data-attachment-id="8013" data-comments-opened="1" data-image-caption="" data-image-description="" data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}' data-image-title="autcorrect" data-large-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/10/autcorrect.jpeg?fit=720%2C682&amp;ssl=1" data-lazy-sizes="(max-width: 720px) 100vw, 720px" data-lazy-src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/10/autcorrect.jpeg?resize=720%2C682&amp;is-pending-load=1#038;ssl=1" data-lazy-srcset="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/10/autcorrect.jpeg?w=720&amp;ssl=1 720w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/10/autcorrect.jpeg?resize=300%2C284&amp;ssl=1 300w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/10/autcorrect.jpeg?resize=600%2C568&amp;ssl=1 600w" data-medium-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/10/autcorrect.jpeg?fit=300%2C284&amp;ssl=1" data-orig-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/10/autcorrect.jpeg?fit=720%2C682&amp;ssl=1" data-orig-size="720,682" data-permalink="https://thecleverprogrammer.com/2020/10/04/autocorrect-with-python/autcorrect/" data-recalc-dims="1" decoding="async" height="682" src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/10/autcorrect.jpeg?resize=720%2C682&amp;ssl=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="720"/><noscript><img alt="autocorrect" class="wp-image-8013" data-attachment-id="8013" data-comments-opened="1" data-image-caption="" data-image-description="" data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}' data-image-title="autcorrect" data-large-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/10/autcorrect.jpeg?fit=720%2C682&amp;ssl=1" data-lazy-fallback="1" data-medium-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/10/autcorrect.jpeg?fit=300%2C284&amp;ssl=1" data-orig-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/10/autcorrect.jpeg?fit=720%2C682&amp;ssl=1" data-orig-size="720,682" data-permalink="https://thecleverprogrammer.com/2020/10/04/autocorrect-with-python/autcorrect/" data-recalc-dims="1" decoding="async" height="682" sizes="(max-width: 720px) 100vw, 720px" src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/10/autcorrect.jpeg?resize=720%2C682&amp;ssl=1" srcset="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/10/autcorrect.jpeg?w=720&amp;ssl=1 720w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/10/autcorrect.jpeg?resize=300%2C284&amp;ssl=1 300w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/10/autcorrect.jpeg?resize=600%2C568&amp;ssl=1 600w" width="720"/></noscript></figure></div>
+<p>With the context of machine learning, autocorrect is based on natural language processing. As the name suggests it is programmed to correct spellings and errors while typing. So how it works?</p>
+<p><strong><a href="https://thecleverprogrammer.com/2020/09/24/machine-learning-course/">Also, Read – Machine Learning Full Course for free.</a></strong></p>
+<p>Before I get into the coding stuff let’s understand how autocorrect works. Let’s say you typed a word in your keyboard if the word will exist in the vocabulary of our smartphone then it will assume that you have written the right word. Now it doesn’t matter whether you write a name, a noun or any word on the planet.</p>
+<p>If the word exists in the history of the smartphone, it will generalize the word as a correct word. What if the word doesn’t exist? If the word that you typed is a non-existing word in the history of our smartphone then the autocorrect is programmed to find the most similar words in the history of our smartphone.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<h2 class="wp-block-heading">Build an Autocorrect with Python</h2>
+<p>I hope you now know what autocorrect is and how it works. Now let’s see how we can build an autocorrect feature with Python. Like our smartphone uses history to match the type words whether it’s correct or not. So here we also need to use some words to put the functionality in our autocorrect.</p>
+<p>So I will use the text from a book which you can easily download from <a href="https://github.com/amankharwal/Website-data/blob/master/book.txt"><strong>here</strong></a>. Now let’s get started with the task to build an autocorrect with Python.</p>
+<p>For this task, we need some libraries. The libraries that I am going to use are very general as a machine learning practitioner. So you must be having all the libraries installed in your system already except one. You need to install a library known as textdistance, which can be easily installed by using the pip command; pip install textdistance.</p>
+<p>Now let’s get started with this task by importing all the necessary packages and by reading our text file:</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/6867461f16f3fc760eb3c61c752ebde8.js"></script><noscript><a href="https://gist.github.com/amankharwal/6867461f16f3fc760eb3c61c752ebde8">View this gist on GitHub</a></noscript></div>
+<pre class="wp-block-preformatted"><strong>The first ten words in the text are: 
+['moby', 'dick', 'by', 'herman', 'melville', '1851', 'etymology', 'supplied', 'by', 'a']
+There are 17140 unique words in the vocabulary.</strong></pre>
+<p>In the above code, we made a list of words, and now we need to build the frequency of those words, which can be easily done by using the counter function in Python:</p>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/b7bd591edf34962b13b932b4c04be4e9.js"></script><noscript><a href="https://gist.github.com/amankharwal/b7bd591edf34962b13b932b4c04be4e9">View this gist on GitHub</a></noscript></div>
+<pre class="wp-block-preformatted"><strong>[('the', 14431), ('of', 6609), ('and', 6430), ('a', 4736), ('to', 4625), ('in', 4172), ('that', 3085), ('his', 2530), ('it', 2522), ('i', 2127)]</strong></pre>
+<h2 class="wp-block-heading">Relative Frequency of words</h2>
+<p>Now we want to get the probability of occurrence of each word, this equals the relative frequencies of the words:</p>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/a4d949bc062695cf8a28a592e0e466ea.js"></script><noscript><a href="https://gist.github.com/amankharwal/a4d949bc062695cf8a28a592e0e466ea">View this gist on GitHub</a></noscript></div>
+<h2 class="wp-block-heading">Finding Similar Words</h2>
+<p>Now we will sort similar words according to the Jaccard distance by calculating the 2 grams Q of the words. Next, we will return the 5 most similar words ordered by similarity and probability:</p>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/769460f85a59366c54c146e6fd93674d.js"></script><noscript><a href="https://gist.github.com/amankharwal/769460f85a59366c54c146e6fd93674d">View this gist on GitHub</a></noscript></div>
+<p>Now, let’s find the similar words by using our autocorrect function:</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<pre aria-describedby="shcb-language-1" class="wp-block-code" data-shcb-language-name="JavaScript" data-shcb-language-slug="javascript"><link href="https://thecleverprogrammer.com/wp-content/plugins/syntax-highlighting-code-block/vendor/scrivo/highlight-php/styles/default.css?m=1609223562" id="all-css-539e691014497ed65749214592756e42" media="all" rel="stylesheet" type="text/css"/><style>.wp-block-code {
+	border: 0;
+	padding: 0;
+}
+
+.wp-block-code > div {
+	overflow: auto;
+}
+
+.shcb-language {
+	border: 0;
+	clip: rect(1px, 1px, 1px, 1px);
+	-webkit-clip-path: inset(50%);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+	word-wrap: normal;
+	word-break: normal;
+}
+
+.hljs {
+	box-sizing: border-box;
+}
+
+.hljs.shcb-code-table {
+	display: table;
+	width: 100%;
+}
+
+.hljs.shcb-code-table > .shcb-loc {
+	color: inherit;
+	display: table-row;
+	width: 100%;
+}
+
+.hljs.shcb-code-table .shcb-loc > span {
+	display: table-cell;
+}
+
+.wp-block-code code.hljs:not(.shcb-wrap-lines) {
+	white-space: pre;
+}
+
+.wp-block-code code.hljs.shcb-wrap-lines {
+	white-space: pre-wrap;
+}
+
+.hljs.shcb-line-numbers {
+	border-spacing: 0;
+	counter-reset: line;
+}
+
+.hljs.shcb-line-numbers > .shcb-loc {
+	counter-increment: line;
+}
+
+.hljs.shcb-line-numbers .shcb-loc > span {
+	padding-left: 0.75em;
+}
+
+.hljs.shcb-line-numbers .shcb-loc::before {
+	border-right: 1px solid #ddd;
+	content: counter(line);
+	display: table-cell;
+	padding: 0 0.75em;
+	text-align: right;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	white-space: nowrap;
+	width: 1%;
+}
+</style><div><code class="hljs language-javascript">my_autocorrect(<span class="hljs-string">'neverteless'</span>)</code></div><small class="shcb-language" id="shcb-language-1"><span class="shcb-language__label">Code language:</span> <span class="shcb-language__name">JavaScript</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">javascript</span><span class="shcb-language__paren">)</span></small></pre>
+<figure class="wp-block-table is-style-stripes"><table><tbody><tr><td></td><td><strong>Word</strong></td><td><strong>Prob</strong></td><td><strong>Similarity</strong></td></tr><tr><td>2209</td><td>nevertheless</td><td>0.000229</td><td>0.750000</td></tr><tr><td>13300</td><td>boneless</td><td>0.000014</td><td>0.416667</td></tr><tr><td>12309</td><td>elevates</td><td>0.000005</td><td>0.416667</td></tr><tr><td>718</td><td>never</td><td>0.000942</td><td>0.400000</td></tr><tr><td>6815</td><td>level</td><td>0.000110</td><td>0.400000</td></tr></tbody></table></figure>
+<p>As we took words from a book the same way their are some words already present in the vocabulary of the smartphone and some words it records while the user starts using the keyboard. </p>
+<p>I hope you liked this article on how to build an autocorrect feature with Python. Feel free to ask your valuable questions in the comments section below.</p>
+<h4 class="wp-block-heading">Follow Us:</h4>
+<!-- AI CONTENT END 1 -->
+</div>

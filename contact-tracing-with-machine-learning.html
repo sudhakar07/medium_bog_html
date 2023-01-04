@@ -1,0 +1,142 @@
+<div class="entry-content">
+<p>Contact tracing is a process used by public health ministries to help stop the spread of infectious disease, such as COVID-19, within a community. In this article, I will take you through the task of contact tracing with Machine Learning.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<h2 class="wp-block-heading">How Contact Tracing Works?</h2>
+<p>Once a person is positive for coronavirus, it is very important to identify other people who may have been infected by the patients diagnosed. To identify infected people, the authorities follow the activity of patients diagnosed in the last 14 days. This process is called contact tracking. Depending on the country and the local authority, the search for contacts is carried out either by manual methods or by numerical methods.</p>
+<p>In this article, I will be proposing a digital contact tracing algorithm that relies on GPS data, which can be used in contact tracing with machine learning.</p>
+<h2 class="wp-block-heading">Contact Tracing with Machine Learning</h2>
+<p>DBSCAN is a density-based data clustering algorithm that groups data points in a given space. The DBSCAN algorithm groups data points close to each other and marks outlier data points as noise. I will use the DBSCAN algorithm for the task of contact tracing with Machine Learning.</p>
+<p><strong><a href="https://thecleverprogrammer.com/2020/08/20/competitive-programming/">Also, Read – What is Competitive Programming?</a></strong></p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<p>The dataset that I will use in this task is a JSON data which can be easily downloaded from <strong><a href="https://raw.githubusercontent.com/amankharwal/Website-data/master/livedata.json">here</a></strong>. Now let’s import all the libraries that we need for this task and get started with reading the dataset and exploring some insights from the data:</p>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/6af34b6f5fb2c706cba20db6c8089754.js"></script><noscript><a href="https://gist.github.com/amankharwal/6af34b6f5fb2c706cba20db6c8089754">View this gist on GitHub</a></noscript></div>
+<pre aria-describedby="shcb-language-1" class="wp-block-code" data-shcb-language-name="CSS" data-shcb-language-slug="css"><link href="https://thecleverprogrammer.com/wp-content/plugins/syntax-highlighting-code-block/vendor/scrivo/highlight-php/styles/default.css?m=1609223562" id="all-css-539e691014497ed65749214592756e42" media="all" rel="stylesheet" type="text/css"/><style>.wp-block-code {
+	border: 0;
+	padding: 0;
+}
+
+.wp-block-code > div {
+	overflow: auto;
+}
+
+.shcb-language {
+	border: 0;
+	clip: rect(1px, 1px, 1px, 1px);
+	-webkit-clip-path: inset(50%);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+	word-wrap: normal;
+	word-break: normal;
+}
+
+.hljs {
+	box-sizing: border-box;
+}
+
+.hljs.shcb-code-table {
+	display: table;
+	width: 100%;
+}
+
+.hljs.shcb-code-table > .shcb-loc {
+	color: inherit;
+	display: table-row;
+	width: 100%;
+}
+
+.hljs.shcb-code-table .shcb-loc > span {
+	display: table-cell;
+}
+
+.wp-block-code code.hljs:not(.shcb-wrap-lines) {
+	white-space: pre;
+}
+
+.wp-block-code code.hljs.shcb-wrap-lines {
+	white-space: pre-wrap;
+}
+
+.hljs.shcb-line-numbers {
+	border-spacing: 0;
+	counter-reset: line;
+}
+
+.hljs.shcb-line-numbers > .shcb-loc {
+	counter-increment: line;
+}
+
+.hljs.shcb-line-numbers .shcb-loc > span {
+	padding-left: 0.75em;
+}
+
+.hljs.shcb-line-numbers .shcb-loc::before {
+	border-right: 1px solid #ddd;
+	content: counter(line);
+	display: table-cell;
+	padding: 0 0.75em;
+	text-align: right;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	white-space: nowrap;
+	width: 1%;
+}
+</style><div><code class="hljs language-css"><span class="hljs-selector-tag">id</span>           <span class="hljs-selector-tag">timestamp</span>   <span class="hljs-selector-tag">latitude</span>  <span class="hljs-selector-tag">longitude</span>
+0  <span class="hljs-selector-tag">David</span> 2020<span class="hljs-selector-tag">-07-04</span> 15<span class="hljs-selector-pseudo">:35</span><span class="hljs-selector-pseudo">:30</span>  13<span class="hljs-selector-class">.148953</span>  77<span class="hljs-selector-class">.593651</span>
+1  <span class="hljs-selector-tag">David</span> 2020<span class="hljs-selector-tag">-07-04</span> 16<span class="hljs-selector-pseudo">:35</span><span class="hljs-selector-pseudo">:30</span>  13<span class="hljs-selector-class">.222397</span>  77<span class="hljs-selector-class">.652828</span>
+2  <span class="hljs-selector-tag">Frank</span> 2020<span class="hljs-selector-tag">-07-04</span> 14<span class="hljs-selector-pseudo">:35</span><span class="hljs-selector-pseudo">:30</span>  13<span class="hljs-selector-class">.236507</span>  77<span class="hljs-selector-class">.693792</span>
+3  <span class="hljs-selector-tag">Carol</span> 2020<span class="hljs-selector-tag">-07-04</span> 21<span class="hljs-selector-pseudo">:35</span><span class="hljs-selector-pseudo">:30</span>  13<span class="hljs-selector-class">.163716</span>  77<span class="hljs-selector-class">.562842</span>
+4   <span class="hljs-selector-tag">Ivan</span> 2020<span class="hljs-selector-tag">-07-04</span> 22<span class="hljs-selector-pseudo">:35</span><span class="hljs-selector-pseudo">:30</span>  13<span class="hljs-selector-class">.232095</span>  77<span class="hljs-selector-class">.580273</span></code></div><small class="shcb-language" id="shcb-language-1"><span class="shcb-language__label">Code language:</span> <span class="shcb-language__name">CSS</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">css</span><span class="shcb-language__paren">)</span></small></pre>
+<p>Now, let’s analyze the dataset using the scatter plot showing the ids with their latitudes and longitudes on the x-axis and the Y-axis respectively:</p>
+<pre class="wp-block-code"><div><code class="hljs">plt.figure(figsize=(8,6))
+sns.scatterplot(x=‘latitude’, y=‘longitude’, data=df, hue=‘id’)
+plt.legend(bbox_to_anchor= [1, 0.8])
+plt.show()</code></div></pre>
+<div class="wp-block-image"><figure class="aligncenter"><img alt="contact tracing" class="jetpack-lazy-image" data-lazy-src="https://i0.wp.com/miro.medium.com/max/872/1*M6k_PbSMjrKM_mDq54hjzQ.png?w=1290&amp;is-pending-load=1#038;ssl=1" data-recalc-dims="1" decoding="async" src="https://i0.wp.com/miro.medium.com/max/872/1*M6k_PbSMjrKM_mDq54hjzQ.png?w=1290&amp;ssl=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"/><noscript><img alt="contact tracing" data-lazy-fallback="1" data-recalc-dims="1" decoding="async" src="https://i0.wp.com/miro.medium.com/max/872/1*M6k_PbSMjrKM_mDq54hjzQ.png?w=1290&amp;ssl=1"/></noscript></figure></div>
+<h2 class="wp-block-heading">Creating a Model for Contact Tracing with Machine Learning</h2>
+<p>Now let’s create a model for contact tracing using the DBSCAN model. The function below will help us to create the DBSCAN model, using this model we will generate clusters, which will help identify infections by filtering the data in the clusters:</p>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/b205c1809e35e2c6245f17e585f1fd76.js"></script><noscript><a href="https://gist.github.com/amankharwal/b205c1809e35e2c6245f17e585f1fd76">View this gist on GitHub</a></noscript></div>
+<p>Now, let’s generate clusters using our model:</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<pre aria-describedby="shcb-language-2" class="wp-block-code" data-shcb-language-name="JavaScript" data-shcb-language-slug="javascript"><div><code class="hljs language-javascript">abels = model.labels_
+fig = plt.figure(figsize=(<span class="hljs-number">12</span>,<span class="hljs-number">10</span>))
+sns.scatterplot(df[<span class="hljs-string">'latitude'</span>], df[<span class="hljs-string">'longitude'</span>], hue = [<span class="hljs-string">'cluster-{}'</span>.format(x) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> labels])
+plt.legend(bbox_to_anchor = [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>])
+plt.show()</code></div><small class="shcb-language" id="shcb-language-2"><span class="shcb-language__label">Code language:</span> <span class="shcb-language__name">JavaScript</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">javascript</span><span class="shcb-language__paren">)</span></small></pre>
+<div class="wp-block-image"><figure class="aligncenter"><img alt="clustering" class="jetpack-lazy-image" data-lazy-src="https://i0.wp.com/miro.medium.com/max/1238/1*UKbvfbdLvjQy4nh-e0XjqQ.png?w=1290&amp;is-pending-load=1#038;ssl=1" data-recalc-dims="1" decoding="async" src="https://i0.wp.com/miro.medium.com/max/1238/1*UKbvfbdLvjQy4nh-e0XjqQ.png?w=1290&amp;ssl=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"/><noscript><img alt="clustering" data-lazy-fallback="1" data-recalc-dims="1" decoding="async" src="https://i0.wp.com/miro.medium.com/max/1238/1*UKbvfbdLvjQy4nh-e0XjqQ.png?w=1290&amp;ssl=1"/></noscript></figure></div>
+<h2 class="wp-block-heading">Tracing Infected People</h2>
+<p>To find people who may be infected by the patient, we’ll just call the get_infected_names function and enter a name from the dataset as a parameter:</p>
+<pre aria-describedby="shcb-language-3" class="wp-block-code" data-shcb-language-name="PHP" data-shcb-language-slug="php"><div><code class="hljs language-php"><span class="hljs-keyword">print</span>(get_infected_names(<span class="hljs-string">"Erin"</span>)</code></div><small class="shcb-language" id="shcb-language-3"><span class="shcb-language__label">Code language:</span> <span class="shcb-language__name">PHP</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">php</span><span class="shcb-language__paren">)</span></small></pre>
+<p><strong>[‘Ivan’]</strong></p>
+<p><strong><a href="https://thecleverprogrammer.com/2020/08/19/hate-speech-detection-model/">Also, Read – Hate Speech Detection Model.</a></strong></p>
+<p>From the above results, we can say that a clustering algorithm like DBSCAN can perform data point clustering without prior knowledge of the datasets. I hope you liked this article on Contact Tracing with Machine Learning. Feel free to ask your valuable questions in the comments section below. You can also follow me on <strong><a href="https://medium.com/@amankharwal">Medium</a></strong> to learn every topic of Machine Learning.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<h4 class="wp-block-heading">Follow Us:</h4>
+<!-- AI CONTENT END 1 -->
+</div>

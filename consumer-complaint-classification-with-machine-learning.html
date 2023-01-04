@@ -1,0 +1,170 @@
+<div class="entry-content">
+<p>Consumer Complaint Classification means classifying the nature of the complaint reported by the consumer. It is helpful for consumer care departments as they receive thousands of complaints daily, so classifying them helps identify complaints that need to be solved first to reduce the loss of the consumer. So, if you want to learn how to use Machine Learning for consumer complaint classification, this article is for you. In this article, I will take you through the task of Consumer Complaint Classification with Machine Learning using Python.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<h2 class="wp-block-heading">Consumer Complaint Classification</h2>
+<p>The problem of consumer complaint classification is based on Natural Language Processing and Multiclass Classification. To solve this problem, we needed a dataset containing complaints reported by consumers.</p>
+<p>I found an ideal dataset for this task that contains data about:</p>
+<ol>
+<li>The nature of the complaint reported by the consumer</li>
+<li>The Issue mentioned by the consumer</li>
+<li>The complete description of the complaint of the consumer</li>
+</ol>
+<p>We can use this data to build a Machine Learning model that can classify the nature of complaints reported by consumers in real time. You can download the dataset <a href="https://statso.io/consumer-complaint-identification-case-study/" rel="noreferrer noopener" target="_blank"><strong>here</strong></a>.</p>
+<p>In the section below, I will take you through the task of Classifying Consumer Complaints with Machine Learning using Python.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<h2 class="wp-block-heading">Consumer Complaint Classification using Python</h2>
+<p><strong>As the dataset we are using is a huge dataset of more than 1 GB of memory, I recommend you upload the data on your Google Drive and use Google colab notebook for this task.</strong></p>
+<p>Now let’s start with the task of consumer complaint classification by importing the necessary Python libraries and the <a href="https://statso.io/consumer-complaint-identification-case-study/" rel="noreferrer noopener" target="_blank"><strong>dataset</strong></a>:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'>import pandas as pd
+import numpy as np
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.linear_model import SGDClassifier
+import nltk
+import re
+from nltk.corpus import stopwords
+import string
+
+data = pd.read_csv("/content/drive/MyDrive/consumercomplaints.csv")
+print(data.head())</pre></div>
+<pre class="wp-block-preformatted has-small-font-size"><strong>   Unnamed: 0 Date received  \
+0           0    2022-11-11   
+1           1    2022-11-23   
+2           2    2022-11-16   
+3           3    2022-11-15   
+4           4    2022-11-07   
+
+                                             Product  \
+0                                           Mortgage   
+1  Credit reporting, credit repair services, or o...   
+2                                           Mortgage   
+3                        Checking or savings account   
+4                                           Mortgage   
+
+                  Sub-product                           Issue  \
+0  Conventional home mortgage  Trouble during payment process   
+1            Credit reporting     Improper use of your report   
+2                 VA mortgage  Trouble during payment process   
+3            Checking account             Managing an account   
+4      Other type of mortgage  Trouble during payment process   
+
+                                       Sub-issue  \
+0                                            NaN   
+1  Reporting company used your report improperly   
+2                                            NaN   
+3                                    Fee problem   
+4                                            NaN   
+
+                        Consumer complaint narrative  
+0                                                NaN  
+1                                                NaN  
+2                                                NaN  
+3  Hi, I have been banking with Wells Fargo for o...  
+4                                                NaN  </strong></pre>
+<p><strong>If you have not uploaded your data on Google Drive, you can read the data using the command mentioned below:</strong></p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'>data = pd.read_csv("consumercomplaints.csv")</pre></div>
+<p>The dataset contains an Unnamed column. I’ll remove the column and move further:</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'>data = data.drop("Unnamed: 0",axis=1)</pre></div>
+<p>Now let’s have a look if the dataset contains null values or not:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'>print(data.isnull().sum())</pre></div>
+<pre class="wp-block-preformatted"><strong>Date received                         0
+Product                               0
+Sub-product                      235294
+Issue                                 0
+Sub-issue                        683355
+Consumer complaint narrative    1987977
+dtype: int64</strong></pre>
+<p>The dataset contains so many null values. I’ll drop all the rows containing null values and move further:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'>data = data.dropna()</pre></div>
+<p>The product column in the dataset contains the labels. Here the labels represent the nature of the complaints reported by the consumers. Let’s have a look at all the labels and their frequency:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'>print(data["Product"].value_counts())</pre></div>
+<pre class="wp-block-preformatted has-small-font-size"><strong>Credit reporting, credit repair services, or other personal consumer reports    507582
+Debt collection                                                                 192045
+Credit card or prepaid card                                                      80410
+Checking or savings account                                                      54192
+Student loan                                                                     32697
+Vehicle loan or lease                                                            19874
+Payday loan, title loan, or personal loan                                         1008
+Name: Product, dtype: int64</strong></pre>
+<h2 class="wp-block-heading">Training Consumer Complaint Classification Model</h2>
+<p>The consumer complaint narrative column contains the complete description of the complaints reported by the consumers. I will clean and prepare this column before using it in a Machine Learning model (you can learn more about this process <a href="https://thecleverprogrammer.com/2022/08/29/process-of-nlp-using-python/" rel="noreferrer noopener" target="_blank"><strong>here</strong></a>):</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'>nltk.download('stopwords')
+stemmer = nltk.SnowballStemmer("english")
+stopword=set(stopwords.words('english'))
+
+def clean(text):
+    text = str(text).lower()
+    text = re.sub('\[.*?\]', '', text)
+    text = re.sub('https?://\S+|www\.\S+', '', text)
+    text = re.sub('&lt;.*?&gt;+', '', text)
+    text = re.sub('[%s]' % re.escape(string.punctuation), '', text)
+    text = re.sub('\n', '', text)
+    text = re.sub('\w*\d\w*', '', text)
+    text = [word for word in text.split(' ') if word not in stopword]
+    text=" ".join(text)
+    text = [stemmer.stem(word) for word in text.split(' ')]
+    text=" ".join(text)
+    return text
+data["Consumer complaint narrative"] = data["Consumer complaint narrative"].apply(clean)</pre></div>
+<p>Now, let’s split the data into training and test sets:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'>data = data[["Consumer complaint narrative", "Product"]]
+x = np.array(data["Consumer complaint narrative"])
+y = np.array(data["Product"])
+
+cv = CountVectorizer()
+X = cv.fit_transform(x)
+X_train, X_test, y_train, y_test = train_test_split(X, y, 
+                                                    test_size=0.33, 
+                                                    random_state=42)</pre></div>
+<p>Now, let’s train the Machine Learning model using the Stochastic Gradient Descent classification algorithm:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'>sgdmodel = SGDClassifier()
+sgdmodel.fit(X_train,y_train)</pre></div>
+<p>Now, let’s use our trained model to make predictions:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'>user = input("Enter a Text: ")
+data = cv.transform([user]).toarray()
+output = sgdmodel.predict(data)
+print(output)</pre></div>
+<pre class="wp-block-preformatted has-small-font-size"><strong>Enter a Text: On XXXX/XXXX/2022, I called Citi XXXX XXXX XXXX XXXX XXXX Customer Service at XXXX. I did not want to pay {$99.00} for the next year membership and wanted to cancel my card account. A customer service representative told me if I pay the {$99.00} membership fee and spending {$1000.00} in 3 months, I can get XXXX mileage reward points of XXXX XXXX. I believed what he said and paid {$99.00} membership fee on XXXX/XXXX/2022.   I spent more than {$1000.00} in 3 months since XXXX/XXXX/2022. On XXXX/XXXX/2022, I called the card Customer Service about my reward mileage points. I was total the reward mileage points are NOT XXXX. I can only get XXXX mileage points instead. I believe that the Citi XXXX XXXX XXXX XXXX XXXX Customer Service cheated me. This is business fraud!</strong>
+<strong>
+['Credit card or prepaid card']</strong></pre>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'>user = input("Enter a Text: ")
+data = cv.transform([user]).toarray()
+output = sgdmodel.predict(data)
+print(output)</pre></div>
+<pre class="wp-block-preformatted has-small-font-size"><strong>Enter a Text: Investigation took more than 30 days and nothing was changed when clearly there are misleading, incorrect, inaccurate items on my credit report..i have those two accounts attached showing those inaccuracies... I need them to follow the law because this is a violation of my rights!! The EVIDENCE IS IN BLACK AND WHITE ....</strong>
+<strong>
+['Credit reporting, credit repair services, or other personal consumer reports']</strong></pre>
+<p>So this is how you can use Machine Learning for the task of Classifying Consumer Complaints using Python.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<h3 class="wp-block-heading">Summary</h3>
+<p>Consumer Complaint Classification is helpful for consumer care departments as they receive thousands of complaints daily, so classifying them helps identify complaints that need to be solved first to reduce the loss of the consumer. I hope you liked this article on Classifying Consumer Complaints with Machine Learning using Python. Feel free to ask valuable questions in the comments section below.</p>
+<!-- AI CONTENT END 1 -->
+</div>

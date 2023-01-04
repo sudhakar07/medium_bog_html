@@ -1,0 +1,104 @@
+<div class="entry-content">
+<p>In Machine Learning, the Apriori algorithm is used for data mining association rules. In this article, I will take you through Market Basket Analysis using the Apriori algorithm in Machine Learning by using the Python programming language.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<h2 class="wp-block-heading">What is Association Mining?</h2>
+<p>Association mining is typically performed on transaction data from a retail marketplace or online e-commerce store. Since most transaction data is large, the a priori algorithm makes it easy to find these patterns or rules quickly.</p>
+<p><strong><a href="https://thecleverprogrammer.com/2020/11/15/machine-learning-projects/">Also, Read – 100+ Machine Learning Projects solved and explained.</a></strong></p>
+<p>Association rules are used to analyze retail or transactional data and are intended to identify strong rules mainly found in transactional data using measures of interest, based on the concept of strong principals.</p>
+<h2 class="wp-block-heading">How does the Apriori Algorithm Work?</h2>
+<p>The Apriori algorithm is the most popular algorithm for mining association rules. It finds the most frequent combinations in a database and identifies the rules of association between elements, based on 3 important factors:</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<ol><li>Support: the probability that X and Y meet</li><li>Confidence: the conditional probability that Y knows x. In other words, how often does Y occur when X came first.</li><li>Lift: the relationship between support and confidence. An increase of 2 means that the probability of buying X and Y together is twice as high as the probability of simply buying Y.</li></ol>
+<p>Apriori uses a “bottom-up” approach, in which frequent subsets are extended one item at a time (one step is called candidate generation) and groups of candidates are tested against the data. The algorithm ends when no other successful extension is found.</p>
+<p>Now, I will take you through the task of Market Basket analysis using the Apriori Algorithm using Python and Machine Learning.</p>
+<h2 class="wp-block-heading">Market Basket Analysis with Apriori Algorithm using Python</h2>
+<p>Market basket analysis, also known as association rule learning or affinity analysis, is a data mining technique that can be used in various fields, such as marketing, bioinformatics, the field of marketing. education, nuclear science, etc.</p>
+<p>The main goal of market basket analysis in marketing is to provide the retailer with the information necessary to understand the buyer’s purchasing behaviour, which can help the retailer make incorrect decisions.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<p>There are different algorithms for performing market basket analysis. Existing algorithms operate on static data and do not capture data changes over time. But the Apriori algorithm not only leverages static data but also provides a new way to account for changes that occur in the data.</p>
+<p>I will start this task of Market Basket Analysis with Apriori Algorithm by importing the necessay Python libraries:</p>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/f4197c036bc0ef7262fd6df0589cfb32.js"></script><noscript><a href="https://gist.github.com/amankharwal/f4197c036bc0ef7262fd6df0589cfb32">View this gist on GitHub</a></noscript></div>
+<p>Now let’s load the dataset. The dataset that I am using in this task can be downloaded from <strong><a href="https://github.com/amankharwal/Website-data/blob/master/Groceries_dataset.csv">here</a></strong>:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"showPanel":false,"language":"Python","modeName":"python"}'>data = pd.read_csv("Groceries_dataset.csv")
+data.head()</pre></div>
+<figure class="wp-block-table is-style-stripes"><table class="has-subtle-light-gray-background-color has-background"><thead><tr><th></th><th>Member_number</th><th>Date</th><th>itemDescription</th></tr></thead><tbody><tr><th>0</th><td>1808</td><td>21-07-2015</td><td>tropical fruit</td></tr><tr><th>1</th><td>2552</td><td>05-01-2015</td><td>whole milk</td></tr><tr><th>2</th><td>2300</td><td>19-09-2015</td><td>pip fruit</td></tr><tr><th>3</th><td>1187</td><td>12-12-2015</td><td>other vegetables</td></tr><tr><th>4</th><td>3037</td><td>01-02-2015</td><td>whole milk</td></tr></tbody></table></figure>
+<h2 class="wp-block-heading">Data Exploration</h2>
+<p>Let’s first have a look at the top 10 most selling products:</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/0eff6e52b056d210c6f561684d92aad0.js"></script><noscript><a href="https://gist.github.com/amankharwal/0eff6e52b056d210c6f561684d92aad0">View this gist on GitHub</a></noscript></div>
+<div class="wp-block-image"><figure class="aligncenter size-large"><img alt="data exploration - apriori algorithm" class="wp-image-9717 jetpack-lazy-image" data-attachment-id="9717" data-comments-opened="1" data-image-caption="" data-image-description="" data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}' data-image-title="newplot" data-large-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/11/newplot.png?fit=714%2C525&amp;ssl=1" data-lazy-sizes="(max-width: 714px) 100vw, 714px" data-lazy-src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/11/newplot.png?resize=714%2C525&amp;is-pending-load=1#038;ssl=1" data-lazy-srcset="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/11/newplot.png?w=714&amp;ssl=1 714w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/11/newplot.png?resize=300%2C221&amp;ssl=1 300w" data-medium-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/11/newplot.png?fit=300%2C221&amp;ssl=1" data-orig-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/11/newplot.png?fit=714%2C525&amp;ssl=1" data-orig-size="714,525" data-permalink="https://thecleverprogrammer.com/2020/11/16/apriori-algorithm-using-python/newplot-11/" data-recalc-dims="1" decoding="async" height="525" src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/11/newplot.png?resize=714%2C525&amp;ssl=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="714"/><noscript><img alt="data exploration - apriori algorithm" class="wp-image-9717" data-attachment-id="9717" data-comments-opened="1" data-image-caption="" data-image-description="" data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}' data-image-title="newplot" data-large-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/11/newplot.png?fit=714%2C525&amp;ssl=1" data-lazy-fallback="1" data-medium-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/11/newplot.png?fit=300%2C221&amp;ssl=1" data-orig-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/11/newplot.png?fit=714%2C525&amp;ssl=1" data-orig-size="714,525" data-permalink="https://thecleverprogrammer.com/2020/11/16/apriori-algorithm-using-python/newplot-11/" data-recalc-dims="1" decoding="async" height="525" sizes="(max-width: 714px) 100vw, 714px" src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/11/newplot.png?resize=714%2C525&amp;ssl=1" srcset="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/11/newplot.png?w=714&amp;ssl=1 714w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/11/newplot.png?resize=300%2C221&amp;ssl=1 300w" width="714"/></noscript></figure></div>
+<p>Now let’s explore the higher sales:</p>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/b5db7e4b859847df6d22c2124ee3c186.js"></script><noscript><a href="https://gist.github.com/amankharwal/b5db7e4b859847df6d22c2124ee3c186">View this gist on GitHub</a></noscript></div>
+<div class="wp-block-image"><figure class="aligncenter size-large"><img alt="higher sales exploration" class="wp-image-9719 jetpack-lazy-image" data-attachment-id="9719" data-comments-opened="1" data-image-caption="" data-image-description="" data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}' data-image-title="newplot-1" data-large-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/11/newplot-1.png?fit=714%2C525&amp;ssl=1" data-lazy-sizes="(max-width: 714px) 100vw, 714px" data-lazy-src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/11/newplot-1.png?resize=714%2C525&amp;is-pending-load=1#038;ssl=1" data-lazy-srcset="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/11/newplot-1.png?w=714&amp;ssl=1 714w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/11/newplot-1.png?resize=300%2C221&amp;ssl=1 300w" data-medium-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/11/newplot-1.png?fit=300%2C221&amp;ssl=1" data-orig-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/11/newplot-1.png?fit=714%2C525&amp;ssl=1" data-orig-size="714,525" data-permalink="https://thecleverprogrammer.com/2020/11/16/apriori-algorithm-using-python/newplot-1-4/" data-recalc-dims="1" decoding="async" height="525" src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/11/newplot-1.png?resize=714%2C525&amp;ssl=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="714"/><noscript><img alt="higher sales exploration" class="wp-image-9719" data-attachment-id="9719" data-comments-opened="1" data-image-caption="" data-image-description="" data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}' data-image-title="newplot-1" data-large-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/11/newplot-1.png?fit=714%2C525&amp;ssl=1" data-lazy-fallback="1" data-medium-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/11/newplot-1.png?fit=300%2C221&amp;ssl=1" data-orig-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/11/newplot-1.png?fit=714%2C525&amp;ssl=1" data-orig-size="714,525" data-permalink="https://thecleverprogrammer.com/2020/11/16/apriori-algorithm-using-python/newplot-1-4/" data-recalc-dims="1" decoding="async" height="525" loading="lazy" sizes="(max-width: 714px) 100vw, 714px" src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/11/newplot-1.png?resize=714%2C525&amp;ssl=1" srcset="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/11/newplot-1.png?w=714&amp;ssl=1 714w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2020/11/newplot-1.png?resize=300%2C221&amp;ssl=1 300w" width="714"/></noscript></figure></div>
+<h4 class="wp-block-heading">Observations:</h4>
+<p>From the above visualizations we can observe that:</p>
+<ol><li>Milk is bought the most, followed by vegetables.</li><li>Most shopping takes place in August / September, while February / March is the least demanding.</li></ol>
+<h2 class="wp-block-heading">Implementation of Apriori Algorithm uisng Python</h2>
+<p>Now, I will implement the Apriori algorithm in machine learning by using the Python programming language for the taks of market basket analysis:</p>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/da384a293cfa13daaef14b31e0bd9038.js"></script><noscript><a href="https://gist.github.com/amankharwal/da384a293cfa13daaef14b31e0bd9038">View this gist on GitHub</a></noscript></div>
+<pre class="wp-block-preformatted"><strong>RelationRecord(items=frozenset({'liver loaf', 'fruit/vegetable juice'}), support=0.00040098910646260775, ordered_statistics=[OrderedStatistic(items_base=frozenset({'liver loaf'}), items_add=frozenset({'fruit/vegetable juice'}), confidence=0.12, lift=3.5276227897838903)])</strong></pre>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/7b03d10c028801c922ee6a74dd7759f1.js"></script><noscript><a href="https://gist.github.com/amankharwal/7b03d10c028801c922ee6a74dd7759f1">View this gist on GitHub</a></noscript></div>
+<pre class="wp-block-preformatted"><strong>Rule :  liver loaf  -&gt; fruit/vegetable juice
+Support :  0.00040098910646260775
+Confidence :  0.12
+Lift :  3.5276227897838903
+=============================
+Rule :  ham  -&gt; pickled vegetables
+Support :  0.0005346521419501437
+Confidence :  0.05970149253731344
+Lift :  3.4895055970149254
+=============================
+Rule :  roll products   -&gt; meat
+Support :  0.0003341575887188398
+Confidence :  0.06097560975609757
+Lift :  3.620547812620984
+=============================
+Rule :  misc. beverages  -&gt; salt
+Support :  0.0003341575887188398
+Confidence :  0.05617977528089888
+Lift :  3.5619405827461437
+=============================
+Rule :  spread cheese  -&gt; misc. beverages
+Support :  0.0003341575887188398
+Confidence :  0.05
+Lift :  3.170127118644068
+=============================
+Rule :  soups  -&gt; seasonal products
+Support :  0.0003341575887188398
+Confidence :  0.10416666666666667
+Lift :  14.704205974842768
+=============================
+Rule :  spread cheese  -&gt; sugar
+Support :  0.00040098910646260775
+Confidence :  0.06
+Lift :  3.3878490566037733
+=============================</strong></pre>
+<p>I hope you liked this article on the Apriori algorithm in Machine Learning by using the Python programming language. Feel free to ask your valuable questions in the comments section below.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<!-- AI CONTENT END 1 -->
+</div>

@@ -1,0 +1,416 @@
+<div class="entry-content">
+<p>In any advertising agency, it is very important to predict the most profitable users who are very likely to respond to targeted advertisements. In this article, I’ll walk you through how to train a model for the task of click-through rate prediction with Machine Learning using Python.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<h2 class="wp-block-heading">Click-Through Rate Prediction Model with Machine Learning</h2>
+<p>By predicting the click-through rate, an advertising company select the most potential visitors who are most likely to respond to the ads, analyzing their browsing history and showing the most relevant ads based on the interest of the user.</p>
+<blockquote class="wp-block-quote"><p><strong><a href="https://thecleverprogrammer.com/2020/11/15/machine-learning-projects/">Also, Read – 100+ Machine Learning Projects Solved and Explained.</a></strong></p></blockquote>
+<p>This task is important for every advertising agency because the commercial value of promotions on the Internet depends only on how the user responds to them. A user’s response to ads is very valuable to every ad company because it allows the company to select the ads that are most relevant to users.</p>
+<p>In the section below, I will take you how to create a model for the task of click-through rate prediction with Machine Learning using Python. This task is very important for the ones who want to work as a Data Scientist in any company which deals with advertisements like Google and Facebook.</p>
+<h2 class="wp-block-heading">Click-Through Rate Prediction Model with Python</h2>
+<p>Now let’s get started with the task of click-through rate prediction model with Machine Learning by importing the dataset:</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<div class="wp-block-buttons is-layout-flex">
+<div class="wp-block-button is-style-circular"><a class="wp-block-button__link" href="https://www.kaggle.com/fayomi/advertising/download">Dataset</a></div>
+</div>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"showPanel":false,"language":"Python","modeName":"python"}'>import pandas as pd
+data = pd.read_csv('advertising.csv')
+print(data.head())</pre></div>
+<pre class="wp-block-preformatted">   Daily Time Spent on Site  Age  ...            Timestamp  Clicked on Ad
+0                     68.95   35  ...  2016-03-27 00:53:11              0
+1                     80.23   31  ...  2016-04-04 01:39:02              0
+2                     69.47   26  ...  2016-03-13 20:35:42              0
+3                     74.15   29  ...  2016-01-10 02:31:19              0
+4                     68.37   35  ...  2016-06-03 03:36:18              0
+
+[5 rows x 10 columns]</pre>
+<p>Now let’s have a look at the data to see if we have any null values in the dataset:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"showPanel":false,"language":"Python","modeName":"python"}'>print(data.isnull().sum())</pre></div>
+<pre class="wp-block-preformatted">Daily Time Spent on Site    0
+Age                         0
+Area Income                 0
+Daily Internet Usage        0
+Ad Topic Line               0
+City                        0
+Male                        0
+Country                     0
+Timestamp                   0
+Clicked on Ad               0
+dtype: int64</pre>
+<p>Before moving forward, let’s have a look at the names of all the columns in the dataset:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"showPanel":false,"language":"Python","modeName":"python"}'>print(data.columns)</pre></div>
+<pre class="wp-block-preformatted">Index(['Daily Time Spent on Site', 'Age', 'Area Income',
+       'Daily Internet Usage', 'Ad Topic Line', 'City', 'Male', 'Country',
+       'Timestamp', 'Clicked on Ad'],
+      dtype='object')</pre>
+<p>Now let’s prepare the data so that we can easily fit into the machine learning model. Here will drop some unnecessary columns:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"showPanel":false,"language":"Python","modeName":"python"}'>x=data.iloc[:,0:7]
+x=x.drop(['Ad Topic Line','City'],axis=1)
+x</pre></div>
+<div class="wp-block-image"><figure class="aligncenter size-large is-resized"><img alt="" class="wp-image-12010 jetpack-lazy-image" data-attachment-id="12010" data-comments-opened="1" data-image-caption="" data-image-description="" data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}' data-image-title="data1" data-large-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/data1.png?fit=953%2C591&amp;ssl=1" data-lazy-sizes="(max-width: 655px) 100vw, 655px" data-lazy-src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/data1.png?resize=655%2C406&amp;is-pending-load=1#038;ssl=1" data-lazy-srcset="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/data1.png?w=953&amp;ssl=1 953w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/data1.png?resize=300%2C186&amp;ssl=1 300w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/data1.png?resize=768%2C476&amp;ssl=1 768w" data-medium-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/data1.png?fit=300%2C186&amp;ssl=1" data-orig-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/data1.png?fit=953%2C591&amp;ssl=1" data-orig-size="953,591" data-permalink="https://thecleverprogrammer.com/2021/01/24/click-through-rate-prediction-with-machine-learning/data1/" data-recalc-dims="1" decoding="async" height="406" src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/data1.png?resize=655%2C406&amp;ssl=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="655"/><noscript><img alt="" class="wp-image-12010" data-attachment-id="12010" data-comments-opened="1" data-image-caption="" data-image-description="" data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}' data-image-title="data1" data-large-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/data1.png?fit=953%2C591&amp;ssl=1" data-lazy-fallback="1" data-medium-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/data1.png?fit=300%2C186&amp;ssl=1" data-orig-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/data1.png?fit=953%2C591&amp;ssl=1" data-orig-size="953,591" data-permalink="https://thecleverprogrammer.com/2021/01/24/click-through-rate-prediction-with-machine-learning/data1/" data-recalc-dims="1" decoding="async" height="406" sizes="(max-width: 655px) 100vw, 655px" src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/data1.png?resize=655%2C406&amp;ssl=1" srcset="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/data1.png?w=953&amp;ssl=1 953w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/data1.png?resize=300%2C186&amp;ssl=1 300w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/data1.png?resize=768%2C476&amp;ssl=1 768w" width="655"/></noscript></figure></div>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"showPanel":false,"language":"Python","modeName":"python"}'>y=data.iloc[:,9]
+y</pre></div>
+<pre class="wp-block-preformatted">0      0
+1      0
+2      0
+3      0
+4      0
+      ..
+995    1
+996    1
+997    1
+998    0
+999    1
+Name: Clicked on Ad, Length: 1000, dtype: int64</pre>
+<p>Now I will split the data into training and test sets. Here I will use 70 per cent of data as training and 30 per cent as testing:</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/8e1676450686274031b7eda6af153340.js"></script><noscript><a href="https://gist.github.com/amankharwal/8e1676450686274031b7eda6af153340">View this gist on GitHub</a></noscript></div>
+<pre class="wp-block-preformatted">(700, 5)
+(700,)
+(300, 5)
+(300,)</pre>
+<h2 class="wp-block-heading">Logistic Regression Model:</h2>
+<p>Now I will use the logistic regression model to predict the click-through rate of the users:</p>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/4366735f5fd16f097c797d1cd9de5ab8.js"></script><noscript><a href="https://gist.github.com/amankharwal/4366735f5fd16f097c797d1cd9de5ab8">View this gist on GitHub</a></noscript></div>
+<pre class="wp-block-preformatted">[0 0 0 1 1 0 0 1 0 1 1 0 0 0 1 1 0 1 0 1 1 0 1 1 1 0 0 1 0 0 0 1 1 1 0 1 1
+ 0 1 0 0 1 0 1 0 1 0 0 0 0 1 1 0 1 0 1 0 0 0 1 1 1 1 0 1 0 0 0 0 1 1 0 0 0
+ 0 1 1 1 0 1 0 1 0 0 0 0 1 0 1 0 0 1 0 0 1 0 0 0 0 0 0 1 0 0 0 0 0 0 1 1 0
+ 1 0 0 1 1 1 0 0 1 0 1 1 0 1 1 0 0 1 1 0 0 0 0 0 1 0 0 1 0 1 1 0 0 0 1 0 0
+ 1 0 0 1 0 0 1 0 0 1 0 0 0 0 1 1 1 1 1 0 1 1 0 0 1 0 1 0 0 0 1 1 0 0 0 1 0
+ 0 1 0 1 0 1 1 1 1 0 1 1 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 1 1 1 1 1 1 1 0
+ 0 1 0 0 0 1 1 0 0 0 0 1 0 1 0 0 1 1 0 0 0 1 1 0 1 1 0 1 1 0 1 1 1 1 1 1 1
+ 1 0 1 0 1 0 0 1 0 0 0 1 1 1 0 1 0 1 0 1 0 0 0 0 0 0 1 0 0 1 0 1 1 1 0 0 1
+ 1 0 0 0]</pre>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"showPanel":false,"language":"Python","modeName":"python"}'>y_pred_proba=Lr.predict_proba(x_test)
+print(y_pred_proba)</pre></div>
+<pre class="wp-block-preformatted">[[9.59792501e-01 4.02074986e-02]
+ [9.09776229e-01 9.02237714e-02]
+ [7.01565507e-01 2.98434493e-01]
+ [3.22512399e-01 6.77487601e-01]
+ [2.61683053e-02 9.73831695e-01]
+ [7.93135584e-01 2.06864416e-01]
+ [9.81079720e-01 1.89202796e-02]
+ [1.51174357e-02 9.84882564e-01]
+ [8.13527820e-01 1.86472180e-01]
+ [4.66011549e-03 9.95339885e-01]
+ [4.49152136e-01 5.50847864e-01]
+ [5.79962255e-01 4.20037745e-01]
+ [9.71411345e-01 2.85886551e-02]
+ [6.80813498e-01 3.19186502e-01]
+ [1.57934217e-03 9.98420658e-01]
+ [4.27634403e-03 9.95723656e-01]
+ [9.78083451e-01 2.19165489e-02]
+ [3.14819973e-03 9.96851800e-01]
+ [9.84776758e-01 1.52232419e-02]
+ [7.54927542e-03 9.92450725e-01]
+ [4.39604876e-02 9.56039512e-01]
+ [8.83260862e-01 1.16739138e-01]
+ [3.43304798e-01 6.56695202e-01]
+ [4.64330398e-01 5.35669602e-01]
+ [1.04935760e-01 8.95064240e-01]
+ [9.40619354e-01 5.93806460e-02]
+ [9.64504455e-01 3.54955446e-02]
+ [3.88141195e-02 9.61185880e-01]
+ [7.55872151e-01 2.44127849e-01]
+ [9.85954424e-01 1.40455764e-02]
+ [9.63510639e-01 3.64893615e-02]
+ [1.39497868e-01 8.60502132e-01]
+ [4.99501483e-02 9.50049852e-01]
+ [6.27661610e-04 9.99372338e-01]
+ [9.83652682e-01 1.63473177e-02]
+ [2.82481045e-01 7.17518955e-01]
+ [4.96536184e-02 9.50346382e-01]
+ [9.34871600e-01 6.51284001e-02]
+ [2.48514482e-01 7.51485518e-01]
+ [9.17911199e-01 8.20888010e-02]
+ [6.97374813e-01 3.02625187e-01]
+ [4.51561319e-01 5.48438681e-01]
+ [5.32953988e-01 4.67046012e-01]
+ [5.34826422e-02 9.46517358e-01]
+ [9.35111399e-01 6.48886008e-02]
+ [2.93931498e-03 9.97060685e-01]
+ [9.74470285e-01 2.55297153e-02]
+ [9.65067347e-01 3.49326530e-02]
+ [9.84709636e-01 1.52903644e-02]
+ [9.86191558e-01 1.38084422e-02]
+ [7.95772440e-02 9.20422756e-01]
+ [1.17260801e-01 8.82739199e-01]
+ [9.71770850e-01 2.82291498e-02]
+ [9.36039027e-02 9.06396097e-01]
+ [8.62258322e-01 1.37741678e-01]
+ [8.86673434e-02 9.11332657e-01]
+ [8.79095722e-01 1.20904278e-01]
+ [7.96979810e-01 2.03020190e-01]
+ [9.88671992e-01 1.13280082e-02]
+ [1.38986934e-02 9.86101307e-01]
+ [1.14586321e-03 9.98854137e-01]
+ [2.19095517e-03 9.97809045e-01]
+ [4.69572228e-02 9.53042777e-01]
+ [9.59075782e-01 4.09242184e-02]
+ [9.36779476e-04 9.99063221e-01]
+ [9.56629938e-01 4.33700622e-02]
+ [9.57014139e-01 4.29858610e-02]
+ [6.85639752e-01 3.14360248e-01]
+ [9.66856590e-01 3.31434102e-02]
+ [7.92101318e-03 9.92078987e-01]
+ [4.72542248e-01 5.27457752e-01]
+ [7.15921270e-01 2.84078730e-01]
+ [9.48884951e-01 5.11150494e-02]
+ [9.72948675e-01 2.70513246e-02]
+ [5.47553038e-01 4.52446962e-01]
+ [2.00045121e-01 7.99954879e-01]
+ [1.67896692e-02 9.83210331e-01]
+ [1.05724278e-03 9.98942757e-01]
+ [8.96495211e-01 1.03504789e-01]
+ [3.20000758e-02 9.67999924e-01]
+ [9.64559359e-01 3.54406414e-02]
+ [3.55890453e-03 9.96441095e-01]
+ [9.06928057e-01 9.30719427e-02]
+ [6.88464193e-01 3.11535807e-01]
+ [9.73584933e-01 2.64150672e-02]
+ [9.09958476e-01 9.00415240e-02]
+ [2.06143872e-01 7.93856128e-01]
+ [9.25460339e-01 7.45396608e-02]
+ [1.52212549e-01 8.47787451e-01]
+ [9.67942056e-01 3.20579438e-02]
+ [8.38084628e-01 1.61915372e-01]
+ [3.39195200e-03 9.96608048e-01]
+ [9.52563785e-01 4.74362147e-02]
+ [9.74652234e-01 2.53477657e-02]
+ [3.35770393e-02 9.66422961e-01]
+ [8.18853385e-01 1.81146615e-01]
+ [9.59998072e-01 4.00019283e-02]
+ [8.97160166e-01 1.02839834e-01]
+ [9.71263058e-01 2.87369424e-02]
+ [9.75468113e-01 2.45318868e-02]
+ [9.54355897e-01 4.56441028e-02]
+ [1.83443824e-02 9.81655618e-01]
+ [9.89216685e-01 1.07833152e-02]
+ [6.35054680e-01 3.64945320e-01]
+ [7.40279491e-01 2.59720509e-01]
+ [7.41637412e-01 2.58362588e-01]
+ [5.56055196e-01 4.43944804e-01]
+ [8.96296847e-01 1.03703153e-01]
+ [2.90385396e-01 7.09614604e-01]
+ [5.85558893e-02 9.41444111e-01]
+ [9.78907593e-01 2.10924071e-02]
+ [3.00190032e-01 6.99809968e-01]
+ [9.77833184e-01 2.21668162e-02]
+ [9.55058263e-01 4.49417370e-02]
+ [1.58247306e-01 8.41752694e-01]
+ [4.70044347e-01 5.29955653e-01]
+ [8.84598471e-03 9.91154015e-01]
+ [6.33722039e-01 3.66277961e-01]
+ [8.47502893e-01 1.52497107e-01]
+ [1.98580453e-01 8.01419547e-01]
+ [9.11169199e-01 8.88308012e-02]
+ [2.05575051e-03 9.97944249e-01]
+ [2.51685469e-03 9.97483145e-01]
+ [7.13327150e-01 2.86672850e-01]
+ [4.06535463e-03 9.95934645e-01]
+ [8.78618768e-03 9.91213812e-01]
+ [9.85197341e-01 1.48026589e-02]
+ [9.50062108e-01 4.99378917e-02]
+ [9.81713762e-03 9.90182862e-01]
+ [1.04597685e-02 9.89540231e-01]
+ [9.90853497e-01 9.14650340e-03]
+ [8.20695379e-01 1.79304621e-01]
+ [8.48742938e-01 1.51257062e-01]
+ [8.82438073e-01 1.17561927e-01]
+ [9.20225866e-01 7.97741338e-02]
+ [2.11674988e-02 9.78832501e-01]
+ [9.59930362e-01 4.00696377e-02]
+ [9.60728841e-01 3.92711587e-02]
+ [4.30300211e-01 5.69699789e-01]
+ [5.03411645e-01 4.96588355e-01]
+ [3.11704583e-01 6.88295417e-01]
+ [2.95043400e-01 7.04956600e-01]
+ [7.77769480e-01 2.22230520e-01]
+ [9.35918839e-01 6.40811614e-02]
+ [9.78641404e-01 2.13585960e-02]
+ [1.68025156e-01 8.31974844e-01]
+ [9.55181958e-01 4.48180422e-02]
+ [9.23932948e-01 7.60670522e-02]
+ [4.02766956e-01 5.97233044e-01]
+ [9.64630076e-01 3.53699237e-02]
+ [9.69520802e-01 3.04791981e-02]
+ [5.73908072e-03 9.94260919e-01]
+ [7.11203799e-01 2.88796201e-01]
+ [5.73163337e-01 4.26836663e-01]
+ [2.96798935e-03 9.97032011e-01]
+ [9.56614522e-01 4.33854784e-02]
+ [9.11488885e-01 8.85111154e-02]
+ [1.94047949e-01 8.05952051e-01]
+ [6.13284782e-01 3.86715218e-01]
+ [8.00140064e-01 1.99859936e-01]
+ [9.92116306e-01 7.88369447e-03]
+ [9.24420251e-01 7.55797487e-02]
+ [5.95809736e-03 9.94041903e-01]
+ [6.15940171e-03 9.93840598e-01]
+ [1.70862549e-02 9.82913745e-01]
+ [1.69619396e-03 9.98303806e-01]
+ [6.26577531e-03 9.93734225e-01]
+ [9.88740041e-01 1.12599586e-02]
+ [5.39624703e-02 9.46037530e-01]
+ [2.47078033e-02 9.75292197e-01]
+ [9.83684365e-01 1.63156346e-02]
+ [9.87442613e-01 1.25573874e-02]
+ [2.08798962e-01 7.91201038e-01]
+ [9.81557868e-01 1.84421319e-02]
+ [6.32501868e-03 9.93674981e-01]
+ [9.70047275e-01 2.99527254e-02]
+ [9.86298012e-01 1.37019883e-02]
+ [9.50652804e-01 4.93471962e-02]
+ [3.40179294e-02 9.65982071e-01]
+ [1.17568841e-01 8.82431159e-01]
+ [9.60607728e-01 3.93922715e-02]
+ [9.36965216e-01 6.30347839e-02]
+ [9.30508298e-01 6.94917017e-02]
+ [4.26070694e-03 9.95739293e-01]
+ [6.56553146e-01 3.43446854e-01]
+ [9.72689886e-01 2.73101142e-02]
+ [9.45987079e-02 9.05401292e-01]
+ [9.78666698e-01 2.13333025e-02]
+ [9.56586665e-02 9.04341333e-01]
+ [9.67722721e-01 3.22772794e-02]
+ [2.14217664e-01 7.85782336e-01]
+ [1.07131658e-01 8.92868342e-01]
+ [1.03055579e-02 9.89694442e-01]
+ [1.30755866e-02 9.86924413e-01]
+ [7.72130665e-01 2.27869335e-01]
+ [3.98141824e-01 6.01858176e-01]
+ [8.91854586e-03 9.91081454e-01]
+ [9.48579427e-01 5.14205729e-02]
+ [8.89794910e-01 1.10205090e-01]
+ [8.88103297e-01 1.11896703e-01]
+ [4.88801844e-02 9.51119816e-01]
+ [9.85967487e-01 1.40325130e-02]
+ [9.72175740e-01 2.78242596e-02]
+ [9.90645379e-01 9.35462149e-03]
+ [9.29484020e-01 7.05159800e-02]
+ [9.79856264e-01 2.01437362e-02]
+ [6.43863443e-01 3.56136557e-01]
+ [9.30145301e-01 6.98546992e-02]
+ [4.34005700e-01 5.65994300e-01]
+ [8.04334424e-01 1.95665576e-01]
+ [9.83677401e-01 1.63225986e-02]
+ [9.73162217e-01 2.68377833e-02]
+ [9.72746005e-01 2.72539951e-02]
+ [9.31156443e-01 6.88435568e-02]
+ [2.27859145e-03 9.97721409e-01]
+ [8.49043841e-02 9.15095616e-01]
+ [2.71528232e-02 9.72847177e-01]
+ [3.44694967e-02 9.65530503e-01]
+ [4.64479023e-01 5.35520977e-01]
+ [3.98924819e-02 9.60107518e-01]
+ [9.44258674e-02 9.05574133e-01]
+ [9.70520073e-01 2.94799270e-02]
+ [6.77207387e-01 3.22792613e-01]
+ [4.71291659e-03 9.95287083e-01]
+ [7.86959234e-01 2.13040766e-01]
+ [8.67733415e-01 1.32266585e-01]
+ [8.73507026e-01 1.26492974e-01]
+ [3.60757959e-01 6.39242041e-01]
+ [1.42482304e-02 9.85751770e-01]
+ [8.28592957e-01 1.71407043e-01]
+ [9.65705388e-01 3.42946119e-02]
+ [9.71545694e-01 2.84543058e-02]
+ [9.36557685e-01 6.34423153e-02]
+ [1.24907630e-03 9.98750924e-01]
+ [9.89800643e-01 1.01993566e-02]
+ [1.44580528e-01 8.55419472e-01]
+ [9.04470293e-01 9.55297069e-02]
+ [9.78700584e-01 2.12994165e-02]
+ [1.36073269e-03 9.98639267e-01]
+ [6.62652695e-03 9.93373473e-01]
+ [5.56358774e-01 4.43641226e-01]
+ [9.93082783e-01 6.91721713e-03]
+ [9.62563537e-01 3.74364632e-02]
+ [1.19774230e-01 8.80225770e-01]
+ [6.95256413e-02 9.30474359e-01]
+ [9.00074141e-01 9.99258593e-02]
+ [3.95249719e-02 9.60475028e-01]
+ [3.14867694e-02 9.68513231e-01]
+ [5.41832873e-01 4.58167127e-01]
+ [7.23684142e-04 9.99276316e-01]
+ [3.49233259e-02 9.65076674e-01]
+ [9.48998884e-01 5.10011160e-02]
+ [9.60668699e-04 9.99039331e-01]
+ [3.60906858e-03 9.96390931e-01]
+ [8.35167961e-03 9.91648320e-01]
+ [2.15018668e-03 9.97849813e-01]
+ [1.36838939e-01 8.63161061e-01]
+ [4.24852690e-02 9.57514731e-01]
+ [6.27758537e-02 9.37224146e-01]
+ [4.09845756e-02 9.59015424e-01]
+ [9.78324143e-01 2.16758570e-02]
+ [3.90596593e-03 9.96094034e-01]
+ [5.92120551e-01 4.07879449e-01]
+ [5.47315378e-03 9.94526846e-01]
+ [9.42211045e-01 5.77889554e-02]
+ [9.44093545e-01 5.59064550e-02]
+ [4.05218805e-01 5.94781195e-01]
+ [9.19072418e-01 8.09275817e-02]
+ [9.82024238e-01 1.79757623e-02]
+ [9.64017311e-01 3.59826892e-02]
+ [4.87625613e-03 9.95123744e-01]
+ [1.09679910e-03 9.98903201e-01]
+ [1.69664735e-03 9.98303353e-01]
+ [9.56377730e-01 4.36222698e-02]
+ [4.57913871e-02 9.54208613e-01]
+ [9.90680226e-01 9.31977394e-03]
+ [4.52921708e-03 9.95470783e-01]
+ [9.53422807e-01 4.65771934e-02]
+ [4.93413634e-01 5.06586366e-01]
+ [9.27749026e-01 7.22509737e-02]
+ [9.88127401e-01 1.18725991e-02]
+ [8.38452014e-01 1.61547986e-01]
+ [8.36925286e-01 1.63074714e-01]
+ [9.80069836e-01 1.99301643e-02]
+ [9.65651589e-01 3.43484110e-02]
+ [6.84448458e-02 9.31555154e-01]
+ [9.87522934e-01 1.24770659e-02]
+ [9.17172887e-01 8.28271130e-02]
+ [2.43751163e-01 7.56248837e-01]
+ [9.37078134e-01 6.29218662e-02]
+ [2.82792965e-02 9.71720703e-01]
+ [2.72748965e-01 7.27251035e-01]
+ [3.00015981e-02 9.69998402e-01]
+ [9.85498737e-01 1.45012626e-02]
+ [9.82428592e-01 1.75714076e-02]
+ [3.70265237e-03 9.96297348e-01]
+ [7.99116022e-02 9.20088398e-01]
+ [9.09972207e-01 9.00277931e-02]
+ [9.44866412e-01 5.51335881e-02]
+ [9.84521236e-01 1.54787639e-02]]</pre>
+<p>Now let’s have a look at the accuracy of the model:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"showPanel":false,"language":"Python","modeName":"python"}'>from sklearn.metrics import accuracy_score
+print(accuracy_score(y_test,y_pred))</pre></div>
+<pre class="wp-block-preformatted">0.8733333333333333</pre>
+<p>So we have an accuracy of around 87 per cent which is not bad for this kind of problem. At last, let’s have a look at the f1 score:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"showPanel":false,"language":"Python","modeName":"python"}'>from sklearn.metrics import f1_score
+print(f1_score(y_test,y_pred))</pre></div>
+<pre class="wp-block-preformatted">0.8652482269503545</pre>
+<p>I hope you liked this article on click-through rate prediction model with machine learning using Python. Feel free to ask your valuable questions in the comments section below.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<!-- AI CONTENT END 1 -->
+</div>

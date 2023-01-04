@@ -1,0 +1,169 @@
+<div class="entry-content">
+<p>In machine learning, classification means categorizing the known classes, For example, categorizing the most profitable and non-interested customers from a dataset for advertising a particular product. You must have trained a classification model with a machine learning algorithm before. Here is an <a href="https://thecleverprogrammer.com/2021/12/20/stress-detection-with-machine-learning/" rel="noreferrer noopener" target="_blank"><strong>example</strong></a>. But if you want to learn about training a classification model with neural networks, this article is for you. In this article, I will take you through the task of classification with neural networks using Python.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<h2 class="wp-block-heading" id="classification-with-neural-networks-using-python">Classification with Neural Networks using Python</h2>
+<p>Classification is the task of categorizing the known classes based on their features. In most classification problems, machine learning algorithms will do the job, but while classifying a large dataset of images, you will need to use a neural network. If you have never trained a neural network and want to learn how neural networks work, you can learn everything about a neural network from <a href="https://thecleverprogrammer.com/2022/01/06/how-neural-network-works/" rel="noreferrer noopener" target="_blank"><strong>here</strong></a>.</p>
+<p>Now let’s come back to classification with neural networks. In this section, I will take you through the task of image classification with neural network using Python. Here, I will be using the famous <a href="https://www.kaggle.com/zalando-research/fashionmnist" rel="noreferrer noopener" target="_blank"><strong>MNIST fashion dataset</strong></a>, which contains 70,000 clothing fashion images. Here our task is to train an image classification model with neural networks.</p>
+<p>I will start this task by importing the necessary Python libraries and the dataset:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'>import tensorflow as tf
+from tensorflow import keras
+import numpy as np
+import matplotlib.pyplot as plt
+fashion = keras.datasets.fashion_mnist
+(xtrain, ytrain), (xtest, ytest) = fashion.load_data()</pre></div>
+<p>Before moving forward, let’s have a quick look at one of the samples of the images from the dataset:</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'>imgIndex = 9
+image = xtrain[imgIndex]
+print("Image Label :",ytrain[imgIndex])
+plt.imshow(image)</pre></div>
+<pre class="wp-block-preformatted"><strong>Image Label : 5
+</strong></pre>
+<figure class="wp-block-image size-full"><img alt="Fashion MNIST sample" class="wp-image-16568 jetpack-lazy-image" data-attachment-id="16568" data-comments-opened="1" data-image-caption="" data-image-description="" data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}' data-image-title="mnistsample" data-large-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/01/mnistsample.png?fit=186%2C185&amp;ssl=1" data-lazy-sizes="(max-width: 186px) 100vw, 186px" data-lazy-src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/01/mnistsample.png?resize=186%2C185&amp;is-pending-load=1#038;ssl=1" data-lazy-srcset="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/01/mnistsample.png?w=186&amp;ssl=1 186w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/01/mnistsample.png?resize=150%2C150&amp;ssl=1 150w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/01/mnistsample.png?resize=50%2C50&amp;ssl=1 50w" data-medium-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/01/mnistsample.png?fit=186%2C185&amp;ssl=1" data-orig-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/01/mnistsample.png?fit=186%2C185&amp;ssl=1" data-orig-size="186,185" data-permalink="https://thecleverprogrammer.com/2022/01/10/classification-with-neural-networks-using-python/mnistsample/" data-recalc-dims="1" decoding="async" height="185" src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/01/mnistsample.png?resize=186%2C185&amp;ssl=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="186"/><noscript><img alt="Fashion MNIST sample" class="wp-image-16568" data-attachment-id="16568" data-comments-opened="1" data-image-caption="" data-image-description="" data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}' data-image-title="mnistsample" data-large-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/01/mnistsample.png?fit=186%2C185&amp;ssl=1" data-lazy-fallback="1" data-medium-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/01/mnistsample.png?fit=186%2C185&amp;ssl=1" data-orig-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/01/mnistsample.png?fit=186%2C185&amp;ssl=1" data-orig-size="186,185" data-permalink="https://thecleverprogrammer.com/2022/01/10/classification-with-neural-networks-using-python/mnistsample/" data-recalc-dims="1" decoding="async" height="185" sizes="(max-width: 186px) 100vw, 186px" src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/01/mnistsample.png?resize=186%2C185&amp;ssl=1" srcset="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/01/mnistsample.png?w=186&amp;ssl=1 186w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/01/mnistsample.png?resize=150%2C150&amp;ssl=1 150w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/01/mnistsample.png?resize=50%2C50&amp;ssl=1 50w" width="186"/></noscript></figure>
+<p>Now let’s have a look at the shape of both the training and test data:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'>print(xtrain.shape)
+print(xtest.shape)</pre></div>
+<pre class="wp-block-preformatted"><strong>(60000, 28, 28)
+(10000, 28, 28)</strong></pre>
+<h2 class="wp-block-heading" id="building-a-neural-network-architecture">Building a Neural Network Architecture</h2>
+<p>Now I will build a neural network architecture with two hidden layers:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'>model = keras.models.Sequential([
+    keras.layers.Flatten(input_shape=[28, 28]),
+    keras.layers.Dense(300, activation="relu"),
+    keras.layers.Dense(100, activation="relu"),
+    keras.layers.Dense(10, activation="softmax")
+])
+print(model.summary())</pre></div>
+<pre class="wp-block-preformatted"><strong>Model: "sequential_3"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ flatten_3 (Flatten)         (None, 784)               0         
+                                                                 
+ dense_6 (Dense)             (None, 300)               235500    
+                                                                 
+ dense_7 (Dense)             (None, 100)               30100     
+                                                                 
+ dense_8 (Dense)             (None, 10)                1010      
+                                                                 
+=================================================================
+Total params: 266,610
+Trainable params: 266,610
+Non-trainable params: 0
+_________________________________________________________________
+None</strong></pre>
+<p>Before training our model, I will split the training data into training and validation sets:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'>xvalid, xtrain = xtrain[:5000]/255.0, xtrain[5000:]/255.0
+yvalid, ytrain = ytrain[:5000], ytrain[5000:]</pre></div>
+<h2 class="wp-block-heading" id="training-a-classification-model-with-neural-networks">Training a Classification Model with Neural Networks</h2>
+<p>Now here’s how we can train a neural network for the task of image classification:</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'>model.compile(loss="sparse_categorical_crossentropy",
+              optimizer="sgd",
+              metrics=["accuracy"])
+history = model.fit(xtrain, ytrain, epochs=30, 
+                    validation_data=(xvalid, yvalid))</pre></div>
+<pre class="wp-block-preformatted"><strong>Epoch 1/30
+1407/1407 [==============================] - 5s 3ms/step - loss: 2.3027 - accuracy: 0.0979 - val_loss: 2.3027 - val_accuracy: 0.1006
+Epoch 2/30
+1407/1407 [==============================] - 4s 3ms/step - loss: 2.3027 - accuracy: 0.0985 - val_loss: 2.3027 - val_accuracy: 0.1006
+Epoch 3/30
+1407/1407 [==============================] - 4s 3ms/step - loss: 2.3027 - accuracy: 0.0992 - val_loss: 2.3028 - val_accuracy: 0.1006
+Epoch 4/30
+1407/1407 [==============================] - 4s 3ms/step - loss: 2.3027 - accuracy: 0.0996 - val_loss: 2.3027 - val_accuracy: 0.1006
+Epoch 5/30
+1407/1407 [==============================] - 4s 3ms/step - loss: 2.3027 - accuracy: 0.0990 - val_loss: 2.3027 - val_accuracy: 0.1006
+Epoch 6/30
+1407/1407 [==============================] - 4s 3ms/step - loss: 2.3027 - accuracy: 0.1009 - val_loss: 2.3027 - val_accuracy: 0.1006
+Epoch 7/30
+1407/1407 [==============================] - 4s 3ms/step - loss: 2.3027 - accuracy: 0.0978 - val_loss: 2.3028 - val_accuracy: 0.0936
+Epoch 8/30
+1407/1407 [==============================] - 4s 3ms/step - loss: 2.3027 - accuracy: 0.0993 - val_loss: 2.3028 - val_accuracy: 0.1006
+Epoch 9/30
+1407/1407 [==============================] - 4s 3ms/step - loss: 2.3027 - accuracy: 0.0975 - val_loss: 2.3028 - val_accuracy: 0.1006
+Epoch 10/30
+1407/1407 [==============================] - 4s 3ms/step - loss: 2.3027 - accuracy: 0.1004 - val_loss: 2.3029 - val_accuracy: 0.1006
+Epoch 11/30
+1407/1407 [==============================] - 4s 3ms/step - loss: 2.3027 - accuracy: 0.0984 - val_loss: 2.3029 - val_accuracy: 0.1006
+Epoch 12/30
+1407/1407 [==============================] - 4s 3ms/step - loss: 2.3027 - accuracy: 0.0976 - val_loss: 2.3026 - val_accuracy: 0.1006
+Epoch 13/30
+1407/1407 [==============================] - 5s 3ms/step - loss: 2.3027 - accuracy: 0.0996 - val_loss: 2.3027 - val_accuracy: 0.1018
+Epoch 14/30
+1407/1407 [==============================] - 5s 3ms/step - loss: 2.3027 - accuracy: 0.1003 - val_loss: 2.3026 - val_accuracy: 0.1006
+Epoch 15/30
+1407/1407 [==============================] - 5s 3ms/step - loss: 2.3027 - accuracy: 0.0993 - val_loss: 2.3028 - val_accuracy: 0.1006
+Epoch 16/30
+1407/1407 [==============================] - 4s 3ms/step - loss: 2.3027 - accuracy: 0.0984 - val_loss: 2.3027 - val_accuracy: 0.1006
+Epoch 17/30
+1407/1407 [==============================] - 4s 3ms/step - loss: 2.3027 - accuracy: 0.0993 - val_loss: 2.3029 - val_accuracy: 0.1006
+Epoch 18/30
+1407/1407 [==============================] - 4s 3ms/step - loss: 2.3027 - accuracy: 0.0991 - val_loss: 2.3029 - val_accuracy: 0.1006
+Epoch 19/30
+1407/1407 [==============================] - 5s 3ms/step - loss: 2.3027 - accuracy: 0.0969 - val_loss: 2.3028 - val_accuracy: 0.1006
+Epoch 20/30
+1407/1407 [==============================] - 5s 3ms/step - loss: 2.3027 - accuracy: 0.0990 - val_loss: 2.3028 - val_accuracy: 0.1006
+Epoch 21/30
+1407/1407 [==============================] - 5s 3ms/step - loss: 2.3027 - accuracy: 0.0985 - val_loss: 2.3027 - val_accuracy: 0.1006
+Epoch 22/30
+1407/1407 [==============================] - 5s 3ms/step - loss: 2.3027 - accuracy: 0.0994 - val_loss: 2.3028 - val_accuracy: 0.1006
+Epoch 23/30
+1407/1407 [==============================] - 5s 3ms/step - loss: 2.3027 - accuracy: 0.1000 - val_loss: 2.3028 - val_accuracy: 0.1006
+Epoch 24/30
+1407/1407 [==============================] - 5s 3ms/step - loss: 2.3027 - accuracy: 0.0986 - val_loss: 2.3027 - val_accuracy: 0.1006
+Epoch 25/30
+1407/1407 [==============================] - 4s 3ms/step - loss: 2.3027 - accuracy: 0.0995 - val_loss: 2.3028 - val_accuracy: 0.1006
+Epoch 26/30
+1407/1407 [==============================] - 5s 3ms/step - loss: 2.3027 - accuracy: 0.0987 - val_loss: 2.3027 - val_accuracy: 0.1006
+Epoch 27/30
+1407/1407 [==============================] - 5s 3ms/step - loss: 2.3027 - accuracy: 0.0990 - val_loss: 2.3026 - val_accuracy: 0.1006
+Epoch 28/30
+1407/1407 [==============================] - 5s 3ms/step - loss: 2.3027 - accuracy: 0.0982 - val_loss: 2.3028 - val_accuracy: 0.1006
+Epoch 29/30
+1407/1407 [==============================] - 5s 3ms/step - loss: 2.3027 - accuracy: 0.1001 - val_loss: 2.3027 - val_accuracy: 0.1006
+Epoch 30/30
+1407/1407 [==============================] - 5s 3ms/step - loss: 2.3027 - accuracy: 0.1001 - val_loss: 2.3027 - val_accuracy: 0.1006</strong></pre>
+<p>Now let’s have a look at the predictions:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'>new = xtest[:5]
+predictions = model.predict(new)
+print(predictions)</pre></div>
+<pre class="wp-block-preformatted"><strong>[[9.9999964e-01 2.4463721e-32 0.0000000e+00 3.4137151e-09 0.0000000e+00
+  0.0000000e+00 3.3486748e-07 1.0429964e-13 1.8272030e-38 1.7518649e-36]
+ [0.0000000e+00 0.0000000e+00 0.0000000e+00 0.0000000e+00 0.0000000e+00
+  0.0000000e+00 1.0000000e+00 0.0000000e+00 0.0000000e+00 0.0000000e+00]
+ [0.0000000e+00 1.0000000e+00 0.0000000e+00 0.0000000e+00 0.0000000e+00
+  0.0000000e+00 9.3842902e-14 8.4208933e-12 7.5564799e-34 0.0000000e+00]
+ [0.0000000e+00 0.0000000e+00 0.0000000e+00 0.0000000e+00 0.0000000e+00
+  0.0000000e+00 9.9307209e-01 6.9278893e-03 2.5936122e-36 0.0000000e+00]
+ [2.3715086e-03 0.0000000e+00 2.3619191e-19 3.4704832e-26 0.0000000e+00
+  0.0000000e+00 1.2520461e-01 8.7242389e-01 1.0916292e-16 0.0000000e+00]]</strong></pre>
+<p>Here is how we can look at the predicted classes:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'>classes = np.argmax(predictions, axis=1)
+print(classes)</pre></div>
+<pre class="wp-block-preformatted"><strong>[0 6 1 6 7]</strong></pre>
+<p>So this is how you can train a classification model with neural networks using Python.</p>
+<h3 class="wp-block-heading" id="summary">Summary</h3>
+<p>Classification is the task of categorizing the known classes based on their features. In most classification problems, machine learning algorithms will do the job, but while classifying a large dataset of images, you will need to use a neural network. I hope you liked this article on classification with neural network using Python. Feel free to ask valuable questions in the comments section below.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<!-- AI CONTENT END 1 -->
+</div>

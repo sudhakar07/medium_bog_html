@@ -1,0 +1,138 @@
+<div class="entry-content">
+<p>In this article, I will walk you through how to make a barcode and Qr code reader with Python and Machine Learning. This is a great machine learning task to get started with computer vision.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<p>Barcodes and QR codes are very cool and interesting because they store information in a different format. The fun part about them is that we can’t tell what they are storing until we analyze them. It’s like playing a puzzle game. And another thing I love about them is that they can be part of the physical world and still connect us to the internet world.</p>
+<p><strong><a href="https://thecleverprogrammer.com/2020/09/24/machine-learning-course/">Also, Read – Machine Learning Full Course for free.</a></strong></p>
+<h2 class="wp-block-heading">How does the barcode and QR code reader work?</h2>
+<p>If you are wondering how barcode and QR code readers work, let’s do a little practical exercise. Turn on your phone camera and view the featured image from this item.</p>
+<p>You will see a link appear, it is very easy to use. Today you will learn how to create your barcode and QRcode reader with Python and Machine Learning, without wasting time, let’s get started.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<p>I will start by installing the libraries we will need for this project and then I will start with the coding part. For this task of creating a barcode and QRcode reader with Python, I recommend using a regular code editor like VScode or Pycharm.</p>
+<h2 class="wp-block-heading">Getting Started</h2>
+<p>The first step is to install the following three libraries: Pillow, OpenCV and Pyzbar. Pillow is the extension of PIL, which stands for Python Image Library.</p>
+<p>OpenCV is a well-known library, especially when working with computer vision tasks. And the last library we need is Pyzbar, a python library that will help us read barcode and QR codes. You can easily install all the libraries using the pip command.</p>
+<h2 class="wp-block-heading">Building Barcode and QR code Reader with Python and Machine Learning</h2>
+<p>Now the next step is to write the decode function, where most of the cool stuff will happen. The decode function will mainly do three things and can be listed as follows:</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<ul><li>Recognize and decode the barcode / QR code that we are going to show to the camera.</li><li>Added information stored as text on recognized barcode / QR code.</li><li>And finally, export the stored information as a text document.</li></ul>
+<p>Let’s import the libraries we installed before writing to the function:</p>
+<pre aria-describedby="shcb-language-1" class="wp-block-code" data-shcb-language-name="Python" data-shcb-language-slug="python"><link href="https://thecleverprogrammer.com/wp-content/plugins/syntax-highlighting-code-block/vendor/scrivo/highlight-php/styles/default.css?m=1609223562" id="all-css-539e691014497ed65749214592756e42" media="all" rel="stylesheet" type="text/css"/><style>.wp-block-code {
+	border: 0;
+	padding: 0;
+}
+
+.wp-block-code > div {
+	overflow: auto;
+}
+
+.shcb-language {
+	border: 0;
+	clip: rect(1px, 1px, 1px, 1px);
+	-webkit-clip-path: inset(50%);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+	word-wrap: normal;
+	word-break: normal;
+}
+
+.hljs {
+	box-sizing: border-box;
+}
+
+.hljs.shcb-code-table {
+	display: table;
+	width: 100%;
+}
+
+.hljs.shcb-code-table > .shcb-loc {
+	color: inherit;
+	display: table-row;
+	width: 100%;
+}
+
+.hljs.shcb-code-table .shcb-loc > span {
+	display: table-cell;
+}
+
+.wp-block-code code.hljs:not(.shcb-wrap-lines) {
+	white-space: pre;
+}
+
+.wp-block-code code.hljs.shcb-wrap-lines {
+	white-space: pre-wrap;
+}
+
+.hljs.shcb-line-numbers {
+	border-spacing: 0;
+	counter-reset: line;
+}
+
+.hljs.shcb-line-numbers > .shcb-loc {
+	counter-increment: line;
+}
+
+.hljs.shcb-line-numbers .shcb-loc > span {
+	padding-left: 0.75em;
+}
+
+.hljs.shcb-line-numbers .shcb-loc::before {
+	border-right: 1px solid #ddd;
+	content: counter(line);
+	display: table-cell;
+	padding: 0 0.75em;
+	text-align: right;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	white-space: nowrap;
+	width: 1%;
+}
+</style><div><code class="hljs language-python"><span class="hljs-keyword">import</span> cv2
+<span class="hljs-keyword">from</span> pyzbar <span class="hljs-keyword">import</span> pyzbar</code></div><small class="shcb-language" id="shcb-language-1"><span class="shcb-language__label">Code language:</span> <span class="shcb-language__name">Python</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">python</span><span class="shcb-language__paren">)</span></small></pre>
+<p>Now let’s define the decoding function:</p>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/33242b5cbe6abd41c806ca71fbd07866.js"></script><noscript><a href="https://gist.github.com/amankharwal/33242b5cbe6abd41c806ca71fbd07866">View this gist on GitHub</a></noscript></div>
+<p>Now let’s go through the above function to understand what I did:</p>
+<ul><li>First, we decode the barcode or QR code information. And then draw a rectangle around it. It helps us to see if our machine detected the barcode / Qr code.</li><li>Second, we add text above the rectangle that has been created. The text will display the decoded information.</li><li>Third, we export the information to a text document.</li></ul>
+<p>Now the next step is to write the main function for building a Barcode and QR code reader with Python. Let’s create our main function:</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/b9b08335e0f68cf7460a39c27ccd8aae.js"></script><noscript><a href="https://gist.github.com/amankharwal/b9b08335e0f68cf7460a39c27ccd8aae">View this gist on GitHub</a></noscript></div>
+<p>Now let’s go through the main function above to understand what I did:</p>
+<ul><li>First of all, we turn on the computer camera using OpenCV. If you have an external camera, you need to change the value 0 to 1 depending on the device.</li><li>Second, we run a while loop to continue performing the decode function until the “Esc” key is pressed. Otherwise, the loop will not stop and cause problems.</li><li>Third, we launch the camera that we turned on in the first step. And then we close the application window. OpenCV does all the work, just call the methods.</li><li>Finally, we call the main function to trigger the program.</li></ul>
+<p>Now you can easily run the code and scan any barcode and QR code by showing the code to the camera of your laptop.</p>
+<p>You have now created a program that reads barcodes and QR codes for you. Now you have an idea of how to use computer vision and artificial intelligence in real life. Working on hands-on programming projects like this is the best way to sharpen your coding skills.</p>
+<p>Hope you liked this article on how to create a barcode and QR code reader with Python and Machine Learning. Please feel free to ask your valuable questions in the comments section below.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<h4 class="wp-block-heading">Follow Us:</h4>
+<!-- AI CONTENT END 1 -->
+</div>

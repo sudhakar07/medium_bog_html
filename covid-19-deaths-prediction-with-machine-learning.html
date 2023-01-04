@@ -1,0 +1,125 @@
+<div class="entry-content">
+<p>Covid-19 is one of the deadliest viruses you’ve ever heard. Mutations in covid-19 make it either more deadly or more infectious. We have seen a lot of deaths from covid-19 while there is a higher wave of cases. We can use historical data on covid-19 cases and deaths to predict the number of deaths in the future. So if you want to learn how to predict covid-19 deaths with machine learning, this article is for you. In this article, I will take you through the task of Covid-19 deaths prediction with machine learning using Python.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<h2 class="wp-block-heading">Covid-19 Deaths Prediction (Case Study)</h2>
+<p>You are given a dataset of Covid-19 in India from 30 January 2020 to 18 January 2022. The dataset contains information about the daily confirmed cases and deaths. Below are all the columns of the dataset:</p>
+<ol><li>Date: Contains the date of the record</li><li>Date_YMD: Contains date in Year-Month-Day Format</li><li>Daily Confirmed: Contains the daily confirmed cases of Covid-19</li><li>Daily Deceased: Contains the daily deaths due to Covid-19</li></ol>
+<p>You need to use this historical data of covid-19 cases and deaths to predict the number of deaths for the next 30 days. You can download this dataset from <strong><a href="https://raw.githubusercontent.com/amankharwal/Website-data/master/COVID19%20data%20for%20overall%20INDIA.csv">here</a></strong>.</p>
+<h2 class="wp-block-heading">Covid-19 Deaths Prediction using Python</h2>
+<p>I hope you now have understood the problem statement mentioned above. Now I will import all the necessary Python libraries and the <strong><a href="https://raw.githubusercontent.com/amankharwal/Website-data/master/COVID19%20data%20for%20overall%20INDIA.csv">dataset</a></strong> we need for the task of covid-19 deaths prediction:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'>import pandas as pd
+import numpy as np
+data = pd.read_csv("COVID19 data for overall INDIA.csv")
+print(data.head())</pre></div>
+<pre class="wp-block-preformatted"><strong>              Date    Date_YMD  Daily Confirmed  Daily Deceased
+0  30 January 2020  2020-01-30                1               0
+1  31 January 2020  2020-01-31                0               0
+2  1 February 2020  2020-02-01                0               0
+3  2 February 2020  2020-02-02                1               0
+4  3 February 2020  2020-02-03                1               0</strong></pre>
+<p>Before moving forward, let’s have a quick look at whether this dataset contains any null values or not:</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'>data.isnull().sum()</pre></div>
+<pre class="wp-block-preformatted"><strong>Date               0
+Date_YMD           0
+Daily Confirmed    0
+Daily Deceased     0
+dtype: int64</strong></pre>
+<p>We don’t need the date column, so let’s drop this column from our dataset:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'>data = data.drop("Date", axis=1)</pre></div>
+<p>Let’s have a look at the daily confirmed cases of Covid-19:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'>import plotly.express as px
+fig = px.bar(data, x='Date_YMD', y='Daily Confirmed')
+fig.show()</pre></div>
+<figure class="wp-block-image aligncenter size-full is-resized"><img alt="Daily Confirmed cases of Covid-19" class="wp-image-17175 jetpack-lazy-image" data-attachment-id="17175" data-comments-opened="1" data-image-caption="" data-image-description="" data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}' data-image-title="Covid-deaths-1" data-large-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-1.png?fit=700%2C450&amp;ssl=1" data-lazy-sizes="(max-width: 684px) 100vw, 684px" data-lazy-src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-1.png?resize=684%2C440&amp;is-pending-load=1#038;ssl=1" data-lazy-srcset="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-1.png?w=700&amp;ssl=1 700w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-1.png?resize=300%2C193&amp;ssl=1 300w" data-medium-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-1.png?fit=300%2C193&amp;ssl=1" data-orig-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-1.png?fit=700%2C450&amp;ssl=1" data-orig-size="700,450" data-permalink="https://thecleverprogrammer.com/2022/03/29/covid-19-deaths-prediction-with-machine-learning/covid-deaths-1/" data-recalc-dims="1" decoding="async" height="440" src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-1.png?resize=684%2C440&amp;ssl=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="684"/><noscript><img alt="Daily Confirmed cases of Covid-19" class="wp-image-17175" data-attachment-id="17175" data-comments-opened="1" data-image-caption="" data-image-description="" data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}' data-image-title="Covid-deaths-1" data-large-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-1.png?fit=700%2C450&amp;ssl=1" data-lazy-fallback="1" data-medium-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-1.png?fit=300%2C193&amp;ssl=1" data-orig-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-1.png?fit=700%2C450&amp;ssl=1" data-orig-size="700,450" data-permalink="https://thecleverprogrammer.com/2022/03/29/covid-19-deaths-prediction-with-machine-learning/covid-deaths-1/" data-recalc-dims="1" decoding="async" height="440" sizes="(max-width: 684px) 100vw, 684px" src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-1.png?resize=684%2C440&amp;ssl=1" srcset="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-1.png?w=700&amp;ssl=1 700w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-1.png?resize=300%2C193&amp;ssl=1 300w" width="684"/></noscript></figure>
+<p>In the data visualization above, we can see a high wave of covid-19 cases between April 2021 and May 2021.</p>
+<h2 class="wp-block-heading">Covid-19 Death Rate Analysis</h2>
+<p>Now let’s visualize the death rate due to Covid-19:</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'>cases = data["Daily Confirmed"].sum()
+deceased = data["Daily Deceased"].sum()
+
+labels = ["Confirmed", "Deceased"]
+values = [cases, deceased]
+
+fig = px.pie(data, values=values, 
+             names=labels, 
+             title='Daily Confirmed Cases vs Daily Deaths', hole=0.5)
+fig.show()</pre></div>
+<figure class="wp-block-image aligncenter size-full is-resized"><img alt="Covid-19 death rate" class="wp-image-17178 jetpack-lazy-image" data-attachment-id="17178" data-comments-opened="1" data-image-caption="" data-image-description="" data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}' data-image-title="Covid-deaths-2" data-large-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-2.png?fit=700%2C450&amp;ssl=1" data-lazy-sizes="(max-width: 672px) 100vw, 672px" data-lazy-src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-2.png?resize=672%2C432&amp;is-pending-load=1#038;ssl=1" data-lazy-srcset="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-2.png?w=700&amp;ssl=1 700w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-2.png?resize=300%2C193&amp;ssl=1 300w" data-medium-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-2.png?fit=300%2C193&amp;ssl=1" data-orig-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-2.png?fit=700%2C450&amp;ssl=1" data-orig-size="700,450" data-permalink="https://thecleverprogrammer.com/2022/03/29/covid-19-deaths-prediction-with-machine-learning/covid-deaths-2/" data-recalc-dims="1" decoding="async" height="432" src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-2.png?resize=672%2C432&amp;ssl=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="672"/><noscript><img alt="Covid-19 death rate" class="wp-image-17178" data-attachment-id="17178" data-comments-opened="1" data-image-caption="" data-image-description="" data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}' data-image-title="Covid-deaths-2" data-large-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-2.png?fit=700%2C450&amp;ssl=1" data-lazy-fallback="1" data-medium-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-2.png?fit=300%2C193&amp;ssl=1" data-orig-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-2.png?fit=700%2C450&amp;ssl=1" data-orig-size="700,450" data-permalink="https://thecleverprogrammer.com/2022/03/29/covid-19-deaths-prediction-with-machine-learning/covid-deaths-2/" data-recalc-dims="1" decoding="async" height="432" loading="lazy" sizes="(max-width: 672px) 100vw, 672px" src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-2.png?resize=672%2C432&amp;ssl=1" srcset="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-2.png?w=700&amp;ssl=1 700w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-2.png?resize=300%2C193&amp;ssl=1 300w" width="672"/></noscript></figure>
+<p>Let’s calculate the death rate of Covid-19:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'>death_rate = (data["Daily Deceased"].sum() / data["Daily Confirmed"].sum()) * 100
+print(death_rate)</pre></div>
+<pre class="wp-block-preformatted"><strong>1.2840580507834722</strong></pre>
+<p>Now let’s have a look at the daily deaths of covid-19:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'>import plotly.express as px
+fig = px.bar(data, x='Date_YMD', y='Daily Deceased')
+fig.show()</pre></div>
+<figure class="wp-block-image aligncenter size-full is-resized"><img alt="Covid-19 deaths prediction" class="wp-image-17182 jetpack-lazy-image" data-attachment-id="17182" data-comments-opened="1" data-image-caption="" data-image-description="" data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}' data-image-title="Covid-deaths-3" data-large-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-3.png?fit=700%2C450&amp;ssl=1" data-lazy-sizes="(max-width: 678px) 100vw, 678px" data-lazy-src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-3.png?resize=678%2C436&amp;is-pending-load=1#038;ssl=1" data-lazy-srcset="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-3.png?w=700&amp;ssl=1 700w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-3.png?resize=300%2C193&amp;ssl=1 300w" data-medium-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-3.png?fit=300%2C193&amp;ssl=1" data-orig-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-3.png?fit=700%2C450&amp;ssl=1" data-orig-size="700,450" data-permalink="https://thecleverprogrammer.com/2022/03/29/covid-19-deaths-prediction-with-machine-learning/covid-deaths-3/" data-recalc-dims="1" decoding="async" height="436" src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-3.png?resize=678%2C436&amp;ssl=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="678"/><noscript><img alt="Covid-19 deaths prediction" class="wp-image-17182" data-attachment-id="17182" data-comments-opened="1" data-image-caption="" data-image-description="" data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}' data-image-title="Covid-deaths-3" data-large-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-3.png?fit=700%2C450&amp;ssl=1" data-lazy-fallback="1" data-medium-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-3.png?fit=300%2C193&amp;ssl=1" data-orig-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-3.png?fit=700%2C450&amp;ssl=1" data-orig-size="700,450" data-permalink="https://thecleverprogrammer.com/2022/03/29/covid-19-deaths-prediction-with-machine-learning/covid-deaths-3/" data-recalc-dims="1" decoding="async" height="436" loading="lazy" sizes="(max-width: 678px) 100vw, 678px" src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-3.png?resize=678%2C436&amp;ssl=1" srcset="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-3.png?w=700&amp;ssl=1 700w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/Covid-deaths-3.png?resize=300%2C193&amp;ssl=1 300w" width="678"/></noscript></figure>
+<p>We can see a high number of deaths during the high wave of covid-19 cases.</p>
+<h2 class="wp-block-heading">Covid-19 Deaths Prediction Model</h2>
+<p>Now let’s move to the task of covid-19 deaths prediction for the next 30 days. Here I will be using the <strong><a href="https://thecleverprogrammer.com/2021/04/19/autots-in-python-tutorial/">AutoTS</a></strong> library, which is one of the best Automatic Machine Learning libraries for Time Series Analysis. If you have never used this library before, you can install it by executing the command mentioned below in your command prompt or terminal:</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<ul class="is-style-checkbox"><li><strong>pip install autots</strong></li></ul>
+<p>Now here’s how to predict covid-19 deaths with machine learning for the next 30 days:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'>from autots import AutoTS
+model = AutoTS(forecast_length=30, frequency='infer', ensemble='simple')
+model = model.fit(data, date_col="Date_YMD", value_col='Daily Deceased', id_col=None)
+prediction = model.predict()
+forecast = prediction.forecast
+print(forecast)</pre></div>
+<pre class="wp-block-preformatted"><strong>            Daily Deceased
+2022-01-19      271.950000
+2022-01-20      310.179787
+2022-01-21      297.500000
+2022-01-22      310.179787
+2022-01-23      271.950000
+2022-01-24      258.518302
+2022-01-25      340.355520
+2022-01-26      296.561343
+2022-01-27      296.561343
+2022-01-28      284.438262
+2022-01-29      323.400000
+2022-01-30      271.950000
+2022-01-31      245.750000
+2022-02-01      284.438262
+2022-02-02      258.518302
+2022-02-03      239.969607
+2022-02-04      271.950000
+2022-02-05      334.118953
+2022-02-06      323.400000
+2022-02-07      271.950000
+2022-02-08      284.438262
+2022-02-09      323.400000
+2022-02-10      258.518302
+2022-02-11      245.750000
+2022-02-12      245.750000
+2022-02-13      326.442185
+2022-02-14      323.400000
+2022-02-15      394.343619
+2022-02-16      228.117431
+2022-02-17      358.200000</strong></pre>
+<h3 class="wp-block-heading">Summary</h3>
+<p>So this is how we can predict covid-19 deaths with machine learning using the Python programming language. We can use the historical data of covid-19 cases and deaths to predict the number of deaths in future. You can implement the same method for predicting covid-19 deaths and waves on the latest dataset. I hope you liked this article on covid-19 deaths prediction with machine learning. Feel free to ask valuable questions in the comments section below.</p>
+<!-- AI CONTENT END 1 -->
+</div>

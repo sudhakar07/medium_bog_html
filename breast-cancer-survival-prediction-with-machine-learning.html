@@ -1,0 +1,225 @@
+<div class="entry-content">
+<p>Breast cancer is one of the types of cancer that starts in the breast. It occurs in women, but men can get breast cancer too. It is the second leading cause of death in women. As the use of data in <strong><a href="https://thecleverprogrammer.com/2021/12/11/data-science-project-ideas-on-healthcare/">healthcare</a></strong> is very common today, we can use machine learning to predict whether a patient will survive a deadly disease like breast cancer or not. So if you want to learn how to predict the survival of a breast cancer patient, this article is for you. In this article, I will take you through the task of breast cancer survival prediction with machine learning using Python.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<h2 class="wp-block-heading">Breast Cancer Survival Prediction with Machine Learning</h2>
+<p>You have a dataset of over 400 breast cancer patients who underwent surgery for the treatment of breast cancer. Below is the information of all columns in the dataset:</p>
+<ol><li>Patient_ID: ID of the patient</li><li>Age: Age of the patient</li><li>Gender: Gender of the patient</li><li>Protein1, Protein2, Protein3, Protein4: expression levels</li><li>Tumor_Stage: Breast cancer stage of the patient</li><li>Histology: Infiltrating Ductal Carcinoma, Infiltration Lobular Carcinoma, Mucinous Carcinoma</li><li>ER status: Positive/Negative</li><li>PR status: Positive/Negative</li><li>HER2 status: Positive/Negative</li><li>Surgery_type: Lumpectomy, Simple Mastectomy, Modified Radical Mastectomy, Other</li><li>DateofSurgery: The date of Surgery</li><li>DateofLast_Visit: The date of the last visit of the patient</li><li>Patient_Status: Alive/Dead</li></ol>
+<p>So by using this dataset, our task is to predict whether a breast cancer patient will survive or not after the surgery.</p>
+<p>I hope you have an overview of the dataset we are using for the task of breast cancer survival prediction. This dataset was collected from Kaggle. You can download this dataset from <strong><a href="https://www.kaggle.com/amandam1/breastcancerdataset">here</a></strong>. Now, in the section below, I will walk you through the task of predicting breast cancer survival with machine learning using Python.</p>
+<h2 class="wp-block-heading">Breast Cancer Survival Prediction using Python</h2>
+<p>I will start the task of breast cancer survival prediction by importing the necessary Python libraries and the <strong><a href="https://raw.githubusercontent.com/amankharwal/Website-data/master/BRCA.csv">dataset</a></strong> we need:</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'>import pandas as pd
+import numpy as np
+import plotly.express as px
+from sklearn.model_selection import train_test_split
+from sklearn.svm import SVC
+
+data = pd.read_csv("BRCA.csv")
+print(data.head())</pre></div>
+<pre class="wp-block-preformatted"><strong>     Patient_ID   Age  Gender  Protein1  Protein2  Protein3  Protein4  \
+0  TCGA-D8-A1XD  36.0  FEMALE  0.080353   0.42638   0.54715  0.273680   
+1  TCGA-EW-A1OX  43.0  FEMALE -0.420320   0.57807   0.61447 -0.031505   
+2  TCGA-A8-A079  69.0  FEMALE  0.213980   1.31140  -0.32747 -0.234260   
+3  TCGA-D8-A1XR  56.0  FEMALE  0.345090  -0.21147  -0.19304  0.124270   
+4  TCGA-BH-A0BF  56.0  FEMALE  0.221550   1.90680   0.52045 -0.311990   
+
+  Tumour_Stage                      Histology ER status PR status HER2 status  \
+0          III  Infiltrating Ductal Carcinoma  Positive  Positive    Negative   
+1           II             Mucinous Carcinoma  Positive  Positive    Negative   
+2          III  Infiltrating Ductal Carcinoma  Positive  Positive    Negative   
+3           II  Infiltrating Ductal Carcinoma  Positive  Positive    Negative   
+4           II  Infiltrating Ductal Carcinoma  Positive  Positive    Negative   
+
+                  Surgery_type Date_of_Surgery Date_of_Last_Visit  \
+0  Modified Radical Mastectomy       15-Jan-17          19-Jun-17   
+1                   Lumpectomy       26-Apr-17          09-Nov-18   
+2                        Other       08-Sep-17          09-Jun-18   
+3  Modified Radical Mastectomy       25-Jan-17          12-Jul-17   
+4                        Other       06-May-17          27-Jun-19   
+
+  Patient_Status  
+0          Alive  
+1           Dead  
+2          Alive  
+3          Alive  
+4           Dead</strong></pre>
+<p>Let’s have a look at whether the columns of this dataset contains any null values or not:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'>print(data.isnull().sum())</pre></div>
+<pre class="wp-block-preformatted"><strong>Patient_ID             7
+Age                    7
+Gender                 7
+Protein1               7
+Protein2               7
+Protein3               7
+Protein4               7
+Tumour_Stage           7
+Histology              7
+ER status              7
+PR status              7
+HER2 status            7
+Surgery_type           7
+Date_of_Surgery        7
+Date_of_Last_Visit    24
+Patient_Status        20
+dtype: int64</strong></pre>
+<p>So this dataset has some null values in each column, I will drop these null values:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'>data = data.dropna()</pre></div>
+<p>Now let’s have a look at the insights about the columns of this data:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'>data.info()</pre></div>
+<pre class="wp-block-preformatted"><strong>&lt;class 'pandas.core.frame.DataFrame'&gt;
+Int64Index: 317 entries, 0 to 333
+Data columns (total 16 columns):
+ #   Column              Non-Null Count  Dtype  
+---  ------              --------------  -----  
+ 0   Patient_ID          317 non-null    object 
+ 1   Age                 317 non-null    float64
+ 2   Gender              317 non-null    object 
+ 3   Protein1            317 non-null    float64
+ 4   Protein2            317 non-null    float64
+ 5   Protein3            317 non-null    float64
+ 6   Protein4            317 non-null    float64
+ 7   Tumour_Stage        317 non-null    object 
+ 8   Histology           317 non-null    object 
+ 9   ER status           317 non-null    object 
+ 10  PR status           317 non-null    object 
+ 11  HER2 status         317 non-null    object 
+ 12  Surgery_type        317 non-null    object 
+ 13  Date_of_Surgery     317 non-null    object 
+ 14  Date_of_Last_Visit  317 non-null    object 
+ 15  Patient_Status      317 non-null    object 
+dtypes: float64(5), object(11)
+memory usage: 42.1+ KB</strong></pre>
+<p>Breast cancer is mostly found in females, so let’s have a look at the Gender column to see how many females and males are there:</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'>print(data.Gender.value_counts())</pre></div>
+<pre class="wp-block-preformatted"><strong>FEMALE    313
+MALE        4
+Name: Gender, dtype: int64</strong></pre>
+<p>As expected, the proportion of females is more than males in the gender column. Now let’s have a look at the stage of tumour of the patients:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'># Tumour Stage
+stage = data["Tumour_Stage"].value_counts()
+transactions = stage.index
+quantity = stage.values
+
+figure = px.pie(data, 
+             values=quantity, 
+             names=transactions,hole = 0.5, 
+             title="Tumour Stages of Patients")
+figure.show()</pre></div>
+<figure class="wp-block-image aligncenter size-full"><img alt="stage of tumour of the breast cancer patients" class="wp-image-16977 jetpack-lazy-image" data-attachment-id="16977" data-comments-opened="1" data-image-caption="" data-image-description="" data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}' data-image-title="tumour-stages-breast-cancer" data-large-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/tumour-stages-breast-cancer.png?fit=700%2C450&amp;ssl=1" data-lazy-sizes="(max-width: 700px) 100vw, 700px" data-lazy-src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/tumour-stages-breast-cancer.png?resize=700%2C450&amp;is-pending-load=1#038;ssl=1" data-lazy-srcset="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/tumour-stages-breast-cancer.png?w=700&amp;ssl=1 700w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/tumour-stages-breast-cancer.png?resize=300%2C193&amp;ssl=1 300w" data-medium-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/tumour-stages-breast-cancer.png?fit=300%2C193&amp;ssl=1" data-orig-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/tumour-stages-breast-cancer.png?fit=700%2C450&amp;ssl=1" data-orig-size="700,450" data-permalink="https://thecleverprogrammer.com/2022/03/08/breast-cancer-survival-prediction-with-machine-learning/tumour-stages-breast-cancer/" data-recalc-dims="1" decoding="async" height="450" src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/tumour-stages-breast-cancer.png?resize=700%2C450&amp;ssl=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="700"/><noscript><img alt="stage of tumour of the breast cancer patients" class="wp-image-16977" data-attachment-id="16977" data-comments-opened="1" data-image-caption="" data-image-description="" data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}' data-image-title="tumour-stages-breast-cancer" data-large-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/tumour-stages-breast-cancer.png?fit=700%2C450&amp;ssl=1" data-lazy-fallback="1" data-medium-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/tumour-stages-breast-cancer.png?fit=300%2C193&amp;ssl=1" data-orig-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/tumour-stages-breast-cancer.png?fit=700%2C450&amp;ssl=1" data-orig-size="700,450" data-permalink="https://thecleverprogrammer.com/2022/03/08/breast-cancer-survival-prediction-with-machine-learning/tumour-stages-breast-cancer/" data-recalc-dims="1" decoding="async" height="450" sizes="(max-width: 700px) 100vw, 700px" src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/tumour-stages-breast-cancer.png?resize=700%2C450&amp;ssl=1" srcset="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/tumour-stages-breast-cancer.png?w=700&amp;ssl=1 700w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/tumour-stages-breast-cancer.png?resize=300%2C193&amp;ssl=1 300w" width="700"/></noscript></figure>
+<p>So most of the patients are in the second stage. Now let’s have a look at the histology of breast cancer patients. (Histology is a description of a tumour based on how abnormal the cancer cells and tissue look under a microscope and how quickly cancer can grow and spread):</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'># Histology
+histology = data["Histology"].value_counts()
+transactions = histology.index
+quantity = histology.values
+figure = px.pie(data, 
+             values=quantity, 
+             names=transactions,hole = 0.5, 
+             title="Histology of Patients")
+figure.show()</pre></div>
+<figure class="wp-block-image aligncenter size-full"><img alt="histology of breast cancer patients" class="wp-image-16978 jetpack-lazy-image" data-attachment-id="16978" data-comments-opened="1" data-image-caption="" data-image-description="" data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}' data-image-title="histology-breast-cancer" data-large-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/histology-breast-cancer.png?fit=700%2C450&amp;ssl=1" data-lazy-sizes="(max-width: 700px) 100vw, 700px" data-lazy-src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/histology-breast-cancer.png?resize=700%2C450&amp;is-pending-load=1#038;ssl=1" data-lazy-srcset="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/histology-breast-cancer.png?w=700&amp;ssl=1 700w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/histology-breast-cancer.png?resize=300%2C193&amp;ssl=1 300w" data-medium-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/histology-breast-cancer.png?fit=300%2C193&amp;ssl=1" data-orig-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/histology-breast-cancer.png?fit=700%2C450&amp;ssl=1" data-orig-size="700,450" data-permalink="https://thecleverprogrammer.com/2022/03/08/breast-cancer-survival-prediction-with-machine-learning/histology-breast-cancer/" data-recalc-dims="1" decoding="async" height="450" src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/histology-breast-cancer.png?resize=700%2C450&amp;ssl=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="700"/><noscript><img alt="histology of breast cancer patients" class="wp-image-16978" data-attachment-id="16978" data-comments-opened="1" data-image-caption="" data-image-description="" data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}' data-image-title="histology-breast-cancer" data-large-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/histology-breast-cancer.png?fit=700%2C450&amp;ssl=1" data-lazy-fallback="1" data-medium-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/histology-breast-cancer.png?fit=300%2C193&amp;ssl=1" data-orig-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/histology-breast-cancer.png?fit=700%2C450&amp;ssl=1" data-orig-size="700,450" data-permalink="https://thecleverprogrammer.com/2022/03/08/breast-cancer-survival-prediction-with-machine-learning/histology-breast-cancer/" data-recalc-dims="1" decoding="async" height="450" loading="lazy" sizes="(max-width: 700px) 100vw, 700px" src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/histology-breast-cancer.png?resize=700%2C450&amp;ssl=1" srcset="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/histology-breast-cancer.png?w=700&amp;ssl=1 700w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/histology-breast-cancer.png?resize=300%2C193&amp;ssl=1 300w" width="700"/></noscript></figure>
+<p>Now let’s have a look at the values of ER status, PR status, and HER2 status of the patients:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'># ER status
+print(data["ER status"].value_counts())
+# PR status
+print(data["PR status"].value_counts())
+# HER2 status
+print(data["HER2 status"].value_counts())</pre></div>
+<pre class="wp-block-preformatted"><strong>Positive    317
+Name: ER status, dtype: int64
+Positive    317
+Name: PR status, dtype: int64
+Negative    288
+Positive     29
+Name: HER2 status, dtype: int64</strong></pre>
+<p>Now let’s have a look at the type of surgeries done to the patients:</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'># Surgery_type
+surgery = data["Surgery_type"].value_counts()
+transactions = surgery.index
+quantity = surgery.values
+figure = px.pie(data, 
+             values=quantity, 
+             names=transactions,hole = 0.5, 
+             title="Type of Surgery of Patients")
+figure.show()</pre></div>
+<figure class="wp-block-image aligncenter size-full"><img alt="breast cancer survival prediction" class="wp-image-16979 jetpack-lazy-image" data-attachment-id="16979" data-comments-opened="1" data-image-caption="" data-image-description="" data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}' data-image-title="surgery-breast-cancer" data-large-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/surgery-breast-cancer.png?fit=700%2C450&amp;ssl=1" data-lazy-sizes="(max-width: 700px) 100vw, 700px" data-lazy-src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/surgery-breast-cancer.png?resize=700%2C450&amp;is-pending-load=1#038;ssl=1" data-lazy-srcset="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/surgery-breast-cancer.png?w=700&amp;ssl=1 700w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/surgery-breast-cancer.png?resize=300%2C193&amp;ssl=1 300w" data-medium-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/surgery-breast-cancer.png?fit=300%2C193&amp;ssl=1" data-orig-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/surgery-breast-cancer.png?fit=700%2C450&amp;ssl=1" data-orig-size="700,450" data-permalink="https://thecleverprogrammer.com/2022/03/08/breast-cancer-survival-prediction-with-machine-learning/surgery-breast-cancer/" data-recalc-dims="1" decoding="async" height="450" src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/surgery-breast-cancer.png?resize=700%2C450&amp;ssl=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="700"/><noscript><img alt="breast cancer survival prediction" class="wp-image-16979" data-attachment-id="16979" data-comments-opened="1" data-image-caption="" data-image-description="" data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}' data-image-title="surgery-breast-cancer" data-large-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/surgery-breast-cancer.png?fit=700%2C450&amp;ssl=1" data-lazy-fallback="1" data-medium-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/surgery-breast-cancer.png?fit=300%2C193&amp;ssl=1" data-orig-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/surgery-breast-cancer.png?fit=700%2C450&amp;ssl=1" data-orig-size="700,450" data-permalink="https://thecleverprogrammer.com/2022/03/08/breast-cancer-survival-prediction-with-machine-learning/surgery-breast-cancer/" data-recalc-dims="1" decoding="async" height="450" loading="lazy" sizes="(max-width: 700px) 100vw, 700px" src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/surgery-breast-cancer.png?resize=700%2C450&amp;ssl=1" srcset="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/surgery-breast-cancer.png?w=700&amp;ssl=1 700w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2022/03/surgery-breast-cancer.png?resize=300%2C193&amp;ssl=1 300w" width="700"/></noscript></figure>
+<p>So we explored the data, the dataset has a lot of categorical features. To use this data to train a machine learning model, we need to transform the values of all the categorical columns. Here is how we can transform values of the categorical features:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'>data["Tumour_Stage"] = data["Tumour_Stage"].map({"I": 1, "II": 2, "III": 3})
+data["Histology"] = data["Histology"].map({"Infiltrating Ductal Carcinoma": 1, 
+                                           "Infiltrating Lobular Carcinoma": 2, "Mucinous Carcinoma": 3})
+data["ER status"] = data["ER status"].map({"Positive": 1})
+data["PR status"] = data["PR status"].map({"Positive": 1})
+data["HER2 status"] = data["HER2 status"].map({"Positive": 1, "Negative": 2})
+data["Gender"] = data["Gender"].map({"MALE": 0, "FEMALE": 1})
+data["Surgery_type"] = data["Surgery_type"].map({"Other": 1, "Modified Radical Mastectomy": 2, 
+                                                 "Lumpectomy": 3, "Simple Mastectomy": 4})
+print(data.head())</pre></div>
+<pre class="wp-block-preformatted"><strong>     Patient_ID   Age  Gender  Protein1  Protein2  Protein3  Protein4  \
+0  TCGA-D8-A1XD  36.0       1  0.080353   0.42638   0.54715  0.273680   
+1  TCGA-EW-A1OX  43.0       1 -0.420320   0.57807   0.61447 -0.031505   
+2  TCGA-A8-A079  69.0       1  0.213980   1.31140  -0.32747 -0.234260   
+3  TCGA-D8-A1XR  56.0       1  0.345090  -0.21147  -0.19304  0.124270   
+4  TCGA-BH-A0BF  56.0       1  0.221550   1.90680   0.52045 -0.311990   
+
+   Tumour_Stage  Histology  ER status  PR status  HER2 status  Surgery_type  \
+0             3          1          1          1            2             2   
+1             2          3          1          1            2             3   
+2             3          1          1          1            2             1   
+3             2          1          1          1            2             2   
+4             2          1          1          1            2             1   
+
+  Date_of_Surgery Date_of_Last_Visit Patient_Status  
+0       15-Jan-17          19-Jun-17          Alive  
+1       26-Apr-17          09-Nov-18           Dead  
+2       08-Sep-17          09-Jun-18          Alive  
+3       25-Jan-17          12-Jul-17          Alive  
+4       06-May-17          27-Jun-19           Dead  </strong></pre>
+<h2 class="wp-block-heading">Breast Cancer Survival Prediction Model</h2>
+<p>We can now move on to training a machine learning model to predict the survival of a breast cancer patient. Before training the model, we need to split the data into training and test set:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'># Splitting data
+x = np.array(data[['Age', 'Gender', 'Protein1', 'Protein2', 'Protein3','Protein4', 
+                   'Tumour_Stage', 'Histology', 'ER status', 'PR status', 
+                   'HER2 status', 'Surgery_type']])
+y = np.array(data[['Patient_Status']])
+xtrain, xtest, ytrain, ytest = train_test_split(x, y, test_size=0.10, random_state=42)</pre></div>
+<p>Now here’s how we can train a machine learning model:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'>model = SVC()
+model.fit(xtrain, ytrain)</pre></div>
+<p>Now let’s input all the features that we have used to train this machine learning model and predict whether a patient will survive from breast cancer or not:</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"language":"Python","modeName":"python"}'># Prediction
+# features = [['Age', 'Gender', 'Protein1', 'Protein2', 'Protein3','Protein4', 'Tumour_Stage', 'Histology', 'ER status', 'PR status', 'HER2 status', 'Surgery_type']]
+features = np.array([[36.0, 1, 0.080353, 0.42638, 0.54715, 0.273680, 3, 1, 1, 1, 2, 2,]])
+print(model.predict(features))</pre></div>
+<pre class="wp-block-preformatted"><strong>['Alive']</strong></pre>
+<h3 class="wp-block-heading">Summary</h3>
+<p>So this is how we can use machine learning for the task of breast cancer survival prediction. As the use of data in healthcare is very common today, we can use machine learning to predict whether a patient will survive a deadly disease like breast cancer or not. I hope you liked this article on Breast cancer survival prediction with machine learning using Python. Feel free to ask valuable questions in the comments section below.</p>
+<!-- AI CONTENT END 1 -->
+</div>

@@ -1,0 +1,104 @@
+<div class="entry-content">
+<p>A cohort is a group of subjects which share a defining feature. We can observe the behaviour of a cohort over time and compare it to other cohorts. In this article, I’m going to present a data science tutorial on Cohort Analysis with Python.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<h2 class="wp-block-heading">What is Cohort Analysis?</h2>
+<p>A cohort represents a group of a population or an area of study which shares something in common within a specified period. For example, a group of people born in India in 2000 is an example of a cohort related to the number of births in a country. Likewise, in terms of business problems, cohorts represent a group of customers or users. For example:</p>
+<ol><li>Several users who purchased the subscription the app in a given period.</li><li>The number of users who cancelled a subscription during the same month.</li></ol>
+<p><strong><a href="https://thecleverprogrammer.com/2020/11/15/machine-learning-projects/">Also, Read – 100+ Machine Learning Projects Solved and Explained.</a></strong></p>
+<p>Cohorts analysis make it easy to analyze the user behaviour and trends without having to look at the behaviour of each user individually.</p>
+<h4 class="wp-block-heading">Why Cohort Analysis?</h4>
+<p>The Cohort analysis is important for the growth of a business because of the specificity of the information it provides. The most valuable feature of cohort analysis is that it helps companies answer some of the targeted questions by examining the relevant data. Some of the advantages of cohort analysis in a business are:</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<ol><li>It helps to understand how the behaviour of users can affect the business in terms of acquisition and retention</li><li>It helps to analyze the customer churn rate</li><li>It also helps in calculating the lifetime value of a customer</li><li>It helps in finding the points where we need to increase more engagement with the customer.</li></ol>
+<h3 class="wp-block-heading">Types of Cohorts</h3>
+<p>There are three types of Cohort Analysis:</p>
+<ol><li>Time Cohort</li><li>Behaviour Cohort</li><li>Size Cohort</li></ol>
+<p>Time cohorts are customers who have signed up for a product or service during a specified period. Analysis of these cohorts shows the behaviour of customers based on when they started using the company’s products or services. The time can be monthly or quarterly or even daily.</p>
+<p>Behaviour cohorts are customers who have purchased a product or subscribed to service in the past. It groups customers according to the type of product or service to which they have subscribed. Customers who signed up for basic services may have different needs than those who signed up for advanced services. Understanding the needs of different cohorts can help a business design tailor-made services or products for particular segments.</p>
+<p>Size cohorts refer to the different sizes of customers who purchase the company’s products or services. This categorization can be based on the amount of spend in a certain period after acquisition or the type of product that the customer has spent most of the amount of their order in a given period.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<h2 class="wp-block-heading">Cohort Analysis with Python</h2>
+<p>I hope you now know what is cohort analysis and why companies do it. In this section, I will take you through a data science tutorial on cohort analysis with Python. I will start this task by importing the necessary Python libraries and the dataset:</p>
+<div class="wp-block-buttons is-layout-flex">
+<div class="wp-block-button is-style-circular"><a class="wp-block-button__link" href="https://www.kaggle.com/jihyeseo/online-retail-data-set-from-uci-ml-repo/download">Dataset</a></div>
+</div>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"showPanel":false,"language":"Python","modeName":"python"}'># import library
+import numpy as np # linear algebra
+import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
+import datetime as dt
+
+#For Data  Visualization
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+#For Machine Learning Algorithm
+from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import KMeans
+
+df = pd.read_excel('Online Retail.xlsx')
+df.head()</pre></div>
+<figure class="wp-block-table is-style-regular"><table class="has-fixed-layout"><thead><tr><th></th><th>InvoiceNo</th><th>StockCode</th><th>Description</th><th>Quantity</th><th>InvoiceDate</th><th>UnitPrice</th><th>CustomerID</th><th>Country</th></tr></thead><tbody><tr><th>0</th><td>536365</td><td>85123A</td><td>WHITE HANGING HEART T-LIGHT HOLDER</td><td>6</td><td>2010-12-01 08:26:00</td><td>2.55</td><td>17850.0</td><td>United Kingdom</td></tr><tr><th>1</th><td>536365</td><td>71053</td><td>WHITE METAL LANTERN</td><td>6</td><td>2010-12-01 08:26:00</td><td>3.39</td><td>17850.0</td><td>United Kingdom</td></tr><tr><th>2</th><td>536365</td><td>84406B</td><td>CREAM CUPID HEARTS COAT HANGER</td><td>8</td><td>2010-12-01 08:26:00</td><td>2.75</td><td>17850.0</td><td>United Kingdom</td></tr><tr><th>3</th><td>536365</td><td>84029G</td><td>KNITTED UNION FLAG HOT WATER BOTTLE</td><td>6</td><td>2010-12-01 08:26:00</td><td>3.39</td><td>17850.0</td><td>United Kingdom</td></tr><tr><th>4</th><td>536365</td><td>84029E</td><td>RED WOOLLY HOTTIE WHITE HEART.</td><td>6</td><td>2010-12-01 08:26:00</td><td>3.39</td><td>17850.0</td><td>United Kingdom</td></tr></tbody></table></figure>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"showPanel":false,"language":"Python","modeName":"python"}'>df.info()</pre></div>
+<pre class="wp-block-preformatted">Data columns (total 8 columns):
+InvoiceNo      541909 non-null object
+StockCode      541909 non-null object
+Description    540455 non-null object
+Quantity       541909 non-null int64
+InvoiceDate    541909 non-null datetime64[ns]
+UnitPrice      541909 non-null float64
+CustomerID     406829 non-null float64
+Country        541909 non-null object
+dtypes: datetime64[ns](1), float64(2), int64(1), object(4)
+memory usage: 33.1+ MB</pre>
+<p>So there is some missing data in the Description and Customer ID columns, let’s check that:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"showPanel":false,"language":"Python","modeName":"python"}'>df.isnull().sum()</pre></div>
+<pre class="wp-block-preformatted">InvoiceNo           0
+StockCode           0
+Description      1454
+Quantity            0
+InvoiceDate         0
+UnitPrice           0
+CustomerID     135080
+Country             0
+dtype: int64</pre>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"showPanel":false,"language":"Python","modeName":"python"}'>df= df.dropna(subset=['CustomerID'])</pre></div>
+<p>Now let’s check and clean the duplicate data:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"showPanel":false,"language":"Python","modeName":"python"}'>df.duplicated().sum()</pre></div>
+<pre class="wp-block-preformatted"><strong>5225</strong></pre>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"showPanel":false,"language":"Python","modeName":"python"}'>df = df.drop_duplicates()
+df.describe()</pre></div>
+<figure class="wp-block-table"><table><thead><tr><th></th><th><strong>Quantity</strong></th><th><strong>UnitPrice</strong></th><th><strong>CustomerID</strong></th></tr></thead><tbody><tr><th>count</th><td>401604.000000</td><td>401604.000000</td><td>401604.000000</td></tr><tr><th>mean</th><td>12.183273</td><td>3.474064</td><td>15281.160818</td></tr><tr><th>std</th><td>250.283037</td><td>69.764035</td><td>1714.006089</td></tr><tr><th>min</th><td>-80995.000000</td><td>0.000000</td><td>12346.000000</td></tr><tr><th>25%</th><td>2.000000</td><td>1.250000</td><td>13939.000000</td></tr><tr><th>50%</th><td>5.000000</td><td>1.950000</td><td>15145.000000</td></tr><tr><th>75%</th><td>12.000000</td><td>3.750000</td><td>16784.000000</td></tr><tr><th>max</th><td>80995.000000</td><td>38970.000000</td><td>18287.000000</td></tr></tbody></table></figure>
+<p>Note that the minimum for the unit price = 0 and the minimum for the quantity is with a negative value.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"showPanel":false,"language":"Python","modeName":"python"}'>df=df[(df['Quantity']&gt;0) &amp; (df['UnitPrice']&gt;0)]</pre></div>
+<h4 class="wp-block-heading">Data Preparation for Cohort Analysis</h4>
+<p>We’ve done all of the data cleansings now running a cohort analysis with Python. For the cohort analysis there are a few labels we need to create:</p>
+<ol><li>Billing period: String representation of the year and month of a single transaction/invoice.</li><li>Cohort Group: A string representation of the year and month of a customer’s first purchase. This label is common to all invoices for a particular customer.</li><li>Cohort Period / Cohort Index: Full representation of a client’s stage in their “lifespan”. The number represents the number of months since the first purchase.</li></ol>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/d73b6d6eb6aa760180b21222b2cf982f.js"></script><noscript><a href="https://gist.github.com/amankharwal/d73b6d6eb6aa760180b21222b2cf982f">View this gist on GitHub</a></noscript></div>
+<div class="wp-block-image"><figure class="aligncenter size-large"><img alt="cohort analysis: retention table" class="wp-image-11397 jetpack-lazy-image" data-attachment-id="11397" data-comments-opened="1" data-image-caption="" data-image-description="" data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}' data-image-title="image-5" data-large-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/image-5.png?fit=958%2C496&amp;ssl=1" data-lazy-sizes="(max-width: 958px) 100vw, 958px" data-lazy-src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/image-5.png?resize=958%2C496&amp;is-pending-load=1#038;ssl=1" data-lazy-srcset="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/image-5.png?w=958&amp;ssl=1 958w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/image-5.png?resize=300%2C155&amp;ssl=1 300w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/image-5.png?resize=768%2C398&amp;ssl=1 768w" data-medium-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/image-5.png?fit=300%2C155&amp;ssl=1" data-orig-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/image-5.png?fit=958%2C496&amp;ssl=1" data-orig-size="958,496" data-permalink="https://thecleverprogrammer.com/2021/01/08/cohort-analysis-with-python/image-5-7/" data-recalc-dims="1" decoding="async" height="496" src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/image-5.png?resize=958%2C496&amp;ssl=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="958"/><noscript><img alt="cohort analysis: retention table" class="wp-image-11397" data-attachment-id="11397" data-comments-opened="1" data-image-caption="" data-image-description="" data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}' data-image-title="image-5" data-large-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/image-5.png?fit=958%2C496&amp;ssl=1" data-lazy-fallback="1" data-medium-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/image-5.png?fit=300%2C155&amp;ssl=1" data-orig-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/image-5.png?fit=958%2C496&amp;ssl=1" data-orig-size="958,496" data-permalink="https://thecleverprogrammer.com/2021/01/08/cohort-analysis-with-python/image-5-7/" data-recalc-dims="1" decoding="async" height="496" sizes="(max-width: 958px) 100vw, 958px" src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/image-5.png?resize=958%2C496&amp;ssl=1" srcset="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/image-5.png?w=958&amp;ssl=1 958w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/image-5.png?resize=300%2C155&amp;ssl=1 300w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/image-5.png?resize=768%2C398&amp;ssl=1 768w" width="958"/></noscript></figure></div>
+<p>Customer retention is a very useful metric to understand how many of all customers are still active. Loyalty gives you the percentage of active customers compared to the total number of customers.</p>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/832816c0e9fc28e7c1404a8b97f75e73.js"></script><noscript><a href="https://gist.github.com/amankharwal/832816c0e9fc28e7c1404a8b97f75e73">View this gist on GitHub</a></noscript></div>
+<div class="wp-block-image"><figure class="aligncenter size-large"><img alt="cohort analysis" class="wp-image-11399 jetpack-lazy-image" data-attachment-id="11399" data-comments-opened="1" data-image-caption="" data-image-description="" data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}' data-image-title="image-6" data-large-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/image-6.png?fit=832%2C496&amp;ssl=1" data-lazy-sizes="(max-width: 832px) 100vw, 832px" data-lazy-src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/image-6.png?resize=832%2C496&amp;is-pending-load=1#038;ssl=1" data-lazy-srcset="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/image-6.png?w=832&amp;ssl=1 832w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/image-6.png?resize=300%2C179&amp;ssl=1 300w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/image-6.png?resize=768%2C458&amp;ssl=1 768w" data-medium-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/image-6.png?fit=300%2C179&amp;ssl=1" data-orig-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/image-6.png?fit=832%2C496&amp;ssl=1" data-orig-size="832,496" data-permalink="https://thecleverprogrammer.com/2021/01/08/cohort-analysis-with-python/image-6-7/" data-recalc-dims="1" decoding="async" height="496" src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/image-6.png?resize=832%2C496&amp;ssl=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="832"/><noscript><img alt="cohort analysis" class="wp-image-11399" data-attachment-id="11399" data-comments-opened="1" data-image-caption="" data-image-description="" data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}' data-image-title="image-6" data-large-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/image-6.png?fit=832%2C496&amp;ssl=1" data-lazy-fallback="1" data-medium-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/image-6.png?fit=300%2C179&amp;ssl=1" data-orig-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/image-6.png?fit=832%2C496&amp;ssl=1" data-orig-size="832,496" data-permalink="https://thecleverprogrammer.com/2021/01/08/cohort-analysis-with-python/image-6-7/" data-recalc-dims="1" decoding="async" height="496" loading="lazy" sizes="(max-width: 832px) 100vw, 832px" src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/image-6.png?resize=832%2C496&amp;ssl=1" srcset="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/image-6.png?w=832&amp;ssl=1 832w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/image-6.png?resize=300%2C179&amp;ssl=1 300w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/01/image-6.png?resize=768%2C458&amp;ssl=1 768w" width="832"/></noscript></figure></div>
+<p>I hope you liked this article on a data science tutorial on Cohort Analysis with Python. Feel free to ask your valuable questions in the comments section below.</p>
+<!-- AI CONTENT END 1 -->
+</div>

@@ -1,0 +1,144 @@
+<div class="entry-content">
+<p>Have you ever heard of the word API and wondered what it is exactly? Got a vague idea, but want to know more about what you could do with an API and how you could create one? In this article, I will walk you through how we can build an API with Python.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<h2 class="wp-block-heading">What is an API?</h2>
+<p>API stands for Application Programming Interface. Simply put, APIs simply allow applications to communicate with each other. When people talk about APIs, they sometimes generalize to mean a publicly available web API that returns data, likely in JSON or XML format. The API is not the database or even the server, it is the code that governs the access point of the server.</p>
+<p><strong><a href="https://thecleverprogrammer.com/2020/09/15/machine-learning-for-startups/">Also, Read – How to use Machine Learning for Startups?</a></strong></p>
+<p>They allow us to seek data from external sources. We can send a request to an API detailing the information we want.</p>
+<p>APIs also allow our sites to modify data from other applications. For example, you’ve probably seen Share on Facebook or share on Twitter buttons on various websites. If you click on one of these buttons, the site you are visiting can communicate with your Facebook or Twitter account and modify its data by adding a new status or a tweet.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<h2 class="wp-block-heading">Creating An API with Python?</h2>
+<p>The digitally connected world uses automated messages extensively. Invoices, rent, unique passwords, there are unlimited scopes for automated text.</p>
+<p>Say you have a mini-store and a new item arrives and you want to notify 50-100 of your customers. How would you do it? Easy, text them, automatically. Now, as an example of creating an API with Python I will set up an SMS client for quick learning, I found this website <a href="http://www.textlocal.in">www.textlocal.in</a>. It provides bulk message options.</p>
+<p>Just create an account, they will give you 10 credits. After registration, go to Settings&gt; API&gt; Generate a new API key and save it in a safe place. You can allow specific IP addresses for security, but let’s keep the fields blank for now.</p>
+<p>Then the Requests will go to link <a href="https://api.textlocal.in/%7Bcommand%7D" rel="noreferrer noopener" target="_blank"><strong>https://api.textlocal.in/{command}</strong></a><strong>. </strong>Now let’s get into the coding part to create an API with Python.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<h2 class="wp-block-heading">Let’s Code to Build API with Python</h2>
+<p>We need only one library to build an API with Python. Let’s import it and get started with the task:</p>
+<pre aria-describedby="shcb-language-1" class="wp-block-code" data-shcb-language-name="JavaScript" data-shcb-language-slug="javascript"><link href="https://thecleverprogrammer.com/wp-content/plugins/syntax-highlighting-code-block/vendor/scrivo/highlight-php/styles/default.css?m=1609223562" id="all-css-539e691014497ed65749214592756e42" media="all" rel="stylesheet" type="text/css"/><style>.wp-block-code {
+	border: 0;
+	padding: 0;
+}
+
+.wp-block-code > div {
+	overflow: auto;
+}
+
+.shcb-language {
+	border: 0;
+	clip: rect(1px, 1px, 1px, 1px);
+	-webkit-clip-path: inset(50%);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+	word-wrap: normal;
+	word-break: normal;
+}
+
+.hljs {
+	box-sizing: border-box;
+}
+
+.hljs.shcb-code-table {
+	display: table;
+	width: 100%;
+}
+
+.hljs.shcb-code-table > .shcb-loc {
+	color: inherit;
+	display: table-row;
+	width: 100%;
+}
+
+.hljs.shcb-code-table .shcb-loc > span {
+	display: table-cell;
+}
+
+.wp-block-code code.hljs:not(.shcb-wrap-lines) {
+	white-space: pre;
+}
+
+.wp-block-code code.hljs.shcb-wrap-lines {
+	white-space: pre-wrap;
+}
+
+.hljs.shcb-line-numbers {
+	border-spacing: 0;
+	counter-reset: line;
+}
+
+.hljs.shcb-line-numbers > .shcb-loc {
+	counter-increment: line;
+}
+
+.hljs.shcb-line-numbers .shcb-loc > span {
+	padding-left: 0.75em;
+}
+
+.hljs.shcb-line-numbers .shcb-loc::before {
+	border-right: 1px solid #ddd;
+	content: counter(line);
+	display: table-cell;
+	padding: 0 0.75em;
+	text-align: right;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	white-space: nowrap;
+	width: 1%;
+}
+</style><div><code class="hljs language-javascript"><span class="hljs-keyword">import</span> requests
+url = ‘https:<span class="hljs-comment">//api.textlocal.in/'</span>
+params = {‘username’:’yourusername@mailid.com’,
+          ‘apiKey’:’yourGenerated-APIKey’
+}</code></div><small class="shcb-language" id="shcb-language-1"><span class="shcb-language__label">Code language:</span> <span class="shcb-language__name">JavaScript</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">javascript</span><span class="shcb-language__paren">)</span></small></pre>
+<p>Writing the necessary functions:</p>
+<pre aria-describedby="shcb-language-2" class="wp-block-code" data-shcb-language-name="PHP" data-shcb-language-slug="php"><div><code class="hljs language-php">def check_balance(url):
+    url = url+<span class="hljs-string">'balance'</span>
+    response = requests.get(url,params=params)
+    <span class="hljs-keyword">return</span> response.json()
+def send_sms(url,params):
+    url=url+<span class="hljs-string">'send'</span>
+    <span class="hljs-comment">#Phone numbers inside braces {} in commas</span>
+    numbers={<span class="hljs-string">'9911111xxxx'</span>}
+    message = {<span class="hljs-string">'Hi, This is a Sample message'</span>}
+    params[<span class="hljs-string">'numbers'</span>] = numbers
+    params[<span class="hljs-string">'message'</span>] = message
+    response = requests.post(url,params=params)
+    <span class="hljs-keyword">return</span> response.json()
+
+def inbox(url):
+    url = url+<span class="hljs-string">'get_inboxes'</span>
+    response = requests.get(url,params=params)
+    <span class="hljs-keyword">return</span> response.json()</code></div><small class="shcb-language" id="shcb-language-2"><span class="shcb-language__label">Code language:</span> <span class="shcb-language__name">PHP</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">php</span><span class="shcb-language__paren">)</span></small></pre>
+<p>So the code completed In five minutes you can configure an SMS message for single or bulk messages. Hope you liked this article on building an API with Python. Please feel free to ask your valuable questions in the comments section below.</p>
+<p><strong><a href="https://thecleverprogrammer.com/2020/09/15/send-emails-with-python/">Also, Read – Send Custom Emails with Python.</a></strong></p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<h4 class="wp-block-heading">Follow Us:</h4>
+<!-- AI CONTENT END 1 -->
+</div>

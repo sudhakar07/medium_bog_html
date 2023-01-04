@@ -1,0 +1,47 @@
+<div class="entry-content">
+<p>AutoTS is an automatic machine learning library in Python which is developed for the task of automatic time series forecasting. You can use this library for any task of time series forecasting such as predicting the stock prices for the next n number of days. In this article, I will take you through a tutorial on the AutoTS library in Python.</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<h2 class="wp-block-heading">What is AutoTS in Python?</h2>
+<p>AutoTS means Automatic Time Series, it is a machine learning library in Python used for the task of time series forecasting. I recently used it for forecasting the stock prices of Apple for the next 10 days and the resulting figures were so accurate. Some of the popular features of the AutoTS library in Python are:</p>
+<ol><li>It can be used to find the best time series forecasting model which depends on the type of data you are using.</li><li>It can handle both the univariate and multivariate time series.</li><li>It can also handle messy data by removing and filling the NaN values and it can also handle the outliers.</li><li>You can use the models provided by this Python library for deployment also.</li></ol>
+<p>These were some of the important features of the AutoTS library in Python. It has more features for time series forecasting, you can explore more about this library from its official documentation from <em><a href="https://bit.ly/3x7d2kc">here</a></em>. In the section below, I will take you through a tutorial on the AutoTS library in Python for the task of stock price prediction.</p>
+<h2 class="wp-block-heading">AutoTS in Python (Tutorial)</h2>
+<p>If you have never used this Python library for the task of time series forecasting before, then you can easily install it in your system by using the pip command; <strong><em>pip install autots</em></strong>. Now let’s see how to use the AutoTS library in Python for the task of stock price prediction. I will start this task by importing the necessary Python libraries and the dataset:</p>
+<div class="wp-block-codemirror-blocks-code-block code-block"><pre class="CodeMirror" data-setting='{"mode":"python","mime":"text/x-python","theme":"neo","lineNumbers":true,"styleActiveLine":false,"lineWrapping":false,"readOnly":true,"showPanel":false,"language":"Python","modeName":"python"}'>import pandas as pd
+import matplotlib.pyplot as plt
+data = pd.read_csv("AAPL.csv")</pre></div>
+<p>In this tutorial, I am using the stock price data of Apple which has been downloaded from <em><a href="https://query1.finance.yahoo.com/v7/finance/download/AAPL?period1=1587284575&amp;period2=1618820575&amp;interval=1d&amp;events=history&amp;includeAdjustedClose=true">Yahoo Finance</a></em>. Now before using the AutoTs library for the task of stock price prediction, let’s prepare the data and have a look at the closing stock prices of Apple:</p><div class="code-block code-block-2" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6306647371633064"></script>
+<!-- Aman -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-6306647371633064" data-ad-format="auto" data-ad-slot="6671908539" data-full-width-responsive="true" style="display:block"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/6b317799bb15ecf1b7763b7956e6db2b.js"></script><noscript><a href="https://gist.github.com/amankharwal/6b317799bb15ecf1b7763b7956e6db2b">View this gist on GitHub</a></noscript></div>
+<div class="wp-block-image"><figure class="aligncenter size-large"><img alt="stock price visualization using matplotlib" class="wp-image-13556 jetpack-lazy-image" data-attachment-id="13556" data-comments-opened="1" data-image-caption="" data-image-description="" data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}' data-image-title="image-5" data-large-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/04/image-5.png?fit=732%2C493&amp;ssl=1" data-lazy-sizes="(max-width: 732px) 100vw, 732px" data-lazy-src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/04/image-5.png?resize=732%2C493&amp;is-pending-load=1#038;ssl=1" data-lazy-srcset="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/04/image-5.png?w=732&amp;ssl=1 732w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/04/image-5.png?resize=300%2C202&amp;ssl=1 300w" data-medium-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/04/image-5.png?fit=300%2C202&amp;ssl=1" data-orig-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/04/image-5.png?fit=732%2C493&amp;ssl=1" data-orig-size="732,493" data-permalink="https://thecleverprogrammer.com/2021/04/19/autots-in-python-tutorial/image-5-9/" data-recalc-dims="1" decoding="async" height="493" src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/04/image-5.png?resize=732%2C493&amp;ssl=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="732"/><noscript><img alt="stock price visualization using matplotlib" class="wp-image-13556" data-attachment-id="13556" data-comments-opened="1" data-image-caption="" data-image-description="" data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}' data-image-title="image-5" data-large-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/04/image-5.png?fit=732%2C493&amp;ssl=1" data-lazy-fallback="1" data-medium-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/04/image-5.png?fit=300%2C202&amp;ssl=1" data-orig-file="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/04/image-5.png?fit=732%2C493&amp;ssl=1" data-orig-size="732,493" data-permalink="https://thecleverprogrammer.com/2021/04/19/autots-in-python-tutorial/image-5-9/" data-recalc-dims="1" decoding="async" height="493" sizes="(max-width: 732px) 100vw, 732px" src="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/04/image-5.png?resize=732%2C493&amp;ssl=1" srcset="https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/04/image-5.png?w=732&amp;ssl=1 732w, https://i0.wp.com/thecleverprogrammer.com/wp-content/uploads/2021/04/image-5.png?resize=300%2C202&amp;ssl=1 300w" width="732"/></noscript></figure></div>
+<p>Now let’s see how to use the AutoTS library for the task of automatic time series forecasting:</p>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/8107b97203d551bd08b6cdb9084cdb9e.js"></script><noscript><a href="https://gist.github.com/amankharwal/8107b97203d551bd08b6cdb9084cdb9e">View this gist on GitHub</a></noscript></div>
+<p>In the code section above, I have set the forecast_length parameter as 10, which means the period for which we want to predict the stock prices. So in the output, we will get the closing stock prices of Apple for the next 10 days. So let’s use the predict function and have a look at the output:</p>
+<div class="wp-block-coblocks-gist"><script src="https://gist.github.com/amankharwal/3996d3ab70bbe45c068859f3eac50419.js"></script><noscript><a href="https://gist.github.com/amankharwal/3996d3ab70bbe45c068859f3eac50419">View this gist on GitHub</a></noscript></div>
+<pre class="wp-block-preformatted">Stock Price Prediction of Apple
+                 Close
+2021-04-19  132.794042
+2021-04-20  132.882870
+2021-04-21  132.971698
+2021-04-22  133.060526
+2021-04-23  133.149354
+2021-04-26  133.415838
+2021-04-27  133.504666
+2021-04-28  133.593494
+2021-04-29  133.682322
+2021-04-30  133.771150</pre>
+<blockquote class="wp-block-quote is-style-large"><p>Also, Read – <strong><em><a href="https://thecleverprogrammer.com/2021/01/14/python-projects-with-source-code/">Python Projects with Source Code.</a></em></strong></p></blockquote>
+<h3 class="wp-block-heading">Summary</h3>
+<p>AutoTS means automatic time series, it is an AutoML library in Python which can be used for every task of the time series forecasting. I hope you liked this article on a tutorial on the AutoTS library in Python. Feel free to ask your valuable questions in the comments section below.</p>
+<!-- AI CONTENT END 1 -->
+</div>
